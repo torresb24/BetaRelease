@@ -323,49 +323,53 @@ public class localGame {
     }
 
     public void moveBishop(boolean turn, int x, int y){
-        makeMove(turn, x, y, 1, 1, 1, 1, 1, 1, 1, 1);
+        makeMove(turn, x, y, 7, 0, 7, 0, 0, 7, 0, 7);
     }
 
     public void movePromBishop(boolean turn, int x, int y){
+        makeMove(turn, x, y, 7, 1, 7, 1, 1, 7, 1, 7);
 
     }
 
     public void moveRook(boolean turn, int x, int y){
+        makeMove(turn, x, y, 0, 8, 0, 8, 8, 0, 8, 0);
 
     }
 
     public void movePromRook(boolean turn, int x, int y){
+        makeMove(turn, x, y, 1, 8, 1, 8, 8, 1, 8, 1);
 
     }
 
     public void moveLance(boolean turn, int x, int y){
+        makeMove(turn, x, y, 0, 8, 0, 0, 0, 0, 0, 0);
 
     }
 
     public void movePromLance(boolean turn, int x, int y){
-
-    }
-
-    public void moveKnight(boolean turn, int x, int y){
+        makeMove(turn, x, y, 1, 1, 1, 1, 1, 0, 1, 0);
 
     }
 
     public void movePromKnight(boolean turn, int x, int y){
+        makeMove(turn, x, y, 1, 1, 1, 1, 1, 0, 1, 0);
 
     }
 
     public void movePawn(boolean turn, int x, int y){
+        makeMove(turn, x, y, 0, 1, 0, 0, 0, 0, 0, 0);
 
     }
 
     public void movePromPawn(boolean turn, int x, int y){
+        makeMove(turn, x, y, 1, 1, 1, 1, 1, 0, 1, 0);
 
     }
 
 
 
 
-    public void knightMove(int x){
+    public void moveKnight(int x){
         return;
     }
 
