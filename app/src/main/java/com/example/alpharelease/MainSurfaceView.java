@@ -35,26 +35,14 @@ public class MainSurfaceView extends SurfaceView{
         // Commented out due to no change
         //imagePaint.setColor(0xffffa3c4);
 
-        // initial board setup --
+        float left = 10.0F;
+        float top = 10.0F;
+        float right = 10.0F;
+        float bottom = 10.0F;
 
-        Bitmap board = BitmapFactory.decodeResource(getResources(), R.drawable.shogi_board);
-        Bitmap graveyard_you = BitmapFactory.decodeResource(getResources(), R.drawable.shogi_grave);
-        Bitmap graveyard_them = BitmapFactory.decodeResource(getResources(), R.drawable.shogi_grave);
-        // Commented out due to duplicate overlap
-        canvas.drawBitmap(board, 550, -10, imagePaint);
+        //canvas.drawRect(left,top,right,bottom);
 
-        // Commented out due to duplicate overlaps
-        //canvas.drawBitmap(graveyard_them, 3, 3, imagePaint);
-        //canvas.drawBitmap(graveyard_you, 1547, 636, imagePaint);
-        /**
-         color.setARGB(255, 128, 128, 128);
-         canvas.drawRect(startingX + 2 * i * squareSize, startingY + 2 * j * squareSize, startingX + (2 * i + 1) * squareSize, startingY + (2 * j +1) * squareSize, color);
-         canvas.drawRect(startingX + (2*i+1) * squareSize, startingY + (2*j+1) *squareSize, startingX + (2*i+2)*squareSize, startingY + (2*j+2) *squareSize, color);
-
-         color.setARGB(255, 0, 0, 0);
-         canvas.drawRect(startingX + (2 * i + 1) * squareSize, startingY + 2 * j * squareSize, startingX + (2 * i + 2) * squareSize, startingY + (2 * j +1) * squareSize, color);
-         canvas.drawRect(startingX + (2*i) *squareSize, startingY + (2*j+1)*squareSize, startingX + (2*i +1)*squareSize, startingY + (2*j+1) * squareSize, color);
-         */
+        /*
 
         // [you] pawns
         Bitmap xpawn9 = BitmapFactory.decodeResource(getResources(), R.drawable.pawn);
@@ -114,7 +102,7 @@ public class MainSurfaceView extends SurfaceView{
         Bitmap yrook1 = BitmapFactory.decodeResource(getResources(), R.drawable.rook);
         // [them] king
         Bitmap yking1 = BitmapFactory.decodeResource(getResources(), R.drawable.king);
-
+*/
     }
 
 }
