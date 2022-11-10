@@ -568,4 +568,15 @@ public class GameState {
         cords.add(5);
         cords.add(7);
     }// if turncount
+
+    public void moveKnight(boolean theTurn) {
+        cords.clear();
+        ArrayList<Integer> toStore = new ArrayList<>();
+        int ycord = -1;
+        int xcord = -1;
+        int lever = 0;
+
+        
+        //
+    }
 }
