@@ -114,7 +114,7 @@ public class GameState {
 
     /**
      * Display all game state information in the TextView
-     */
+     *
     @Override
     public String toString() {
         Random rand = new Random();
@@ -219,7 +219,7 @@ public class GameState {
         string = string + "Player 1's Pawn moves [ " + movex + " , " + movey + " ]";
         return string + banner + ".";
     }
-
+*/
 
     //Make methods for defined actions
     //make pieces
