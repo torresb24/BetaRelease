@@ -563,4 +563,42 @@ public class GameState {
         cords.add(5);
         cords.add(7);
     }// if turncount
+
+    /**
+     * Finds all obstacles on the board (within the movement set of the selected piece).
+     * Include to list if:
+     *  - If possible move doesn't have same-team piece on it
+     *  - If possible move has opponent piece on it
+     *
+     * // @param (potential) possibleMoves of all possible moves that can be taken
+     *
+     * @return only valid (obstacle-occupied) places
+     */
+    public ArrayList<Integer> pieceObstacles() {
+        // Empty placeholder list for obstacles for this piece
+        ArrayList<Integer> obstacles = new ArrayList<>();
+
+        // List determined by selectPiece or bounds (below)
+        // Use movement set available to piece (if applicable)
+        ArrayList<Integer> possibleMoves = new ArrayList();
+
+        // Compare x,y of each piece, see if an x,y overlaps in other list
+        for (int val : possibleMoves) {
+
+            // Compare each x,y for all possible moves
+
+            //if () {
+            //    // Checks if x,y match
+            //}
+        }
+
+        // If movement space has a friendly piece on it,
+        // remove movement option from list.
+        // ALT: If movmeen
+
+        // Return list of all obstacles conflicting with possible moves.
+        // Moves not in the list are not possible (obstacles).
+        return obstacles;
+    }
+
 }
