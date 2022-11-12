@@ -7,7 +7,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.view.MotionEvent;
 import android.view.SurfaceView;
+import android.view.View;
 import android.widget.TextView;
 
 import com.example.alpharelease.R;
@@ -25,9 +27,14 @@ import java.util.ArrayList;
  *
  * */
 
-public class MainSurfaceView extends SurfaceView {
+public class MainSurfaceView extends SurfaceView implements View.OnTouchListener {
 
-    private int toggle = 0;
+    private int toggle;
+    private int imagesize;
+    private int buffersizeHoriz;
+    private int buffersizeVert;
+    private int xcord;
+    private int ycord;
 
     private Paint imgPaint;
 
@@ -38,6 +45,12 @@ public class MainSurfaceView extends SurfaceView {
         // 3 setup any required member variables
         imgPaint = new Paint();
         imgPaint.setColor(Color.BLACK);
+        toggle = 0;
+        imagesize = 0;
+        buffersizeHoriz = 550;
+        buffersizeVert = 50;
+        xcord = -1;
+        ycord = -1;
         //spots = new ArrayList<Spot>(); // Optional to repeat or not repeat the type <Spot>
     }
 
@@ -56,7 +69,7 @@ public class MainSurfaceView extends SurfaceView {
             //
         } else {
             Bitmap image = BitmapFactory.decodeResource(getResources(), R.drawable.full_board);
-            canvas.drawBitmap(image, 550, 50, imgPaint);
+            canvas.drawBitmap(image, buffersizeHoriz, buffersizeVert, imgPaint);
         }
 
         // Moving the draw down here lets us draw on TOP of the image / circle above
@@ -65,6 +78,37 @@ public class MainSurfaceView extends SurfaceView {
         // button that causes the image or the circle appears
     }
 
+    @Override
+    public boolean onTouch(View view, MotionEvent e) {
+        if (e.getActionMasked() == MotionEvent.ACTION_DOWN) {
+            float x = e.getX();
+            float y = e.getY();
+            if(x > buffersizeHoriz && x <= imagesize+buffersizeHoriz && y <= imagesize+buffersizeVert && y > buffersizeVert){
+                // X cord
+                if(x < imagesize/9){xcord = 0;}
+                else if(x > imagesize/9 && x < (imagesize/9)*2){xcord = 1;}
+                else if(x > (imagesize/9)*2 && x < (imagesize/9)*3){xcord = 2;}
+                else if(x > (imagesize/9)*3 && x < (imagesize/9)*4){xcord = 3;}
+                else if(x > (imagesize/9)*4 && x < (imagesize/9)*5){xcord = 4;}
+                else if(x > (imagesize/9)*5 && x < (imagesize/9)*6){xcord = 5;}
+                else if(x > (imagesize/9)*6 && x < (imagesize/9)*7){xcord = 6;}
+                else if(x > (imagesize/9)*7 && x < (imagesize/9)*8){xcord = 7;}
+                else if(x > (imagesize/9)*8 && x < (imagesize/9)*9){xcord = 8;}
+                // Y cord
+                if(y < imagesize/9){ycord = 0;}
+                else if(y > imagesize/9 && y < (imagesize/9)*2){ycord = 1;}
+                else if(y > (imagesize/9)*2 && y < (imagesize/9)*3){ycord = 2;}
+                else if(y > (imagesize/9)*3 && y < (imagesize/9)*4){ycord = 3;}
+                else if(y > (imagesize/9)*4 && y < (imagesize/9)*5){ycord = 4;}
+                else if(y > (imagesize/9)*5 && y < (imagesize/9)*6){ycord = 5;}
+                else if(y > (imagesize/9)*6 && y < (imagesize/9)*7){ycord = 6;}
+                else if(y > (imagesize/9)*7 && y < (imagesize/9)*8){ycord = 7;}
+                else if(y > (imagesize/9)*8 && y < (imagesize/9)*9){ycord = 8;}
+                return true;
+            }
+        }
+        return false;
+    }
 }
     /*public class MainSurfaceView extends SurfaceView {
 
