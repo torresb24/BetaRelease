@@ -35,6 +35,9 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
     private int buffersizeVert;
     private int xcord;
     private int ycord;
+    private int tileSize;
+    localGame lg;
+    Paint paint;
 
     private Paint imgPaint;
 
@@ -51,6 +54,10 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
         buffersizeVert = 50;
         xcord = -1;
         ycord = -1;
+        lg = new localGame();
+        tileSize = imagesize/9;
+        paint  = new Paint();
+        paint.setARGB(255, 255, 0, 0);
         //spots = new ArrayList<Spot>(); // Optional to repeat or not repeat the type <Spot>
     }
 
@@ -62,16 +69,29 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
         // This method could run 100+ times per second (and potentially crash
         // -- a device if garbage collection is not fast enough
 
-        // if toggle is one way, toggle other way-- etc
-        // previously
+        //draw the main board
+        Bitmap image = BitmapFactory.decodeResource(getResources(), R.drawable.full_board);
+        canvas.drawBitmap(image, buffersizeHoriz, buffersizeVert, imgPaint);
 
-        if (toggle == 0) {
-            //
-        } else {
-            Bitmap image = BitmapFactory.decodeResource(getResources(), R.drawable.full_board);
-            canvas.drawBitmap(image, buffersizeHoriz, buffersizeVert, imgPaint);
+        //draw the graveyard
+
+
+        //draw the initial setup for player 1
+        for(Piece p: lg.gs.pieces1){
+            image = BitmapFactory.decodeResource(getResources(), p.pieceType.getID());
+            canvas.drawBitmap(image, ((tileSize) * p.getCol()) - ((tileSize) / 2), ((tileSize) * p.getRow()) - ((tileSize) / 2), imgPaint);
         }
 
+        //draw the initial set up for player 2
+        for(Piece p: lg.gs.pieces2){
+            image = BitmapFactory.decodeResource(getResources(), p.pieceType.getID());
+            canvas.drawBitmap(image, ((tileSize) * p.getCol()) - ((tileSize) / 2), ((tileSize) * p.getRow()) - ((tileSize) / 2), imgPaint);
+        }
+
+        //draw the possible moves
+        for(int i = 0; i > lg.gs.cords.size(); i += 2){
+            canvas.drawRect(tileSize * lg.gs.cords.get(i), tileSize * lg.gs.cords.get(i + 1), (tileSize * lg.gs.cords.get(i)) + tileSize, (tileSize * lg.gs.cords.get(i + 1)) + tileSize, paint);
+        }
         // Moving the draw down here lets us draw on TOP of the image / circle above
         // For spots, can use for integer based loop or for each
 
@@ -107,9 +127,11 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
                 return true;
             }
         }
+        invalidate();
         return false;
     }
 }
+
     /*public class MainSurfaceView extends SurfaceView {
 
 

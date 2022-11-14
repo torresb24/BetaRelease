@@ -18,7 +18,7 @@ public class localGame {
       promotePiece()
       dropPiece()
     */
-    GameState gs;
+    public GameState gs;
     public localGame(){
         gs = new GameState();
     }
@@ -32,7 +32,6 @@ public class localGame {
  * bottom        +   B
  * bottom right  +   BR
  * */
-// TODO this function currently only makesMove for P1
     public void makeMove(boolean turn, int x, int y,int TL, int T, int TR, int L, int R, int BL, int B, int BR){
         int xcord = x;
         int ycord = y;
@@ -629,12 +628,31 @@ public class localGame {
 
     }
 
-
-
-
     public void moveKnight(int x){
         return;
     }
 
 
+
+
+
+    public void capturePiece(boolean turn, int xCoord, int yCoord){
+        if(turn){
+            for(Piece p : gs.pieces2){
+                if(p.getCol() == xCoord && p.getRow() == yCoord){
+                    return;
+                    //TODO: this thing
+                }
+            }
+        }
+
+    }
+
+    public boolean inCheck(){
+
+    }
+
+    public boolean checkMate(){
+
+    }
 }
