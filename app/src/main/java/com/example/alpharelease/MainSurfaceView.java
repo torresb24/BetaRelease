@@ -124,6 +124,9 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
                 else if(y > (imagesize/9)*6 && y < (imagesize/9)*7){ycord = 6;}
                 else if(y > (imagesize/9)*7 && y < (imagesize/9)*8){ycord = 7;}
                 else if(y > (imagesize/9)*8 && y < (imagesize/9)*9){ycord = 8;}
+                if (lever == 0) {
+                    
+                }
                 return true;
             }
         }

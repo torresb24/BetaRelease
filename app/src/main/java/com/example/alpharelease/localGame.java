@@ -667,6 +667,7 @@ public class localGame {
             }
         }
 
+        /**IF PLAYER 2*/
         if(!turn) {
             if (!(x - 1 < 0 || y + 2 < 0)) { //
                 int lever = 0;
@@ -701,7 +702,18 @@ public class localGame {
             return;
     }
 
-    public boolean checkMate(){
+    public boolean checkMate(boolean turn){
+        if (turn) {
+            if (gs.pieces1.size() == 1) {
+                return true;
+            }
+        }
 
+        if (!turn) {
+            if (gs.pieces2.size() == 1) {
+                return true;
+            }
+        }
+        return false;
     }
 }
