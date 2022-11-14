@@ -103,8 +103,12 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
         if (e.getActionMasked() == MotionEvent.ACTION_DOWN) {
             float x = e.getX();
             float y = e.getY();
+
+
             if(x > buffersizeHoriz && x <= imagesize+buffersizeHoriz && y <= imagesize+buffersizeVert && y > buffersizeVert){
                 // X cord
+
+                //TODO: FOR LOOP THIS (OPTIMIZATION)
                 if(x < imagesize/9){xcord = 0;}
                 else if(x > imagesize/9 && x < (imagesize/9)*2){xcord = 1;}
                 else if(x > (imagesize/9)*2 && x < (imagesize/9)*3){xcord = 2;}
