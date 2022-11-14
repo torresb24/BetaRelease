@@ -1,13 +1,8 @@
 package com.example.alpharelease;
 
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.util.AttributeSet;
-import android.view.SurfaceView;
+import com.example.alpharelease.GameFramework.Game;
+import com.example.alpharelease.GameFramework.infoMessage.GameState;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -24,7 +19,7 @@ import java.util.Random;
 
 //onDraw
 
-public class GameState {
+public class ShogiGameState extends GameState {
     /* [other class]/
      * Board (reference to copy constructor)
      * Pieces
@@ -60,7 +55,7 @@ public class GameState {
     /**
      * Current state of the game constructor
      */
-    public GameState() { //Cntr
+    public ShogiGameState() { //Cntr
         turn = first();
         board = new Board();
         grave_1 = new Graveyard();
@@ -77,7 +72,7 @@ public class GameState {
     /**
      * Current state of the game deep copy constructor
      */
-    public GameState(GameState orig) {
+    public ShogiGameState(ShogiGameState orig) {
         this.turn = orig.turn;
         this.board = orig.board;
         this.grave_1 = orig.grave_1;

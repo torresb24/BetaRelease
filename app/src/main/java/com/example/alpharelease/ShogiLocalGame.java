@@ -1,6 +1,48 @@
 package com.example.alpharelease;
 
-public class localGame {
+import com.example.alpharelease.GameFramework.LocalGame;
+import com.example.alpharelease.GameFramework.actionMessage.GameAction;
+import com.example.alpharelease.GameFramework.players.GamePlayer;
+
+public class ShogiLocalGame extends LocalGame {
+
+    public ShogiLocalGame() {
+        super();
+        super.state = new ShogiGameState();
+    }
+
+    public ShogiLocalGame(ShogiGameState estate) {
+        super();
+        super.state = new ShogiGameState(estate);
+    }
+
+    @Override
+    protected void sendUpdatedStateTo(GamePlayer p) {
+        p.sendInfo(new ShogiGameState((ShogiGameState) state));
+    }
+
+    @Override
+    protected boolean canMove(int playerIdx) {
+
+        // TODO:
+        return false;
+    }
+
+    @Override
+    protected String checkIfGameOver() {
+
+
+        return null;
+    }
+
+    @Override
+    protected boolean makeMove(GameAction action) {
+        //TODO: Using action, makeMove, and return true if move was made
+        ShogiGameState theState = (ShogiGameState) state;
+        // ShogiAction
+        return false;
+    }
+
     /*Includes methods for everything:
       selectPiece()
       move[Piece Name]()
@@ -16,26 +58,26 @@ public class localGame {
       promotePiece()
       dropPiece()
     */
-    public ShogiGameState gs;
-    public localGame(){
-        gs = new ShogiGameState();
-    }
-/**
- * top left      +   TL
- * top           +   T
- * top right     +   TR
- * left          +   L
- * right         +   R
- * bottom left   +   BL
- * bottom        +   B
- * bottom right  +   BR
- * */
-/*
+    //public ShogiGameState gs;
+    //public localGame(){
+    //    gs = new ShogiGameState();
+    //}
+    /**
+     * top left      +   TL
+     * top           +   T
+     * top right     +   TR
+     * left          +   L
+     * right         +   R
+     * bottom left   +   BL
+     * bottom        +   B
+     * bottom right  +   BR
+     * */
     public void makeMove(boolean turn, int x, int y,int TL, int T, int TR, int L, int R, int BL, int B, int BR){
         int xcord = x;
         int ycord = y;
-        gs.cords.clear();
-        /**IF PLAYER 1
+        ((ShogiGameState) state).cords.clear();
+        
+        /**IF PLAYER 1*/
         if(turn) {
             // MOVE TOP LEFT
             for (int i = 1; i <= TL; i++) {
@@ -45,28 +87,28 @@ public class localGame {
                     break;
                 }
                 int notin = 0;
-                for (Piece p : gs.pieces1) {
+                for (Piece p : ((ShogiGameState) state).pieces1) {
                     if (p.getRow() == xcord && p.getCol() == ycord) {
                         notin = 1;
                         break;
                     }
                 }
-                for (Piece p : gs.pieces2) {
+                for (Piece p : ((ShogiGameState) state).pieces2) {
                     if (p.getRow() == xcord && p.getCol() == ycord) {
                         notin = 2;
                         break;
                     }
                 }
                 if (notin == 0) {
-                    gs.cords.add(xcord);
-                    gs.cords.add(ycord);
+                    ((ShogiGameState) state).cords.add(xcord);
+                    ((ShogiGameState) state).cords.add(ycord);
                 }
                 if (notin == 1) {
                     break;
                 }
                 if (notin == 2) {
-                    gs.cords.add(xcord);
-                    gs.cords.add(ycord);
+                    ((ShogiGameState) state).cords.add(xcord);
+                    ((ShogiGameState) state).cords.add(ycord);
                     break;
                 }
                 // if it gets here, then nothing in space and can move
@@ -78,28 +120,28 @@ public class localGame {
                     break;
                 }
                 int notin = 0;
-                for (Piece p : gs.pieces1) {
+                for (Piece p : ((ShogiGameState) state).pieces1) {
                     if (p.getRow() == xcord && p.getCol() == ycord) {
                         notin = 1;
                         continue;
                     } // if
                 } // for
-                for (Piece p : gs.pieces2) {
+                for (Piece p : ((ShogiGameState) state).pieces2) {
                     if (p.getRow() == xcord && p.getCol() == ycord) {
                         notin = 2;
                         break;
                     }
                 }
                 if (notin == 0) {
-                    gs.cords.add(xcord);
-                    gs.cords.add(ycord);
+                    ((ShogiGameState) state).cords.add(xcord);
+                    ((ShogiGameState) state).cords.add(ycord);
                 }
                 if (notin == 1) {
                     break;
                 }
                 if (notin == 2) {
-                    gs.cords.add(xcord);
-                    gs.cords.add(ycord);
+                    ((ShogiGameState) state).cords.add(xcord);
+                    ((ShogiGameState) state).cords.add(ycord);
                     break;
                 }
             } // ======================== //
@@ -111,28 +153,28 @@ public class localGame {
                     break;
                 }
                 int notin = 0;
-                for (Piece p : gs.pieces1) {
+                for (Piece p : ((ShogiGameState) state).pieces1) {
                     if (p.getRow() == xcord && p.getCol() == ycord) {
                         notin = 1;
                         continue;
                     } // if
                 } // for
-                for (Piece p : gs.pieces2) {
+                for (Piece p : ((ShogiGameState) state).pieces2) {
                     if (p.getRow() == xcord && p.getCol() == ycord) {
                         notin = 2;
                         break;
                     }
                 }
                 if (notin == 0) {
-                    gs.cords.add(xcord);
-                    gs.cords.add(ycord);
+                    ((ShogiGameState) state).cords.add(xcord);
+                    ((ShogiGameState) state).cords.add(ycord);
                 }
                 if (notin == 1) {
                     break;
                 }
                 if (notin == 2) {
-                    gs.cords.add(xcord);
-                    gs.cords.add(ycord);
+                    ((ShogiGameState) state).cords.add(xcord);
+                    ((ShogiGameState) state).cords.add(ycord);
                     break;
                 }
             } // ======================== //
@@ -143,28 +185,28 @@ public class localGame {
                     break;
                 }
                 int notin = 0;
-                for (Piece p : gs.pieces1) {
+                for (Piece p : ((ShogiGameState) state).pieces1) {
                     if (p.getRow() == xcord && p.getCol() == ycord) {
                         notin = 1;
                         continue;
                     } // if
                 } // for
-                for (Piece p : gs.pieces2) {
+                for (Piece p : ((ShogiGameState) state).pieces2) {
                     if (p.getRow() == xcord && p.getCol() == ycord) {
                         notin = 2;
                         break;
                     }
                 }
                 if (notin == 0) {
-                    gs.cords.add(xcord);
-                    gs.cords.add(ycord);
+                    ((ShogiGameState) state).cords.add(xcord);
+                    ((ShogiGameState) state).cords.add(ycord);
                 }
                 if (notin == 1) {
                     break;
                 }
                 if (notin == 2) {
-                    gs.cords.add(xcord);
-                    gs.cords.add(ycord);
+                    ((ShogiGameState) state).cords.add(xcord);
+                    ((ShogiGameState) state).cords.add(ycord);
                     break;
                 }
             } // ======================== //
@@ -176,28 +218,28 @@ public class localGame {
                     break;
                 }
                 int notin = 0;
-                for (Piece p : gs.pieces1) {
+                for (Piece p : ((ShogiGameState) state).pieces1) {
                     if (p.getRow() == xcord && p.getCol() == ycord) {
                         notin = 1;
                         continue;
                     } // if
                 } // for
-                for (Piece p : gs.pieces2) {
+                for (Piece p : ((ShogiGameState) state).pieces2) {
                     if (p.getRow() == xcord && p.getCol() == ycord) {
                         notin = 2;
                         break;
                     }
                 }
                 if (notin == 0) {
-                    gs.cords.add(xcord);
-                    gs.cords.add(ycord);
+                    ((ShogiGameState) state).cords.add(xcord);
+                    ((ShogiGameState) state).cords.add(ycord);
                 }
                 if (notin == 1) {
                     break;
                 }
                 if (notin == 2) {
-                    gs.cords.add(xcord);
-                    gs.cords.add(ycord);
+                    ((ShogiGameState) state).cords.add(xcord);
+                    ((ShogiGameState) state).cords.add(ycord);
                     break;
                 }
             } // ======================== //
@@ -208,28 +250,28 @@ public class localGame {
                     break;
                 }
                 int notin = 0;
-                for (Piece p : gs.pieces1) {
+                for (Piece p : ((ShogiGameState) state).pieces1) {
                     if (p.getRow() == xcord && p.getCol() == ycord) {
                         notin = 1;
                         continue;
                     } // if
                 } // for
-                for (Piece p : gs.pieces2) {
+                for (Piece p : ((ShogiGameState) state).pieces2) {
                     if (p.getRow() == xcord && p.getCol() == ycord) {
                         notin = 2;
                         break;
                     }
                 }
                 if (notin == 0) {
-                    gs.cords.add(xcord);
-                    gs.cords.add(ycord);
+                    ((ShogiGameState) state).cords.add(xcord);
+                    ((ShogiGameState) state).cords.add(ycord);
                 }
                 if (notin == 1) {
                     break;
                 }
                 if (notin == 2) {
-                    gs.cords.add(xcord);
-                    gs.cords.add(ycord);
+                    ((ShogiGameState) state).cords.add(xcord);
+                    ((ShogiGameState) state).cords.add(ycord);
                     break;
                 }
             } // ======================== //
@@ -241,28 +283,28 @@ public class localGame {
                     break;
                 }
                 int notin = 0;
-                for (Piece p : gs.pieces1) {
+                for (Piece p : ((ShogiGameState) state).pieces1) {
                     if (p.getRow() == xcord && p.getCol() == ycord) {
                         notin = 1;
                         continue;
                     } // if
                 } // for
-                for (Piece p : gs.pieces2) {
+                for (Piece p : ((ShogiGameState) state).pieces2) {
                     if (p.getRow() == xcord && p.getCol() == ycord) {
                         notin = 2;
                         break;
                     }
                 }
                 if (notin == 0) {
-                    gs.cords.add(xcord);
-                    gs.cords.add(ycord);
+                    ((ShogiGameState) state).cords.add(xcord);
+                    ((ShogiGameState) state).cords.add(ycord);
                 }
                 if (notin == 1) {
                     break;
                 }
                 if (notin == 2) {
-                    gs.cords.add(xcord);
-                    gs.cords.add(ycord);
+                    ((ShogiGameState) state).cords.add(xcord);
+                    ((ShogiGameState) state).cords.add(ycord);
                     break;
                 }
             } // ======================== //
@@ -273,33 +315,33 @@ public class localGame {
                     break;
                 }
                 int notin = 0;
-                for (Piece p : gs.pieces1) {
+                for (Piece p : ((ShogiGameState) state).pieces1) {
                     if (p.getRow() == xcord && p.getCol() == ycord) {
                         notin = 1;
                         continue;
                     } // if
                 } // for
-                for (Piece p : gs.pieces2) {
+                for (Piece p : ((ShogiGameState) state).pieces2) {
                     if (p.getRow() == xcord && p.getCol() == ycord) {
                         notin = 2;
                         break;
                     }
                 }
                 if (notin == 0) {
-                    gs.cords.add(xcord);
-                    gs.cords.add(ycord);
+                    ((ShogiGameState) state).cords.add(xcord);
+                    ((ShogiGameState) state).cords.add(ycord);
                 }
                 if (notin == 1) {
                     break;
                 }
                 if (notin == 2) {
-                    gs.cords.add(xcord);
-                    gs.cords.add(ycord);
+                    ((ShogiGameState) state).cords.add(xcord);
+                    ((ShogiGameState) state).cords.add(ycord);
                     break;
                 }
             } // ======================== //
         }
-        /**IF PLAYER 2
+        /**IF PLAYER 2*/
         if(!turn) {
             // MOVE TOP LEFT
             for (int i = 1; i <= TL; i++) {
@@ -309,28 +351,28 @@ public class localGame {
                     break;
                 }
                 int notin = 0;
-                for (Piece p : gs.pieces2) {
+                for (Piece p : ((ShogiGameState) state).pieces2) {
                     if (p.getRow() == xcord && p.getCol() == ycord) {
                         notin = 1;
                         break;
                     }
                 }
-                for (Piece p : gs.pieces1) {
+                for (Piece p : ((ShogiGameState) state).pieces1) {
                     if (p.getRow() == xcord && p.getCol() == ycord) {
                         notin = 2;
                         break;
                     }
                 }
                 if (notin == 0) {
-                    gs.cords.add(xcord);
-                    gs.cords.add(ycord);
+                    ((ShogiGameState) state).cords.add(xcord);
+                    ((ShogiGameState) state).cords.add(ycord);
                 }
                 if (notin == 1) {
                     break;
                 }
                 if (notin == 2) {
-                    gs.cords.add(xcord);
-                    gs.cords.add(ycord);
+                    ((ShogiGameState) state).cords.add(xcord);
+                    ((ShogiGameState) state).cords.add(ycord);
                     break;
                 }
                 // if it gets here, then nothing in space and can move
@@ -342,28 +384,28 @@ public class localGame {
                     break;
                 }
                 int notin = 0;
-                for (Piece p : gs.pieces2) {
+                for (Piece p : ((ShogiGameState) state).pieces2) {
                     if (p.getRow() == xcord && p.getCol() == ycord) {
                         notin = 1;
                         continue;
                     } // if
                 } // for
-                for (Piece p : gs.pieces1) {
+                for (Piece p : ((ShogiGameState) state).pieces1) {
                     if (p.getRow() == xcord && p.getCol() == ycord) {
                         notin = 2;
                         break;
                     }
                 }
                 if (notin == 0) {
-                    gs.cords.add(xcord);
-                    gs.cords.add(ycord);
+                    ((ShogiGameState) state).cords.add(xcord);
+                    ((ShogiGameState) state).cords.add(ycord);
                 }
                 if (notin == 1) {
                     break;
                 }
                 if (notin == 2) {
-                    gs.cords.add(xcord);
-                    gs.cords.add(ycord);
+                    ((ShogiGameState) state).cords.add(xcord);
+                    ((ShogiGameState) state).cords.add(ycord);
                     break;
                 }
             } // ======================== //
@@ -375,28 +417,28 @@ public class localGame {
                     break;
                 }
                 int notin = 0;
-                for (Piece p : gs.pieces2) {
+                for (Piece p : ((ShogiGameState) state).pieces2) {
                     if (p.getRow() == xcord && p.getCol() == ycord) {
                         notin = 1;
                         continue;
                     } // if
                 } // for
-                for (Piece p : gs.pieces1) {
+                for (Piece p : ((ShogiGameState) state).pieces1) {
                     if (p.getRow() == xcord && p.getCol() == ycord) {
                         notin = 2;
                         break;
                     }
                 }
                 if (notin == 0) {
-                    gs.cords.add(xcord);
-                    gs.cords.add(ycord);
+                    ((ShogiGameState) state).cords.add(xcord);
+                    ((ShogiGameState) state).cords.add(ycord);
                 }
                 if (notin == 1) {
                     break;
                 }
                 if (notin == 2) {
-                    gs.cords.add(xcord);
-                    gs.cords.add(ycord);
+                    ((ShogiGameState) state).cords.add(xcord);
+                    ((ShogiGameState) state).cords.add(ycord);
                     break;
                 }
             } // ======================== //
@@ -407,28 +449,28 @@ public class localGame {
                     break;
                 }
                 int notin = 0;
-                for (Piece p : gs.pieces2) {
+                for (Piece p : ((ShogiGameState) state).pieces2) {
                     if (p.getRow() == xcord && p.getCol() == ycord) {
                         notin = 1;
                         continue;
                     } // if
                 } // for
-                for (Piece p : gs.pieces1) {
+                for (Piece p : ((ShogiGameState) state).pieces1) {
                     if (p.getRow() == xcord && p.getCol() == ycord) {
                         notin = 2;
                         break;
                     }
                 }
                 if (notin == 0) {
-                    gs.cords.add(xcord);
-                    gs.cords.add(ycord);
+                    ((ShogiGameState) state).cords.add(xcord);
+                    ((ShogiGameState) state).cords.add(ycord);
                 }
                 if (notin == 1) {
                     break;
                 }
                 if (notin == 2) {
-                    gs.cords.add(xcord);
-                    gs.cords.add(ycord);
+                    ((ShogiGameState) state).cords.add(xcord);
+                    ((ShogiGameState) state).cords.add(ycord);
                     break;
                 }
             } // ======================== //
@@ -440,28 +482,28 @@ public class localGame {
                     break;
                 }
                 int notin = 0;
-                for (Piece p : gs.pieces2) {
+                for (Piece p : ((ShogiGameState) state).pieces2) {
                     if (p.getRow() == xcord && p.getCol() == ycord) {
                         notin = 1;
                         continue;
                     } // if
                 } // for
-                for (Piece p : gs.pieces1) {
+                for (Piece p : ((ShogiGameState) state).pieces1) {
                     if (p.getRow() == xcord && p.getCol() == ycord) {
                         notin = 2;
                         break;
                     }
                 }
                 if (notin == 0) {
-                    gs.cords.add(xcord);
-                    gs.cords.add(ycord);
+                    ((ShogiGameState) state).cords.add(xcord);
+                    ((ShogiGameState) state).cords.add(ycord);
                 }
                 if (notin == 1) {
                     break;
                 }
                 if (notin == 2) {
-                    gs.cords.add(xcord);
-                    gs.cords.add(ycord);
+                    ((ShogiGameState) state).cords.add(xcord);
+                    ((ShogiGameState) state).cords.add(ycord);
                     break;
                 }
             } // ======================== //
@@ -472,28 +514,28 @@ public class localGame {
                     break;
                 }
                 int notin = 0;
-                for (Piece p : gs.pieces2) {
+                for (Piece p : ((ShogiGameState) state).pieces2) {
                     if (p.getRow() == xcord && p.getCol() == ycord) {
                         notin = 1;
                         continue;
                     } // if
                 } // for
-                for (Piece p : gs.pieces1) {
+                for (Piece p : ((ShogiGameState) state).pieces1) {
                     if (p.getRow() == xcord && p.getCol() == ycord) {
                         notin = 2;
                         break;
                     }
                 }
                 if (notin == 0) {
-                    gs.cords.add(xcord);
-                    gs.cords.add(ycord);
+                    ((ShogiGameState) state).cords.add(xcord);
+                    ((ShogiGameState) state).cords.add(ycord);
                 }
                 if (notin == 1) {
                     break;
                 }
                 if (notin == 2) {
-                    gs.cords.add(xcord);
-                    gs.cords.add(ycord);
+                    ((ShogiGameState) state).cords.add(xcord);
+                    ((ShogiGameState) state).cords.add(ycord);
                     break;
                 }
             } // ======================== //
@@ -505,28 +547,28 @@ public class localGame {
                     break;
                 }
                 int notin = 0;
-                for (Piece p : gs.pieces2) {
+                for (Piece p : ((ShogiGameState) state).pieces2) {
                     if (p.getRow() == xcord && p.getCol() == ycord) {
                         notin = 1;
                         continue;
                     } // if
                 } // for
-                for (Piece p : gs.pieces1) {
+                for (Piece p : ((ShogiGameState) state).pieces1) {
                     if (p.getRow() == xcord && p.getCol() == ycord) {
                         notin = 2;
                         break;
                     }
                 }
                 if (notin == 0) {
-                    gs.cords.add(xcord);
-                    gs.cords.add(ycord);
+                    ((ShogiGameState) state).cords.add(xcord);
+                    ((ShogiGameState) state).cords.add(ycord);
                 }
                 if (notin == 1) {
                     break;
                 }
                 if (notin == 2) {
-                    gs.cords.add(xcord);
-                    gs.cords.add(ycord);
+                    ((ShogiGameState) state).cords.add(xcord);
+                    ((ShogiGameState) state).cords.add(ycord);
                     break;
                 }
             } // ======================== //
@@ -537,28 +579,28 @@ public class localGame {
                     break;
                 }
                 int notin = 0;
-                for (Piece p : gs.pieces2) {
+                for (Piece p : ((ShogiGameState) state).pieces2) {
                     if (p.getRow() == xcord && p.getCol() == ycord) {
                         notin = 1;
                         continue;
                     } // if
                 } // for
-                for (Piece p : gs.pieces1) {
+                for (Piece p : ((ShogiGameState) state).pieces1) {
                     if (p.getRow() == xcord && p.getCol() == ycord) {
                         notin = 2;
                         break;
                     }
                 }
                 if (notin == 0) {
-                    gs.cords.add(xcord);
-                    gs.cords.add(ycord);
+                    ((ShogiGameState) state).cords.add(xcord);
+                    ((ShogiGameState) state).cords.add(ycord);
                 }
                 if (notin == 1) {
                     break;
                 }
                 if (notin == 2) {
-                    gs.cords.add(xcord);
-                    gs.cords.add(ycord);
+                    ((ShogiGameState) state).cords.add(xcord);
+                    ((ShogiGameState) state).cords.add(ycord);
                     break;
                 }
             } // ======================== //
@@ -601,7 +643,7 @@ public class localGame {
     }
     // TODO move up to case switch only
     public void moveKing(boolean turn, int x, int y) {
-           makeMove(turn, x, y, 1, 1, 1, 1, 1, 1, 1, 1);
+        makeMove(turn, x, y, 1, 1, 1, 1, 1, 1, 1, 1);
     }
 
     public void moveGoldGen(boolean turn, int x, int y){
@@ -640,13 +682,14 @@ public class localGame {
         int xcord = x;
         int ycord = y;
 
-        gs.cords.clear();
+        ((ShogiGameState) state).cords.clear();
+        
 
-        /**IF PLAYER 1
+        /**IF PLAYER 1*/
         if(turn) {
             if (!(x - 1 < 0 || y - 2 < 0)) { //
                 int lever = 0;
-                for (Piece p : gs.pieces1) {
+                for (Piece p : ((ShogiGameState) state).pieces1) {
                     if (p.getRow() == x - 1 && p.getCol() == y - 2) {
                         lever = 1;
                         break;
@@ -654,14 +697,14 @@ public class localGame {
                 }
 
                 if (lever == 0) {
-                    gs.cords.add(x);
-                    gs.cords.add(y);
+                    ((ShogiGameState) state).cords.add(x);
+                    ((ShogiGameState) state).cords.add(y);
                 }
             }
 
             if (!(x + 1 > 8 || y - 2 < 0)) { //
                 int lever = 0;
-                for (Piece p : gs.pieces1) {
+                for (Piece p : ((ShogiGameState) state).pieces1) {
                     if (p.getRow() == x + 1 && p.getCol() == y - 2 ) {
                         lever = 1;
                         break;
@@ -669,17 +712,17 @@ public class localGame {
                 }
 
                 if (lever == 0) {
-                    gs.cords.add(x);
-                    gs.cords.add(y);
+                    ((ShogiGameState) state).cords.add(x);
+                    ((ShogiGameState) state).cords.add(y);
                 }
             }
         }
 
-        IF PLAYER 2
+        /**IF PLAYER 2*/
         if(!turn) {
             if (!(x - 1 < 0 || y + 2 < 0)) { //
                 int lever = 0;
-                for (Piece p : gs.pieces2) {
+                for (Piece p : ((ShogiGameState) state).pieces2) {
                     if (p.getRow() == x - 1 && p.getCol() == y + 2) {
                         lever = 1;
                         break;
@@ -687,14 +730,14 @@ public class localGame {
                 }
 
                 if (lever == 0) {
-                    gs.cords.add(x);
-                    gs.cords.add(y);
+                    ((ShogiGameState) state).cords.add(x);
+                    ((ShogiGameState) state).cords.add(y);
                 }
             }
 
             if (!(x + 1 > 8 || y + 2 < 0)) { //
                 int lever = 0;
-                for (Piece p : gs.pieces2) {
+                for (Piece p : ((ShogiGameState) state).pieces2) {
                     if (p.getRow() == x + 1 && p.getCol() == y + 2 ) {
                         lever = 1;
                         break;
@@ -702,12 +745,12 @@ public class localGame {
                 }
 
                 if (lever == 0) {
-                    gs.cords.add(x);
-                    gs.cords.add(y);
+                    ((ShogiGameState) state).cords.add(x);
+                    ((ShogiGameState) state).cords.add(y);
                 }
             }
         }
-            return;
+        return;
     }
     public boolean inCheck(boolean turn){
         //loop through the pieces, find king
@@ -719,7 +762,7 @@ public class localGame {
         int yCoord = -1;
 
 
-        for(Piece p: gs.pieces1){
+        for(Piece p: ((ShogiGameState) state).pieces1){
             if(p.pieceType.getID() == R.drawable.king){
                 xCoord = p.getCol();
                 yCoord = p.getRow();
@@ -727,11 +770,11 @@ public class localGame {
             }
         }
 
-        for(Piece p: gs.pieces1){
+        for(Piece p: ((ShogiGameState) state).pieces1){
             if(p.pieceType.getID() == R.drawable.gold_gen){
                 moveGoldGen(turn, p.getCol(), p.getRow());
-                for(int i = 0; i < gs.cords.size(); i += 2){
-                    if(gs.cords.get(i) == xCoord && gs.cords.get(i + 1) == yCoord){
+                for(int i = 0; i < ((ShogiGameState) state).cords.size(); i += 2){
+                    if(((ShogiGameState) state).cords.get(i) == xCoord && ((ShogiGameState) state).cords.get(i + 1) == yCoord){
                         return true;
                     }
                 }
@@ -742,8 +785,8 @@ public class localGame {
             }
             if(p.pieceType.getID() == R.drawable.silv_gen){
                 moveSilvGen(turn, p.getCol(), p.getRow());
-                for(int i = 0; i < gs.cords.size(); i += 2){
-                    if(gs.cords.get(i) == xCoord && gs.cords.get(i + 1) == yCoord){
+                for(int i = 0; i < ((ShogiGameState) state).cords.size(); i += 2){
+                    if(((ShogiGameState) state).cords.get(i) == xCoord && ((ShogiGameState) state).cords.get(i + 1) == yCoord){
                         return true;
                     }
                 }
@@ -751,8 +794,8 @@ public class localGame {
             }
             if(p.pieceType.getID() == R.drawable.promoted_silv_gen){
                 movePromSilvGen(turn, p.getCol(), p.getRow());
-                for(int i = 0; i < gs.cords.size(); i += 2){
-                    if(gs.cords.get(i) == xCoord && gs.cords.get(i + 1) == yCoord){
+                for(int i = 0; i < ((ShogiGameState) state).cords.size(); i += 2){
+                    if(((ShogiGameState) state).cords.get(i) == xCoord && ((ShogiGameState) state).cords.get(i + 1) == yCoord){
                         return true;
                     }
                 }
@@ -760,8 +803,8 @@ public class localGame {
             }
             if(p.pieceType.getID() == R.drawable.bishop){
                 moveBishop(turn, p.getCol(), p.getRow());
-                for(int i = 0; i < gs.cords.size(); i += 2){
-                    if(gs.cords.get(i) == xCoord && gs.cords.get(i + 1) == yCoord){
+                for(int i = 0; i < ((ShogiGameState) state).cords.size(); i += 2){
+                    if(((ShogiGameState) state).cords.get(i) == xCoord && ((ShogiGameState) state).cords.get(i + 1) == yCoord){
                         return true;
                     }
                 }
@@ -769,8 +812,8 @@ public class localGame {
             }
             if(p.pieceType.getID() == R.drawable.promoted_bishop){
                 movePromBishop(turn, p.getCol(), p.getRow());
-                for(int i = 0; i < gs.cords.size(); i += 2){
-                    if(gs.cords.get(i) == xCoord && gs.cords.get(i + 1) == yCoord){
+                for(int i = 0; i < ((ShogiGameState) state).cords.size(); i += 2){
+                    if(((ShogiGameState) state).cords.get(i) == xCoord && ((ShogiGameState) state).cords.get(i + 1) == yCoord){
                         return true;
                     }
                 }
@@ -778,8 +821,8 @@ public class localGame {
             }
             if(p.pieceType.getID() == R.drawable.rook){
                 moveRook(turn, p.getCol(), p.getRow());
-                for(int i = 0; i < gs.cords.size(); i += 2){
-                    if(gs.cords.get(i) == xCoord && gs.cords.get(i + 1) == yCoord){
+                for(int i = 0; i < ((ShogiGameState) state).cords.size(); i += 2){
+                    if(((ShogiGameState) state).cords.get(i) == xCoord && ((ShogiGameState) state).cords.get(i + 1) == yCoord){
                         return true;
                     }
                 }
@@ -787,8 +830,8 @@ public class localGame {
             }
             if(p.pieceType.getID() == R.drawable.promoted_rook){
                 movePromRook(turn, p.getCol(), p.getRow());
-                for(int i = 0; i < gs.cords.size(); i += 2){
-                    if(gs.cords.get(i) == xCoord && gs.cords.get(i + 1) == yCoord){
+                for(int i = 0; i < ((ShogiGameState) state).cords.size(); i += 2){
+                    if(((ShogiGameState) state).cords.get(i) == xCoord && ((ShogiGameState) state).cords.get(i + 1) == yCoord){
                         return true;
                     }
                 }
@@ -796,8 +839,8 @@ public class localGame {
             }
             if(p.pieceType.getID() == R.drawable.lance){
                 moveLance(turn, p.getCol(), p.getRow());
-                for(int i = 0; i < gs.cords.size(); i += 2){
-                    if(gs.cords.get(i) == xCoord && gs.cords.get(i + 1) == yCoord){
+                for(int i = 0; i < ((ShogiGameState) state).cords.size(); i += 2){
+                    if(((ShogiGameState) state).cords.get(i) == xCoord && ((ShogiGameState) state).cords.get(i + 1) == yCoord){
                         return true;
                     }
                 }
@@ -805,8 +848,8 @@ public class localGame {
             }
             if(p.pieceType.getID() == R.drawable.promoted_lance){
                 movePromLance(turn, p.getCol(), p.getRow());
-                for(int i = 0; i < gs.cords.size(); i += 2){
-                    if(gs.cords.get(i) == xCoord && gs.cords.get(i + 1) == yCoord){
+                for(int i = 0; i < ((ShogiGameState) state).cords.size(); i += 2){
+                    if(((ShogiGameState) state).cords.get(i) == xCoord && ((ShogiGameState) state).cords.get(i + 1) == yCoord){
                         return true;
                     }
                 }
@@ -817,8 +860,8 @@ public class localGame {
             }
             if(p.pieceType.getID() == R.drawable.promoted_knight){
                 movePromKnight(turn, p.getCol(), p.getRow());
-                for(int i = 0; i < gs.cords.size(); i += 2){
-                    if(gs.cords.get(i) == xCoord && gs.cords.get(i + 1) == yCoord){
+                for(int i = 0; i < ((ShogiGameState) state).cords.size(); i += 2){
+                    if(((ShogiGameState) state).cords.get(i) == xCoord && ((ShogiGameState) state).cords.get(i + 1) == yCoord){
                         return true;
                     }
                 }
@@ -826,8 +869,8 @@ public class localGame {
             }
             if(p.pieceType.getID() == R.drawable.pawn){
                 movePawn(turn, p.getCol(), p.getRow());
-                for(int i = 0; i < gs.cords.size(); i += 2){
-                    if(gs.cords.get(i) == xCoord && gs.cords.get(i + 1) == yCoord){
+                for(int i = 0; i < ((ShogiGameState) state).cords.size(); i += 2){
+                    if(((ShogiGameState) state).cords.get(i) == xCoord && ((ShogiGameState) state).cords.get(i + 1) == yCoord){
                         return true;
                     }
                 }
@@ -835,8 +878,8 @@ public class localGame {
             }
             if(p.pieceType.getID() == R.drawable.promoted_pawn){
                 movePromPawn(turn, p.getCol(), p.getRow());
-                for(int i = 0; i < gs.cords.size(); i += 2){
-                    if(gs.cords.get(i) == xCoord && gs.cords.get(i + 1) == yCoord){
+                for(int i = 0; i < ((ShogiGameState) state).cords.size(); i += 2){
+                    if(((ShogiGameState) state).cords.get(i) == xCoord && ((ShogiGameState) state).cords.get(i + 1) == yCoord){
                         return true;
                     }
                 }
@@ -846,16 +889,16 @@ public class localGame {
     }
     public boolean checkMate(boolean turn){
         if (turn) {
-            if (gs.pieces1.size() == 1) {
+            if (((ShogiGameState) state).pieces1.size() == 1) {
                 return true;
             }
         }
 
         if (!turn) {
-            if (gs.pieces2.size() == 1) {
+            if (((ShogiGameState) state).pieces2.size() == 1) {
                 return true;
             }
         }
         return false;
-    }*/
+    }
 }

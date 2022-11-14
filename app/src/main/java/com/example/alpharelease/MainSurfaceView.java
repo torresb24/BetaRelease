@@ -12,6 +12,7 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.alpharelease.GameFramework.LocalGame;
 import com.example.alpharelease.R;
 
 import java.util.ArrayList;
@@ -43,6 +44,8 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
     private int Piecex,Piecey;
 
     private Paint imgPaint;
+    private LocalGame game;
+    private ShogiGameState state;
 
     public MainSurfaceView(Context context, AttributeSet attrs) {
         super(context, attrs); // Call parent constructor
@@ -69,12 +72,13 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
 
     // 4 tell the view what to draw/how to draw
     protected void onDraw(Canvas canvas) {
-
+        //TODO: Use state to draw the correct things
         // DO NOT, if at all possible, allocate anything in the draw method
         // METHOD (memory use optimization)
         // This method could run 100+ times per second (and potentially crash
         // -- a device if garbage collection is not fast enough
 
+        //TODO: Move these images into the constructor so that we only have to create them once
         //draw the main board
         Bitmap image = BitmapFactory.decodeResource(getResources(), R.drawable.full_board);
         canvas.drawBitmap(image, buffersizeHoriz, buffersizeVert, imgPaint);
@@ -106,6 +110,8 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
 
     @Override
     public boolean onTouch(View view, MotionEvent e) {
+
+        //TODO: This is where to send moves to the game using game.sendAction(new ShogiAction)
         if (e.getActionMasked() == MotionEvent.ACTION_DOWN) {
             float x = e.getX();
             float y = e.getY();
@@ -173,7 +179,16 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
         invalidate();
         return false;
     }
+
+    public void setLocalGame(LocalGame g) {
+        game = g;
+    }
+
+    public void setGameState(ShogiGameState g) {
+        state = g;
+    }
 }
+
 
     /*public class MainSurfaceView extends SurfaceView {
 
