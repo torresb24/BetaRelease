@@ -1,6 +1,9 @@
 package com.example.alpharelease;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.view.SurfaceView;
 
@@ -18,6 +21,8 @@ import java.util.Random;
  * @version 10/11/2022
  *
  * */
+
+//onDraw
 
 public class GameState {
     /* [other class]/
@@ -44,12 +49,12 @@ public class GameState {
     private Board board;
     private final int p1 = 0;
     private final int p2 = 1;
+    private String banner;
     private Graveyard grave_1;
     private Graveyard grave_2;
-    private ArrayList<Piece> pieces1;
-    private ArrayList<Piece> pieces2;
-    private ArrayList<Integer> cords;
-    private String banner;
+    public ArrayList<Piece> pieces1;
+    public ArrayList<Piece> pieces2;
+    public ArrayList<Integer> cords;
     private int turnCount = 0;
 
     /**
@@ -109,7 +114,7 @@ public class GameState {
 
     /**
      * Display all game state information in the TextView
-     */
+     *
     @Override
     public String toString() {
         Random rand = new Random();
@@ -214,7 +219,7 @@ public class GameState {
         string = string + "Player 1's Pawn moves [ " + movex + " , " + movey + " ]";
         return string + banner + ".";
     }
-
+*/
 
     //Make methods for defined actions
     //make pieces
@@ -456,7 +461,7 @@ public class GameState {
 
         if (1==0) {
             int yCoord = pieces1.get(pieces1.indexOf(Piece.GAME_PIECES.LANCE)).getCol();
-            int xCoord = pieces1.get(pieces1.indexOf(Piece.GAME_PIECES.LANCE)).getCol();
+            int xCoord = pieces1.get(pieces1.indexOf(Piece.GAME_PIECES.LANCE)).getRow();
 
             for (int i = yCoord - 1; i > 0; --i) {
                 toStore.add(xCoord);
@@ -563,4 +568,15 @@ public class GameState {
         cords.add(5);
         cords.add(7);
     }// if turncount
+
+    public void moveKnight(boolean theTurn) {
+        cords.clear();
+        ArrayList<Integer> toStore = new ArrayList<>();
+        int ycord = -1;
+        int xcord = -1;
+        int lever = 0;
+
+        
+        //
+    }
 }
