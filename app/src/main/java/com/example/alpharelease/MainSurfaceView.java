@@ -38,6 +38,9 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
     private int tileSize;
     localGame lg;
     Paint paint;
+    private int currID;
+    private int lever;
+    private int Piecex,Piecey;
 
     private Paint imgPaint;
 
@@ -58,6 +61,9 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
         tileSize = imagesize/9;
         paint  = new Paint();
         paint.setARGB(255, 255, 0, 0);
+        currID = 0;
+        lever = 0;
+        Piecex = Piecey = -1;
         //spots = new ArrayList<Spot>(); // Optional to repeat or not repeat the type <Spot>
     }
 
@@ -128,9 +134,39 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
                 else if(y > (imagesize/9)*6 && y < (imagesize/9)*7){ycord = 6;}
                 else if(y > (imagesize/9)*7 && y < (imagesize/9)*8){ycord = 7;}
                 else if(y > (imagesize/9)*8 && y < (imagesize/9)*9){ycord = 8;}
-                if (lever == 0) {
-                    
-                }
+                if (lever == 0) { // first click
+                    if(lg.gs.getTurn()){
+                        for(Piece p : lg.gs.pieces1){
+                            if(p.getCol() == xcord && p.getRow() ==ycord){
+                                currID = p.pieceType.getID();
+                                Piecex = p.getCol();
+                                Piecey = p.getRow();
+                                lg.callCorrectMovement(currID,lg.gs.getTurn(),p.getCol(),p.getRow());
+                                lever = 1;
+                                invalidate();
+                                break;
+                            } // if piece matches selected cords
+                        } // for Piece p
+                    }
+                } // if lever == 0
+                if(lever == 1){
+                    for(int i = 0; i < lg.gs.cords.size(); i+= 2){
+                        if(lg.gs.cords.get(i) == xcord && lg.gs.cords.get(i+1) == ycord){
+                            if(lg.gs.getTurn()){
+                                for(Piece p : lg.gs.pieces1){
+                                    if(p.pieceType.getID() == currID && p.getCol() == Piecex && p.getRow() == Piecey){
+                                        p.setCol(xcord);
+                                        p.setRow(ycord);
+                                        // flip turn aswell
+                                        lg.gs.changeTurn();
+                                        lever = 0;
+                                        invalidate();
+                                    }
+                                }
+                            }
+                        }
+                    } // for cords
+                } // if lever == 1
                 return true;
             }
         }
