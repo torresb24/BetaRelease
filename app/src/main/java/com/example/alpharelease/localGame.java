@@ -628,171 +628,77 @@ public class localGame {
 
     }
 
-    public void moveKnight(int x){
-        return;
-    }
+    public void moveKnight(boolean turn, int x, int y){
+        int xcord = x;
+        int ycord = y;
 
+        gs.cords.clear();
 
+        /**IF PLAYER 1*/
+        if(turn) {
+            if (!(x - 1 < 0 || y - 2 < 0)) { //
+                int lever = 0;
+                for (Piece p : gs.pieces1) {
+                    if (p.getRow() == x - 1 && p.getCol() == y - 2) {
+                        lever = 1;
+                        break;
+                    }
+                }
 
+                if (lever == 0) {
+                    gs.cords.add(x);
+                    gs.cords.add(y);
+                }
+            }
 
-    //Capture piece method, no checks, find piece that is being captured, get rid of it, this is after
-    //the move has been determined legal and is made
-    public boolean capturePiece(boolean turn, int xCoord, int yCoord){
-        if(turn){
-            for(int i =0; i < gs.pieces2.size(); i++){
-                if(gs.pieces2.get(i).getCol() == xCoord && gs.pieces2.get(i).getRow() == yCoord){
-                    gs.pieces2.remove(i);
-                    return true;
+            if (!(x + 1 > 8 || y - 2 < 0)) { //
+                int lever = 0;
+                for (Piece p : gs.pieces1) {
+                    if (p.getRow() == x + 1 && p.getCol() == y - 2 ) {
+                        lever = 1;
+                        break;
+                    }
+                }
+
+                if (lever == 0) {
+                    gs.cords.add(x);
+                    gs.cords.add(y);
                 }
             }
         }
 
-        if(!turn){
-            for(int i = 0; i < gs.pieces1.size(); i++){
-                if(gs.pieces1.get(i).getCol() == xCoord && gs.pieces1.get(i).getRow() == yCoord){
-                    gs.pieces1.remove(i);
-                    return true;
+        if(!turn) {
+            if (!(x - 1 < 0 || y + 2 < 0)) { //
+                int lever = 0;
+                for (Piece p : gs.pieces2) {
+                    if (p.getRow() == x - 1 && p.getCol() == y + 2) {
+                        lever = 1;
+                        break;
+                    }
+                }
+
+                if (lever == 0) {
+                    gs.cords.add(x);
+                    gs.cords.add(y);
+                }
+            }
+
+            if (!(x + 1 > 8 || y + 2 < 0)) { //
+                int lever = 0;
+                for (Piece p : gs.pieces2) {
+                    if (p.getRow() == x + 1 && p.getCol() == y + 2 ) {
+                        lever = 1;
+                        break;
+                    }
+                }
+
+                if (lever == 0) {
+                    gs.cords.add(x);
+                    gs.cords.add(y);
                 }
             }
         }
-        return false;
-    }
-
-
-    public boolean inCheck(boolean turn){
-        //loop through the pieces, find king
-        //store king's x and y into coords
-        //if coords is in danger, call move[Piece] methods
-
-        //instantiate x and y Coords
-        int xCoord = -1;
-        int yCoord = -1;
-
-
-        for(Piece p: gs.pieces1){
-            if(p.pieceType.getID() == R.drawable.king){
-                xCoord = p.getCol();
-                yCoord = p.getRow();
-                break;
-            }
-        }
-
-        for(Piece p: gs.pieces1){
-            if(p.pieceType.getID() == R.drawable.gold_gen){
-                moveGoldGen(turn, p.getCol(), p.getRow());
-                for(int i = 0; i < gs.cords.size(); i += 2){
-                    if(gs.cords.get(i) == xCoord && gs.cords.get(i + 1) == yCoord){
-                        return true;
-                    }
-                }
-
-            }
-            if(p.pieceType.getID() == R.drawable.promoted_gold_gen){
-
-            }
-            if(p.pieceType.getID() == R.drawable.silv_gen){
-                moveSilvGen(turn, p.getCol(), p.getRow());
-                for(int i = 0; i < gs.cords.size(); i += 2){
-                    if(gs.cords.get(i) == xCoord && gs.cords.get(i + 1) == yCoord){
-                        return true;
-                    }
-                }
-
-            }
-            if(p.pieceType.getID() == R.drawable.promoted_silv_gen){
-                movePromSilvGen(turn, p.getCol(), p.getRow());
-                for(int i = 0; i < gs.cords.size(); i += 2){
-                    if(gs.cords.get(i) == xCoord && gs.cords.get(i + 1) == yCoord){
-                        return true;
-                    }
-                }
-
-            }
-            if(p.pieceType.getID() == R.drawable.bishop){
-                moveBishop(turn, p.getCol(), p.getRow());
-                for(int i = 0; i < gs.cords.size(); i += 2){
-                    if(gs.cords.get(i) == xCoord && gs.cords.get(i + 1) == yCoord){
-                        return true;
-                    }
-                }
-
-            }
-            if(p.pieceType.getID() == R.drawable.promoted_bishop){
-                movePromBishop(turn, p.getCol(), p.getRow());
-                for(int i = 0; i < gs.cords.size(); i += 2){
-                    if(gs.cords.get(i) == xCoord && gs.cords.get(i + 1) == yCoord){
-                        return true;
-                    }
-                }
-
-            }
-            if(p.pieceType.getID() == R.drawable.rook){
-                moveRook(turn, p.getCol(), p.getRow());
-                for(int i = 0; i < gs.cords.size(); i += 2){
-                    if(gs.cords.get(i) == xCoord && gs.cords.get(i + 1) == yCoord){
-                        return true;
-                    }
-                }
-
-            }
-            if(p.pieceType.getID() == R.drawable.promoted_rook){
-                movePromRook(turn, p.getCol(), p.getRow());
-                for(int i = 0; i < gs.cords.size(); i += 2){
-                    if(gs.cords.get(i) == xCoord && gs.cords.get(i + 1) == yCoord){
-                        return true;
-                    }
-                }
-
-            }
-            if(p.pieceType.getID() == R.drawable.lance){
-                moveLance(turn, p.getCol(), p.getRow());
-                for(int i = 0; i < gs.cords.size(); i += 2){
-                    if(gs.cords.get(i) == xCoord && gs.cords.get(i + 1) == yCoord){
-                        return true;
-                    }
-                }
-
-            }
-            if(p.pieceType.getID() == R.drawable.promoted_lance){
-                movePromLance(turn, p.getCol(), p.getRow());
-                for(int i = 0; i < gs.cords.size(); i += 2){
-                    if(gs.cords.get(i) == xCoord && gs.cords.get(i + 1) == yCoord){
-                        return true;
-                    }
-                }
-
-            }
-            if(p.pieceType.getID() == R.drawable.knight){
-                //TODO: moveKnight
-            }
-            if(p.pieceType.getID() == R.drawable.promoted_knight){
-                movePromKnight(turn, p.getCol(), p.getRow());
-                for(int i = 0; i < gs.cords.size(); i += 2){
-                    if(gs.cords.get(i) == xCoord && gs.cords.get(i + 1) == yCoord){
-                        return true;
-                    }
-                }
-
-            }
-            if(p.pieceType.getID() == R.drawable.pawn){
-                movePawn(turn, p.getCol(), p.getRow());
-                for(int i = 0; i < gs.cords.size(); i += 2){
-                    if(gs.cords.get(i) == xCoord && gs.cords.get(i + 1) == yCoord){
-                        return true;
-                    }
-                }
-
-            }
-            if(p.pieceType.getID() == R.drawable.promoted_pawn){
-                movePromPawn(turn, p.getCol(), p.getRow());
-                for(int i = 0; i < gs.cords.size(); i += 2){
-                    if(gs.cords.get(i) == xCoord && gs.cords.get(i + 1) == yCoord){
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
+            return;
     }
 
     public boolean checkMate(){
