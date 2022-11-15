@@ -4,6 +4,10 @@ import com.example.alpharelease.GameFramework.LocalGame;
 import com.example.alpharelease.GameFramework.actionMessage.GameAction;
 import com.example.alpharelease.GameFramework.players.GamePlayer;
 
+import java.util.ArrayList;
+
+import kotlin.collections.ArraysKt;
+
 public class ShogiLocalGame extends LocalGame {
 
     public ShogiLocalGame() {
@@ -72,11 +76,9 @@ public class ShogiLocalGame extends LocalGame {
     public void makeMove(boolean turn, int x, int y,int TL, int T, int TR, int L, int R, int BL, int B, int BR){
         int xcord = x;
         int ycord = y;
-        ((ShogiGameState) state).cords.clear();
         
         /**IF PLAYER 1*/
         if(turn) {
-            System.out.println("MOVING PAWN3");
             // MOVE TOP LEFT
             for (int i = 1; i <= TL; i++) {
                 xcord = x - i;
@@ -603,10 +605,10 @@ public class ShogiLocalGame extends LocalGame {
                 }
             } // ======================== //
         }
-        System.out.println(((ShogiGameState) state).cords);
     }
 
-    public void callCorrectMovement(int ID, boolean turn, int x, int y){
+    public ArrayList<Integer> callCorrectMovement(int ID, boolean turn, int x, int y){
+        ((ShogiGameState) state).cords.clear();
         switch(ID) {
             case (R.drawable.king):
                 moveKing(turn, x, y);
@@ -636,6 +638,7 @@ public class ShogiLocalGame extends LocalGame {
                 moveKnight(turn, x, y);
                 break;
         }
+        return ((ShogiGameState) state).cords;
     }
     // TODO move up to case switch only
     public void moveKing(boolean turn, int x, int y) {
@@ -885,13 +888,12 @@ public class ShogiLocalGame extends LocalGame {
     }
     public boolean checkMate(boolean turn){
         if (turn) {
-            if (((ShogiGameState) state).pieces1.size() == 1) {
+            if (((ShogiGameState) state).pieces2.size() == 1) {
                 return true;
             }
         }
-
         if (!turn) {
-            if (((ShogiGameState) state).pieces2.size() == 1) {
+            if (((ShogiGameState) state).pieces1.size() == 1) {
                 return true;
             }
         }

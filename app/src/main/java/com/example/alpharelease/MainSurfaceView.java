@@ -1,6 +1,7 @@
 package com.example.alpharelease;
 
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.util.AttributeSet;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -16,6 +17,7 @@ import com.example.alpharelease.GameFramework.LocalGame;
 import com.example.alpharelease.R;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  *
@@ -42,11 +44,11 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
     private int currID;
     private int lever;
     private int Piecex,Piecey;
-
+    private int noMove;
     private Paint imgPaint;
     private ShogiLocalGame game;
     private ShogiGameState state;
-
+    Matrix transform;
     public MainSurfaceView(Context context, AttributeSet attrs) {
         super(context, attrs); // Call parent constructor
         // 2 Enable drawing
@@ -61,15 +63,16 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
         xcord = -1;
         ycord = -1;
         tileSize = imagesize/9;
-        paint  = new Paint();
-        paint.setARGB(255, 255, 0, 0);
+        paint = new Paint();
+        paint.setARGB(255/2, 255, 145, 164);
         currID = 0;
         lever = 0;
         Piecex = Piecey = -1;
+        noMove =0;
         state = new ShogiGameState();
         game = new ShogiLocalGame(state);
-
-
+        transform = new Matrix();
+        transform.postRotate(180);
         //spots = new ArrayList<Spot>(); // Optional to repeat or not repeat the type <Spot>
     }
 
@@ -98,11 +101,12 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
         //draw the initial set up for player 2
         for(Piece p: state.pieces2){
             image = BitmapFactory.decodeResource(getResources(), p.pieceType.getID());
-            canvas.drawBitmap(image, ((tileSize) * p.getCol()), ((tileSize) * p.getRow()), imgPaint);
+            transform.setTranslate(((tileSize) * p.getCol()),((tileSize) * p.getRow()));
+            canvas.drawBitmap(image, transform, imgPaint);
         }
 
         //draw the possible moves
-        for(int i = 0; i > state.cords.size(); i += 2){
+        for(int i = 0; i < state.cords.size(); i += 2){
             canvas.drawRect(tileSize * state.cords.get(i) , tileSize * state.cords.get(i + 1) , (tileSize * state.cords.get(i)) + tileSize , (tileSize * state.cords.get(i + 1)) + tileSize , paint);
         }
         // Moving the draw down here lets us draw on TOP of the image / circle above
@@ -141,9 +145,7 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
                 else if(y > tileSize *6 && y < tileSize *7){ycord = 6;}
                 else if(y > tileSize *7 && y < tileSize *8){ycord = 7;}
                 else if(y > tileSize *8 && y < tileSize *9){ycord = 8;}
-                lever = 0;
-                System.out.println(xcord);
-                System.out.println(ycord);
+                noMove = 2;
                 if (lever == 0) { // first click""
                  //   System.out.println(state.getTurn());
                     if(state.getTurn()){
@@ -151,42 +153,99 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
                             if(p.getCol() == xcord && p.getRow() == ycord){
                                 currID = p.pieceType.getID();
 
-                                System.out.println("TYPE");
+                               /* System.out.println("TYPE");
                                 System.out.println(p.pieceType);
                                 System.out.println("ID");
                                 System.out.println(p.pieceType.getID());
                                 System.out.println("X");
                                 System.out.println(p.getCol());
                                 System.out.println("Y");
-                                System.out.println(p.getRow());
+                                System.out.println(p.getRow());*/
 
                                 Piecex = p.getCol();
                                 Piecey = p.getRow();
-                                game.callCorrectMovement(currID,state.getTurn(),Piecex,Piecey);
+                                state.cords.clear();
+                                state.cords = game.callCorrectMovement(currID,state.getTurn(),Piecex,Piecey);
                                 lever = 1;
-                                invalidate();
                                 break;
                             } // if piece matches selected cords
                         } // for Piece p
+                        System.out.println(state.cords);
+                        invalidate();
+                    }
+                    // Dumb AI Playing
+                    else if(!state.getTurn()){
+                        int randIndex = -1;
+                        Piecex = -1;
+                        Piecey = -1;
+                        Random rand = new Random();
+                        while(state.cords.isEmpty()){
+                            randIndex = rand.nextInt(state.pieces2.size());
+                            Piecex = state.pieces2.get(randIndex).getCol();
+                            Piecey = state.pieces2.get(randIndex).getRow();
+                            currID = state.pieces2.get(randIndex).pieceType.getID();
+                            state.cords = game.callCorrectMovement(currID,state.getTurn(),Piecex,Piecey);
+                        }
+                        randIndex = 1;
+                        while(randIndex%2 != 0){
+                            randIndex = rand.nextInt(state.cords.size());
+                        }
+                        System.out.println(state.cords);
+                        for(Piece p: state.pieces2){
+                            if(Piecex == p.getCol() && Piecey == p.getRow() && p.pieceType.getID() == currID){
+                                p.setCol(state.cords.get(randIndex));
+                                p.setRow(state.cords.get(randIndex+1));
+                            }
+                        }
+                        for(int j = 0; j < state.pieces1.size(); j++){
+                            if(state.pieces1.get(j).getCol() == state.cords.get(randIndex) && (state.pieces2.get(j).getRow() == state.cords.get(randIndex+1))){
+                                state.pieces1.remove(j);
+                            }
+                        }
+                        state.cords.clear();
+                        if(game.checkMate(state.getTurn())){
+                            /**GAME END*/
+                            System.exit(0);
+                        }
+                        state.setTurn(!state.getTurn());
+                        invalidate();
                     }
                 } // if lever == 0
-                if(lever == 1){
+                else if(lever == 1){
                     for(int i = 0; i < state.cords.size(); i+= 2){
                         if(state.cords.get(i) == xcord && state.cords.get(i+1) == ycord){
+                            noMove = 1;
                             if(state.getTurn()){
                                 for(Piece p : state.pieces1){
                                     if(p.pieceType.getID() == currID && p.getCol() == Piecex && p.getRow() == Piecey){
                                         p.setCol(xcord);
                                         p.setRow(ycord);
                                         // flip turn aswell
-                                        state.changeTurn();
+                                       // state.changeTurn();
+                                        for(int j = 0; j < state.pieces2.size(); j++){
+                                            if(state.pieces2.get(j).getCol() == xcord && (state.pieces2.get(j).getRow() == ycord)){
+                                                state.pieces2.remove(j);
+                                            }
+                                        }
                                         lever = 0;
+                                        state.cords.clear();
+                                        if(game.checkMate(state.getTurn())){
+                                            /**GAME END*/
+                                            System.exit(0);
+                                        }
+                                        state.setTurn(!state.getTurn());
                                         invalidate();
                                     }
                                 }
                             }
+                            break;
                         }
                     } // for cords
+                    if(noMove == 2){
+                        state.cords.clear();
+                        lever = 0;
+                        invalidate();
+                    }
                 } // if lever == 1
                 return true;
             }
