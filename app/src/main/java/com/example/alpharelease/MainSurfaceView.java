@@ -60,8 +60,8 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
         imgPaint = new Paint();
         imgPaint.setColor(Color.BLACK);
         toggle = 0;
-        imagesize = 696*2;
-        buffersizeHoriz = 600;
+        imagesize = 1050;
+        buffersizeHoriz = 563;
         buffersizeVert = 14;
         xcord = -1;
         ycord = -1;
@@ -93,7 +93,7 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
         //TODO: Move these images into the constructor so that we only have to create them once
         //draw the main board
         Bitmap image = BitmapFactory.decodeResource(getResources(), R.drawable.full_board);
-        canvas.drawBitmap(image, -1*buffersizeHoriz, -1*buffersizeVert, imgPaint);
+        canvas.drawBitmap(image, -1*buffersizeHoriz + tileSize, -1*buffersizeVert, imgPaint);
 
         //draw the graveyard
 
@@ -219,7 +219,7 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
                             }
                         }
                         holdCords.clear();
-                        for(int j = 0; j < state.pieces1.size(); j++){
+                        for(int j = 0; j < state.pieces1.size()-1; j++){
                             if(state.pieces1.get(j).getCol() == state.cords.get(randIndex) && (state.pieces2.get(j).getRow() == state.cords.get(randIndex+1))){
                                 holdCords.add(j);
                             }
