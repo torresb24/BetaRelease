@@ -12,5 +12,6 @@ public class ShogiComputerPlayer extends GameComputerPlayer {
     @Override
     protected void receiveInfo(GameInfo info) {
         //TODO: Send move actions to the game with game.sendAction(new Shogi-Something-Action)
+
     }
 }

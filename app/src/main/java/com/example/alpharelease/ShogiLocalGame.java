@@ -23,15 +23,12 @@ public class ShogiLocalGame extends LocalGame {
 
     @Override
     protected boolean canMove(int playerIdx) {
-
         // TODO:
         return false;
     }
 
     @Override
     protected String checkIfGameOver() {
-
-
         return null;
     }
 
@@ -793,7 +790,7 @@ public class ShogiLocalGame extends LocalGame {
 
             }
             if(p.pieceType.getID() == R.drawable.promoted_silv_gen){
-                movePromSilvGen(turn, p.getCol(), p.getRow());
+                moveGoldGen(turn, p.getCol(), p.getRow());
                 for(int i = 0; i < ((ShogiGameState) state).cords.size(); i += 2){
                     if(((ShogiGameState) state).cords.get(i) == xCoord && ((ShogiGameState) state).cords.get(i + 1) == yCoord){
                         return true;
@@ -847,7 +844,7 @@ public class ShogiLocalGame extends LocalGame {
 
             }
             if(p.pieceType.getID() == R.drawable.promoted_lance){
-                movePromLance(turn, p.getCol(), p.getRow());
+                moveGoldGen(turn, p.getCol(), p.getRow());
                 for(int i = 0; i < ((ShogiGameState) state).cords.size(); i += 2){
                     if(((ShogiGameState) state).cords.get(i) == xCoord && ((ShogiGameState) state).cords.get(i + 1) == yCoord){
                         return true;
@@ -859,7 +856,7 @@ public class ShogiLocalGame extends LocalGame {
                 //TODO: moveKnight
             }
             if(p.pieceType.getID() == R.drawable.promoted_knight){
-                movePromKnight(turn, p.getCol(), p.getRow());
+                moveGoldGen(turn, p.getCol(), p.getRow());
                 for(int i = 0; i < ((ShogiGameState) state).cords.size(); i += 2){
                     if(((ShogiGameState) state).cords.get(i) == xCoord && ((ShogiGameState) state).cords.get(i + 1) == yCoord){
                         return true;
@@ -877,7 +874,7 @@ public class ShogiLocalGame extends LocalGame {
 
             }
             if(p.pieceType.getID() == R.drawable.promoted_pawn){
-                movePromPawn(turn, p.getCol(), p.getRow());
+                moveGoldGen(turn, p.getCol(), p.getRow());
                 for(int i = 0; i < ((ShogiGameState) state).cords.size(); i += 2){
                     if(((ShogiGameState) state).cords.get(i) == xCoord && ((ShogiGameState) state).cords.get(i + 1) == yCoord){
                         return true;

@@ -37,14 +37,14 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
     private int xcord;
     private int ycord;
     private int tileSize;
-    localGame lg;
+    LocalGame lg;
     Paint paint;
     private int currID;
     private int lever;
     private int Piecex,Piecey;
 
     private Paint imgPaint;
-    private LocalGame game;
+    private ShogiLocalGame game;
     private ShogiGameState state;
 
     public MainSurfaceView(Context context, AttributeSet attrs) {
@@ -55,18 +55,21 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
         imgPaint = new Paint();
         imgPaint.setColor(Color.BLACK);
         toggle = 0;
-        imagesize = 0;
-        buffersizeHoriz = 550;
-        buffersizeVert = 50;
+        imagesize = 696;
+        buffersizeHoriz = 314;
+        buffersizeVert = 14;
         xcord = -1;
         ycord = -1;
-        lg = new localGame();
         tileSize = imagesize/9;
         paint  = new Paint();
         paint.setARGB(255, 255, 0, 0);
         currID = 0;
         lever = 0;
         Piecex = Piecey = -1;
+        state = new ShogiGameState();
+        game = new ShogiLocalGame(state);
+
+
         //spots = new ArrayList<Spot>(); // Optional to repeat or not repeat the type <Spot>
     }
 
@@ -87,20 +90,20 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
 
 
         //draw the initial setup for player 1
-        for(Piece p: lg.gs.pieces1){
+        for(Piece p: state.pieces1){
             image = BitmapFactory.decodeResource(getResources(), p.pieceType.getID());
             canvas.drawBitmap(image, ((tileSize) * p.getCol()) - ((tileSize) / 2), ((tileSize) * p.getRow()) - ((tileSize) / 2), imgPaint);
         }
 
         //draw the initial set up for player 2
-        for(Piece p: lg.gs.pieces2){
+        for(Piece p: state.pieces2){
             image = BitmapFactory.decodeResource(getResources(), p.pieceType.getID());
             canvas.drawBitmap(image, ((tileSize) * p.getCol()) - ((tileSize) / 2), ((tileSize) * p.getRow()) - ((tileSize) / 2), imgPaint);
         }
 
         //draw the possible moves
-        for(int i = 0; i > lg.gs.cords.size(); i += 2){
-            canvas.drawRect(tileSize * lg.gs.cords.get(i), tileSize * lg.gs.cords.get(i + 1), (tileSize * lg.gs.cords.get(i)) + tileSize, (tileSize * lg.gs.cords.get(i + 1)) + tileSize, paint);
+        for(int i = 0; i > state.cords.size(); i += 2){
+            canvas.drawRect(tileSize * state.cords.get(i), tileSize * state.cords.get(i + 1), (tileSize * state.cords.get(i)) + tileSize, (tileSize * state.cords.get(i + 1)) + tileSize, paint);
         }
         // Moving the draw down here lets us draw on TOP of the image / circle above
         // For spots, can use for integer based loop or for each
@@ -109,13 +112,13 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
     }
 
     @Override
-    public boolean onTouch(View view, MotionEvent e) {
-
+    public boolean onTouch(View view, MotionEvent e){
         //TODO: This is where to send moves to the game using game.sendAction(new ShogiAction)
-        if (e.getActionMasked() == MotionEvent.ACTION_DOWN) {
+        if (e.getActionMasked() == MotionEvent.ACTION_DOWN){
             float x = e.getX();
             float y = e.getY();
-
+            System.out.println(x);
+            System.out.println(y);
 
             if(x > buffersizeHoriz && x <= imagesize+buffersizeHoriz && y <= imagesize+buffersizeVert && y > buffersizeVert){
                 // X cord
@@ -140,14 +143,15 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
                 else if(y > (imagesize/9)*6 && y < (imagesize/9)*7){ycord = 6;}
                 else if(y > (imagesize/9)*7 && y < (imagesize/9)*8){ycord = 7;}
                 else if(y > (imagesize/9)*8 && y < (imagesize/9)*9){ycord = 8;}
-                if (lever == 0) { // first click
-                    if(lg.gs.getTurn()){
-                        for(Piece p : lg.gs.pieces1){
+                if (lever == 0) { // first click""
+                    System.out.println("INN");
+                    if(state.getTurn()){
+                        for(Piece p : state.pieces1){
                             if(p.getCol() == xcord && p.getRow() ==ycord){
                                 currID = p.pieceType.getID();
                                 Piecex = p.getCol();
                                 Piecey = p.getRow();
-                                lg.callCorrectMovement(currID,lg.gs.getTurn(),p.getCol(),p.getRow());
+                                game.callCorrectMovement(currID,state.getTurn(),p.getCol(),p.getRow());
                                 lever = 1;
                                 invalidate();
                                 break;
@@ -156,15 +160,15 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
                     }
                 } // if lever == 0
                 if(lever == 1){
-                    for(int i = 0; i < lg.gs.cords.size(); i+= 2){
-                        if(lg.gs.cords.get(i) == xcord && lg.gs.cords.get(i+1) == ycord){
-                            if(lg.gs.getTurn()){
-                                for(Piece p : lg.gs.pieces1){
+                    for(int i = 0; i < state.cords.size(); i+= 2){
+                        if(state.cords.get(i) == xcord && state.cords.get(i+1) == ycord){
+                            if(state.getTurn()){
+                                for(Piece p : state.pieces1){
                                     if(p.pieceType.getID() == currID && p.getCol() == Piecex && p.getRow() == Piecey){
                                         p.setCol(xcord);
                                         p.setRow(ycord);
                                         // flip turn aswell
-                                        lg.gs.changeTurn();
+                                        state.changeTurn();
                                         lever = 0;
                                         invalidate();
                                     }
@@ -181,7 +185,7 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
     }
 
     public void setLocalGame(LocalGame g) {
-        game = g;
+        lg = g;
     }
 
     public void setGameState(ShogiGameState g) {

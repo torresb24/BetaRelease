@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">AlphaRelease</string>
+    <string name="previous" />
 </resources>

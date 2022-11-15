@@ -3,7 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/torre/AndroidStudioProjects/AlphaRelease/app/src/main/res/drawable/purple_delete_button.xml" value="0.1935" />
+        <entry key="..\:/Users/torre/AndroidStudioProjects/AlphaRelease/app/src/main/res/layout/activity_main.xml" value="0.3625" />
         <entry key="..\:/Users/torre/AndroidStudioProjects/AlphaRelease/app/src/main/res/layout/content_main.xml" value="0.18541666666666667" />
+        <entry key="..\:/Users/torre/AndroidStudioProjects/AlphaRelease/app/src/main/res/layout/fragment_second.xml" value="0.18541666666666667" />
+        <entry key="..\:/Users/torre/AndroidStudioProjects/AlphaRelease/app/src/main/res/layout/game_player_list_row.xml" value="0.18541666666666667" />
       </map>
     </option>
   </component>
