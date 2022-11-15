@@ -76,6 +76,7 @@ public class ShogiLocalGame extends LocalGame {
         
         /**IF PLAYER 1*/
         if(turn) {
+            System.out.println("MOVING PAWN3");
             // MOVE TOP LEFT
             for (int i = 1; i <= TL; i++) {
                 xcord = x - i;
@@ -90,23 +91,23 @@ public class ShogiLocalGame extends LocalGame {
                         break;
                     }
                 }
+                if (notin == 1) {
+                    break;
+                }
                 for (Piece p : ((ShogiGameState) state).pieces2) {
                     if (p.getRow() == xcord && p.getCol() == ycord) {
                         notin = 2;
                         break;
                     }
                 }
-                if (notin == 0) {
-                    ((ShogiGameState) state).cords.add(xcord);
-                    ((ShogiGameState) state).cords.add(ycord);
-                }
-                if (notin == 1) {
-                    break;
-                }
                 if (notin == 2) {
                     ((ShogiGameState) state).cords.add(xcord);
                     ((ShogiGameState) state).cords.add(ycord);
                     break;
+                }
+                if (notin == 0) {
+                    ((ShogiGameState) state).cords.add(xcord);
+                    ((ShogiGameState) state).cords.add(ycord);
                 }
                 // if it gets here, then nothing in space and can move
             }  // ======================== //
@@ -123,6 +124,9 @@ public class ShogiLocalGame extends LocalGame {
                         continue;
                     } // if
                 } // for
+                if (notin == 1) {
+                    break;
+                }
                 for (Piece p : ((ShogiGameState) state).pieces2) {
                     if (p.getRow() == xcord && p.getCol() == ycord) {
                         notin = 2;
@@ -132,9 +136,6 @@ public class ShogiLocalGame extends LocalGame {
                 if (notin == 0) {
                     ((ShogiGameState) state).cords.add(xcord);
                     ((ShogiGameState) state).cords.add(ycord);
-                }
-                if (notin == 1) {
-                    break;
                 }
                 if (notin == 2) {
                     ((ShogiGameState) state).cords.add(xcord);
@@ -156,6 +157,9 @@ public class ShogiLocalGame extends LocalGame {
                         continue;
                     } // if
                 } // for
+                if (notin == 1) {
+                    break;
+                }
                 for (Piece p : ((ShogiGameState) state).pieces2) {
                     if (p.getRow() == xcord && p.getCol() == ycord) {
                         notin = 2;
@@ -165,9 +169,6 @@ public class ShogiLocalGame extends LocalGame {
                 if (notin == 0) {
                     ((ShogiGameState) state).cords.add(xcord);
                     ((ShogiGameState) state).cords.add(ycord);
-                }
-                if (notin == 1) {
-                    break;
                 }
                 if (notin == 2) {
                     ((ShogiGameState) state).cords.add(xcord);
@@ -188,6 +189,9 @@ public class ShogiLocalGame extends LocalGame {
                         continue;
                     } // if
                 } // for
+                if (notin == 1) {
+                    break;
+                }
                 for (Piece p : ((ShogiGameState) state).pieces2) {
                     if (p.getRow() == xcord && p.getCol() == ycord) {
                         notin = 2;
@@ -197,9 +201,6 @@ public class ShogiLocalGame extends LocalGame {
                 if (notin == 0) {
                     ((ShogiGameState) state).cords.add(xcord);
                     ((ShogiGameState) state).cords.add(ycord);
-                }
-                if (notin == 1) {
-                    break;
                 }
                 if (notin == 2) {
                     ((ShogiGameState) state).cords.add(xcord);
@@ -221,6 +222,9 @@ public class ShogiLocalGame extends LocalGame {
                         continue;
                     } // if
                 } // for
+                if (notin == 1) {
+                    break;
+                }
                 for (Piece p : ((ShogiGameState) state).pieces2) {
                     if (p.getRow() == xcord && p.getCol() == ycord) {
                         notin = 2;
@@ -230,9 +234,6 @@ public class ShogiLocalGame extends LocalGame {
                 if (notin == 0) {
                     ((ShogiGameState) state).cords.add(xcord);
                     ((ShogiGameState) state).cords.add(ycord);
-                }
-                if (notin == 1) {
-                    break;
                 }
                 if (notin == 2) {
                     ((ShogiGameState) state).cords.add(xcord);
@@ -253,6 +254,9 @@ public class ShogiLocalGame extends LocalGame {
                         continue;
                     } // if
                 } // for
+                if (notin == 1) {
+                    break;
+                }
                 for (Piece p : ((ShogiGameState) state).pieces2) {
                     if (p.getRow() == xcord && p.getCol() == ycord) {
                         notin = 2;
@@ -262,9 +266,6 @@ public class ShogiLocalGame extends LocalGame {
                 if (notin == 0) {
                     ((ShogiGameState) state).cords.add(xcord);
                     ((ShogiGameState) state).cords.add(ycord);
-                }
-                if (notin == 1) {
-                    break;
                 }
                 if (notin == 2) {
                     ((ShogiGameState) state).cords.add(xcord);
@@ -286,6 +287,9 @@ public class ShogiLocalGame extends LocalGame {
                         continue;
                     } // if
                 } // for
+                if (notin == 1) {
+                    break;
+                }
                 for (Piece p : ((ShogiGameState) state).pieces2) {
                     if (p.getRow() == xcord && p.getCol() == ycord) {
                         notin = 2;
@@ -295,9 +299,6 @@ public class ShogiLocalGame extends LocalGame {
                 if (notin == 0) {
                     ((ShogiGameState) state).cords.add(xcord);
                     ((ShogiGameState) state).cords.add(ycord);
-                }
-                if (notin == 1) {
-                    break;
                 }
                 if (notin == 2) {
                     ((ShogiGameState) state).cords.add(xcord);
@@ -318,6 +319,9 @@ public class ShogiLocalGame extends LocalGame {
                         continue;
                     } // if
                 } // for
+                if (notin == 1) {
+                    break;
+                }
                 for (Piece p : ((ShogiGameState) state).pieces2) {
                     if (p.getRow() == xcord && p.getCol() == ycord) {
                         notin = 2;
@@ -327,9 +331,6 @@ public class ShogiLocalGame extends LocalGame {
                 if (notin == 0) {
                     ((ShogiGameState) state).cords.add(xcord);
                     ((ShogiGameState) state).cords.add(ycord);
-                }
-                if (notin == 1) {
-                    break;
                 }
                 if (notin == 2) {
                     ((ShogiGameState) state).cords.add(xcord);
@@ -354,6 +355,9 @@ public class ShogiLocalGame extends LocalGame {
                         break;
                     }
                 }
+                if (notin == 1) {
+                    break;
+                }
                 for (Piece p : ((ShogiGameState) state).pieces1) {
                     if (p.getRow() == xcord && p.getCol() == ycord) {
                         notin = 2;
@@ -363,9 +367,6 @@ public class ShogiLocalGame extends LocalGame {
                 if (notin == 0) {
                     ((ShogiGameState) state).cords.add(xcord);
                     ((ShogiGameState) state).cords.add(ycord);
-                }
-                if (notin == 1) {
-                    break;
                 }
                 if (notin == 2) {
                     ((ShogiGameState) state).cords.add(xcord);
@@ -387,6 +388,9 @@ public class ShogiLocalGame extends LocalGame {
                         continue;
                     } // if
                 } // for
+                if (notin == 1) {
+                    break;
+                }
                 for (Piece p : ((ShogiGameState) state).pieces1) {
                     if (p.getRow() == xcord && p.getCol() == ycord) {
                         notin = 2;
@@ -396,9 +400,6 @@ public class ShogiLocalGame extends LocalGame {
                 if (notin == 0) {
                     ((ShogiGameState) state).cords.add(xcord);
                     ((ShogiGameState) state).cords.add(ycord);
-                }
-                if (notin == 1) {
-                    break;
                 }
                 if (notin == 2) {
                     ((ShogiGameState) state).cords.add(xcord);
@@ -420,6 +421,9 @@ public class ShogiLocalGame extends LocalGame {
                         continue;
                     } // if
                 } // for
+                if (notin == 1) {
+                    break;
+                }
                 for (Piece p : ((ShogiGameState) state).pieces1) {
                     if (p.getRow() == xcord && p.getCol() == ycord) {
                         notin = 2;
@@ -429,9 +433,6 @@ public class ShogiLocalGame extends LocalGame {
                 if (notin == 0) {
                     ((ShogiGameState) state).cords.add(xcord);
                     ((ShogiGameState) state).cords.add(ycord);
-                }
-                if (notin == 1) {
-                    break;
                 }
                 if (notin == 2) {
                     ((ShogiGameState) state).cords.add(xcord);
@@ -452,6 +453,9 @@ public class ShogiLocalGame extends LocalGame {
                         continue;
                     } // if
                 } // for
+                if (notin == 1) {
+                    break;
+                }
                 for (Piece p : ((ShogiGameState) state).pieces1) {
                     if (p.getRow() == xcord && p.getCol() == ycord) {
                         notin = 2;
@@ -461,9 +465,6 @@ public class ShogiLocalGame extends LocalGame {
                 if (notin == 0) {
                     ((ShogiGameState) state).cords.add(xcord);
                     ((ShogiGameState) state).cords.add(ycord);
-                }
-                if (notin == 1) {
-                    break;
                 }
                 if (notin == 2) {
                     ((ShogiGameState) state).cords.add(xcord);
@@ -485,6 +486,9 @@ public class ShogiLocalGame extends LocalGame {
                         continue;
                     } // if
                 } // for
+                if (notin == 1) {
+                    break;
+                }
                 for (Piece p : ((ShogiGameState) state).pieces1) {
                     if (p.getRow() == xcord && p.getCol() == ycord) {
                         notin = 2;
@@ -494,9 +498,6 @@ public class ShogiLocalGame extends LocalGame {
                 if (notin == 0) {
                     ((ShogiGameState) state).cords.add(xcord);
                     ((ShogiGameState) state).cords.add(ycord);
-                }
-                if (notin == 1) {
-                    break;
                 }
                 if (notin == 2) {
                     ((ShogiGameState) state).cords.add(xcord);
@@ -517,6 +518,9 @@ public class ShogiLocalGame extends LocalGame {
                         continue;
                     } // if
                 } // for
+                if (notin == 1) {
+                    break;
+                }
                 for (Piece p : ((ShogiGameState) state).pieces1) {
                     if (p.getRow() == xcord && p.getCol() == ycord) {
                         notin = 2;
@@ -526,9 +530,6 @@ public class ShogiLocalGame extends LocalGame {
                 if (notin == 0) {
                     ((ShogiGameState) state).cords.add(xcord);
                     ((ShogiGameState) state).cords.add(ycord);
-                }
-                if (notin == 1) {
-                    break;
                 }
                 if (notin == 2) {
                     ((ShogiGameState) state).cords.add(xcord);
@@ -550,6 +551,9 @@ public class ShogiLocalGame extends LocalGame {
                         continue;
                     } // if
                 } // for
+                if (notin == 1) {
+                    break;
+                }
                 for (Piece p : ((ShogiGameState) state).pieces1) {
                     if (p.getRow() == xcord && p.getCol() == ycord) {
                         notin = 2;
@@ -559,9 +563,6 @@ public class ShogiLocalGame extends LocalGame {
                 if (notin == 0) {
                     ((ShogiGameState) state).cords.add(xcord);
                     ((ShogiGameState) state).cords.add(ycord);
-                }
-                if (notin == 1) {
-                    break;
                 }
                 if (notin == 2) {
                     ((ShogiGameState) state).cords.add(xcord);
@@ -582,6 +583,9 @@ public class ShogiLocalGame extends LocalGame {
                         continue;
                     } // if
                 } // for
+                if (notin == 1) {
+                    break;
+                }
                 for (Piece p : ((ShogiGameState) state).pieces1) {
                     if (p.getRow() == xcord && p.getCol() == ycord) {
                         notin = 2;
@@ -592,9 +596,6 @@ public class ShogiLocalGame extends LocalGame {
                     ((ShogiGameState) state).cords.add(xcord);
                     ((ShogiGameState) state).cords.add(ycord);
                 }
-                if (notin == 1) {
-                    break;
-                }
                 if (notin == 2) {
                     ((ShogiGameState) state).cords.add(xcord);
                     ((ShogiGameState) state).cords.add(ycord);
@@ -602,6 +603,7 @@ public class ShogiLocalGame extends LocalGame {
                 }
             } // ======================== //
         }
+        System.out.println(((ShogiGameState) state).cords);
     }
 
     public void callCorrectMovement(int ID, boolean turn, int x, int y){
@@ -613,28 +615,25 @@ public class ShogiLocalGame extends LocalGame {
                 moveGoldGen(turn, x, y);
                 break;
             case (R.drawable.silv_gen):
-                moveKing(turn, x, y);
+                moveSilvGen(turn, x, y);
                 break;
             case (R.drawable.bishop):
-                moveKing(turn, x, y);
+                moveBishop(turn, x, y);
                 break;
             case (R.drawable.promoted_bishop):
-                moveKing(turn, x, y);
+                movePromBishop(turn, x, y);
                 break;
             case (R.drawable.rook):
-                moveKing(turn, x, y);
-                break;
-            case (R.drawable.promoted_rook):
-                moveKing(turn, x, y);
+                moveRook(turn, x, y);
                 break;
             case (R.drawable.lance):
-                moveKing(turn, x, y);
+                moveLance(turn, x, y);
                 break;
             case (R.drawable.pawn):
-                moveKing(turn, x, y);
+                movePawn(turn, x, y);
                 break;
             case (R.drawable.knight):
-                moveKing(turn, x, y);
+                moveKnight(turn, x, y);
                 break;
         }
     }

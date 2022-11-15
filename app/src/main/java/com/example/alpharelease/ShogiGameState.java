@@ -125,14 +125,14 @@ public class ShogiGameState extends GameState {
      * Assigns rows and columns to each piece for initial setup for each player
      * Promotion pieces are unassigned due to them not existing on the board at that time
      */
-    private void placePieces(ArrayList<Piece> heehee, int id) { //board is 9x9 tiles
+    private void placePieces(ArrayList<Piece> piece, int id) { //board is 9x9 tiles
         //front row is 9 pawns
         //middle row is 1 space, bishop, 5 spaces, rook, 1 space (left to right from players pov)
         //back row is lance, knight, silver, gold, king, gold, silver, knight, lance
         int pawnNum = 0, lanceNum = 0, knightNum = 0, goldNum = 0, silvNum = 0;
 
         if (id == 0) { //forward facing pieces (player 1)
-            for (Piece p : heehee) {
+            for (Piece p : piece) {
                 switch (p.pieceType.getID()) { //What kind of piece is it
                     case R.drawable.promoted_bishop:
                     case R.drawable.promoted_lance:
@@ -200,7 +200,7 @@ public class ShogiGameState extends GameState {
         } //end p1 setup
 
         if (id == 1) { //backward facing pieces (player 2)
-            for (Piece p : heehee) {
+            for (Piece p : piece) {
                 switch (p.pieceType.getID()) { //What kind of piece is it
                     case R.drawable.promoted_bishop:
                     case R.drawable.promoted_lance:

@@ -55,8 +55,8 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
         imgPaint = new Paint();
         imgPaint.setColor(Color.BLACK);
         toggle = 0;
-        imagesize = 696;
-        buffersizeHoriz = 314;
+        imagesize = 696*2;
+        buffersizeHoriz = 600;
         buffersizeVert = 14;
         xcord = -1;
         ycord = -1;
@@ -84,7 +84,7 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
         //TODO: Move these images into the constructor so that we only have to create them once
         //draw the main board
         Bitmap image = BitmapFactory.decodeResource(getResources(), R.drawable.full_board);
-        canvas.drawBitmap(image, buffersizeHoriz, buffersizeVert, imgPaint);
+        canvas.drawBitmap(image, -1*buffersizeHoriz, -1*buffersizeVert, imgPaint);
 
         //draw the graveyard
 
@@ -92,18 +92,18 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
         //draw the initial setup for player 1
         for(Piece p: state.pieces1){
             image = BitmapFactory.decodeResource(getResources(), p.pieceType.getID());
-            canvas.drawBitmap(image, ((tileSize) * p.getCol()) - ((tileSize) / 2), ((tileSize) * p.getRow()) - ((tileSize) / 2), imgPaint);
+            canvas.drawBitmap(image, ((tileSize) * p.getCol()), ((tileSize) * p.getRow()), imgPaint);
         }
 
         //draw the initial set up for player 2
         for(Piece p: state.pieces2){
             image = BitmapFactory.decodeResource(getResources(), p.pieceType.getID());
-            canvas.drawBitmap(image, ((tileSize) * p.getCol()) - ((tileSize) / 2), ((tileSize) * p.getRow()) - ((tileSize) / 2), imgPaint);
+            canvas.drawBitmap(image, ((tileSize) * p.getCol()), ((tileSize) * p.getRow()), imgPaint);
         }
 
         //draw the possible moves
         for(int i = 0; i > state.cords.size(); i += 2){
-            canvas.drawRect(tileSize * state.cords.get(i), tileSize * state.cords.get(i + 1), (tileSize * state.cords.get(i)) + tileSize, (tileSize * state.cords.get(i + 1)) + tileSize, paint);
+            canvas.drawRect(tileSize * state.cords.get(i) , tileSize * state.cords.get(i + 1) , (tileSize * state.cords.get(i)) + tileSize , (tileSize * state.cords.get(i + 1)) + tileSize , paint);
         }
         // Moving the draw down here lets us draw on TOP of the image / circle above
         // For spots, can use for integer based loop or for each
@@ -117,46 +117,53 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
         if (e.getActionMasked() == MotionEvent.ACTION_DOWN){
             float x = e.getX();
             float y = e.getY();
-            System.out.println(x);
-            System.out.println(y);
 
-            if(x > buffersizeHoriz && x <= imagesize+buffersizeHoriz && y <= imagesize+buffersizeVert && y > buffersizeVert){
+            if(x >= 0 && x <= imagesize && y <= imagesize && y >= 0){
                 // X cord
 
                 //TODO: FOR LOOP THIS (OPTIMIZATION)
-                if(x < imagesize/9){xcord = 0;}
-                else if(x > imagesize/9 && x < (imagesize/9)*2){xcord = 1;}
-                else if(x > (imagesize/9)*2 && x < (imagesize/9)*3){xcord = 2;}
-                else if(x > (imagesize/9)*3 && x < (imagesize/9)*4){xcord = 3;}
-                else if(x > (imagesize/9)*4 && x < (imagesize/9)*5){xcord = 4;}
-                else if(x > (imagesize/9)*5 && x < (imagesize/9)*6){xcord = 5;}
-                else if(x > (imagesize/9)*6 && x < (imagesize/9)*7){xcord = 6;}
-                else if(x > (imagesize/9)*7 && x < (imagesize/9)*8){xcord = 7;}
-                else if(x > (imagesize/9)*8 && x < (imagesize/9)*9){xcord = 8;}
+                if(x < tileSize){xcord = 0;}
+                else if(x > tileSize && x < tileSize*2){xcord = 1;}
+                else if(x > tileSize*2 && x < tileSize*3){xcord = 2;}
+                else if(x > tileSize*3 && x < tileSize*4){xcord = 3;}
+                else if(x > tileSize*4 && x < tileSize*5){xcord = 4;}
+                else if(x > tileSize*5 && x < tileSize*6){xcord = 5;}
+                else if(x > tileSize*6 && x < tileSize*7){xcord = 6;}
+                else if(x > tileSize*7 && x < tileSize*8){xcord = 7;}
+                else if(x > tileSize*8 && x < tileSize*9){xcord = 8;}
                 // Y cord
-                if(y < imagesize/9){ycord = 0;}
-                else if(y > imagesize/9 && y < (imagesize/9)*2){ycord = 1;}
-                else if(y > (imagesize/9)*2 && y < (imagesize/9)*3){ycord = 2;}
-                else if(y > (imagesize/9)*3 && y < (imagesize/9)*4){ycord = 3;}
-                else if(y > (imagesize/9)*4 && y < (imagesize/9)*5){ycord = 4;}
-                else if(y > (imagesize/9)*5 && y < (imagesize/9)*6){ycord = 5;}
-                else if(y > (imagesize/9)*6 && y < (imagesize/9)*7){ycord = 6;}
-                else if(y > (imagesize/9)*7 && y < (imagesize/9)*8){ycord = 7;}
-                else if(y > (imagesize/9)*8 && y < (imagesize/9)*9){ycord = 8;}
+                if(y < tileSize ){ycord = 0;}
+                else if(y > tileSize  && y < tileSize *2){ycord = 1;}
+                else if(y > tileSize *2 && y < tileSize *3){ycord = 2;}
+                else if(y > tileSize*3 && y < tileSize *4){ycord = 3;}
+                else if(y > tileSize *4 && y < tileSize *5){ycord = 4;}
+                else if(y > tileSize *5 && y < tileSize *6){ycord = 5;}
+                else if(y > tileSize *6 && y < tileSize *7){ycord = 6;}
+                else if(y > tileSize *7 && y < tileSize *8){ycord = 7;}
+                else if(y > tileSize *8 && y < tileSize *9){ycord = 8;}
                 lever = 0;
+                System.out.println(xcord);
+                System.out.println(ycord);
                 if (lever == 0) { // first click""
-                    System.out.println(state.getTurn());
+                 //   System.out.println(state.getTurn());
                     if(state.getTurn()){
-                        System.out.println("Inner");
                         for(Piece p : state.pieces1){
-                            if(p.getCol() == xcord && p.getRow() ==ycord){
+                            if(p.getCol() == xcord && p.getRow() == ycord){
                                 currID = p.pieceType.getID();
+
+                                System.out.println("TYPE");
+                                System.out.println(p.pieceType);
+                                System.out.println("ID");
+                                System.out.println(p.pieceType.getID());
+                                System.out.println("X");
+                                System.out.println(p.getCol());
+                                System.out.println("Y");
+                                System.out.println(p.getRow());
+
                                 Piecex = p.getCol();
                                 Piecey = p.getRow();
-                                game.callCorrectMovement(currID,state.getTurn(),p.getCol(),p.getRow());
+                                game.callCorrectMovement(currID,state.getTurn(),Piecex,Piecey);
                                 lever = 1;
-                                System.out.println("!!! CORDDS !!!");
-                                System.out.println(state.cords);
                                 invalidate();
                                 break;
                             } // if piece matches selected cords
