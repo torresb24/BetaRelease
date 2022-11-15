@@ -17,6 +17,7 @@ import com.example.alpharelease.GameFramework.LocalGame;
 import com.example.alpharelease.R;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 /**
@@ -46,9 +47,11 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
     private int Piecex,Piecey;
     private int noMove;
     private Paint imgPaint;
+    private Paint P2paint;
     private ShogiLocalGame game;
     private ShogiGameState state;
     Matrix transform;
+    private ArrayList<Integer> holdCords;
     public MainSurfaceView(Context context, AttributeSet attrs) {
         super(context, attrs); // Call parent constructor
         // 2 Enable drawing
@@ -64,15 +67,18 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
         ycord = -1;
         tileSize = imagesize/9;
         paint = new Paint();
+        P2paint = new Paint();
         paint.setARGB(255/2, 255, 145, 164);
+        P2paint.setARGB(255/4, 199, 0, 200);
         currID = 0;
         lever = 0;
         Piecex = Piecey = -1;
         noMove =0;
+        holdCords = new ArrayList<Integer>();
         state = new ShogiGameState();
         game = new ShogiLocalGame(state);
         transform = new Matrix();
-        transform.postRotate(180);
+        transform.preRotate(180);
         //spots = new ArrayList<Spot>(); // Optional to repeat or not repeat the type <Spot>
     }
 
@@ -103,11 +109,12 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
             image = BitmapFactory.decodeResource(getResources(), p.pieceType.getID());
             transform.setTranslate(((tileSize) * p.getCol()),((tileSize) * p.getRow()));
             canvas.drawBitmap(image, transform, imgPaint);
+            canvas.drawRect(tileSize * p.getCol() + buffersizeHoriz/25, tileSize * p.getRow() , (tileSize * p.getCol()) + tileSize + buffersizeHoriz/25, (tileSize * p.getRow()) + tileSize ,P2paint);
         }
 
         //draw the possible moves
         for(int i = 0; i < state.cords.size(); i += 2){
-            canvas.drawRect(tileSize * state.cords.get(i) , tileSize * state.cords.get(i + 1) , (tileSize * state.cords.get(i)) + tileSize , (tileSize * state.cords.get(i + 1)) + tileSize , paint);
+            canvas.drawRect(tileSize * state.cords.get(i) + buffersizeHoriz/25, tileSize * state.cords.get(i + 1) , (tileSize * state.cords.get(i)) + tileSize + buffersizeHoriz/25, (tileSize * state.cords.get(i + 1)) + tileSize , paint);
         }
         // Moving the draw down here lets us draw on TOP of the image / circle above
         // For spots, can use for integer based loop or for each
@@ -152,16 +159,6 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
                         for(Piece p : state.pieces1){
                             if(p.getCol() == xcord && p.getRow() == ycord){
                                 currID = p.pieceType.getID();
-
-                               /* System.out.println("TYPE");
-                                System.out.println(p.pieceType);
-                                System.out.println("ID");
-                                System.out.println(p.pieceType.getID());
-                                System.out.println("X");
-                                System.out.println(p.getCol());
-                                System.out.println("Y");
-                                System.out.println(p.getRow());*/
-
                                 Piecex = p.getCol();
                                 Piecey = p.getRow();
                                 state.cords.clear();
@@ -170,7 +167,24 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
                                 break;
                             } // if piece matches selected cords
                         } // for Piece p
-                        System.out.println(state.cords);
+                        // CHECK IF ITS OWN PIECE //
+                        /**
+                        for(Piece p: state.pieces1){
+                            for(int k = 0; k < state.cords.size(); k+=2){
+                                if(p.getRow() == state.cords.get(k) && p.getCol() == state.cords.get(k+1)){
+                                    state.cords.set(k+1,-10);
+                                    state.cords.set(k,-10);
+                                }
+                            }
+                        }
+                        for(int k = 0; k < state.cords.size(); k++){
+                            if(state.cords.get(k) >= 0 ){
+                                holdCords.add(state.cords.get(k));
+                            }
+                        }
+                        state.cords.clear();
+                        state.cords = holdCords;*/
+                        // CHECK IF ITS OWN PIECE //
                         invalidate();
                     }
                     // Dumb AI Playing
@@ -185,22 +199,35 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
                             Piecey = state.pieces2.get(randIndex).getRow();
                             currID = state.pieces2.get(randIndex).pieceType.getID();
                             state.cords = game.callCorrectMovement(currID,state.getTurn(),Piecex,Piecey);
+                            if(currID == R.drawable.promoted_bishop || currID == R.drawable.promoted_knight ||
+                                    currID == R.drawable.promoted_lance ||
+                                    currID == R.drawable.promoted_pawn ||
+                                    currID == R.drawable.promoted_rook ||
+                                    currID == R.drawable.promoted_silv_gen
+                            ){
+                                state.cords.clear();
+                            }
                         }
                         randIndex = 1;
                         while(randIndex%2 != 0){
                             randIndex = rand.nextInt(state.cords.size());
                         }
-                        System.out.println(state.cords);
                         for(Piece p: state.pieces2){
                             if(Piecex == p.getCol() && Piecey == p.getRow() && p.pieceType.getID() == currID){
                                 p.setCol(state.cords.get(randIndex));
                                 p.setRow(state.cords.get(randIndex+1));
                             }
                         }
+                        holdCords.clear();
                         for(int j = 0; j < state.pieces1.size(); j++){
                             if(state.pieces1.get(j).getCol() == state.cords.get(randIndex) && (state.pieces2.get(j).getRow() == state.cords.get(randIndex+1))){
-                                state.pieces1.remove(j);
+                                holdCords.add(j);
                             }
+                        }
+                        Collections.sort(holdCords);
+                        Collections.reverse(holdCords);
+                        for(Integer l : holdCords){
+                            state.pieces1.remove(l);
                         }
                         state.cords.clear();
                         if(game.checkMate(state.getTurn())){
@@ -222,11 +249,19 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
                                         p.setRow(ycord);
                                         // flip turn aswell
                                        // state.changeTurn();
+                                        holdCords.clear();
                                         for(int j = 0; j < state.pieces2.size(); j++){
                                             if(state.pieces2.get(j).getCol() == xcord && (state.pieces2.get(j).getRow() == ycord)){
                                                 state.pieces2.remove(j);
+                                                //holdCords.add(j);
                                             }
                                         }
+                                       /** Collections.sort(holdCords);
+                                        Collections.reverse(holdCords);
+                                        for(Integer l : holdCords){
+                                            state.pieces2.remove(l);
+                                        }*/
+
                                         lever = 0;
                                         state.cords.clear();
                                         if(game.checkMate(state.getTurn())){
