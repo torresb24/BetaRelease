@@ -98,7 +98,7 @@ public class ShogiGameState extends GameState {
      * Determine next turn based on current turn
      */
     public void changeTurn() {
-        turn = !turn;
+        turn = turn;
 
         if (turn) {
             banner = "Player one's Turn";
