@@ -66,7 +66,7 @@ public class Piece {
 
     public DIRECTION directionMovement;
 
-    public int row, col;
+    private int row, col;
 
     public Piece(GAME_PIECES type, DIRECTION dir) {
         row = col = -1;
@@ -90,6 +90,7 @@ public class Piece {
         this.row = row;
     }
 
-
-
+    public DIRECTION getDirection() {
+        return directionMovement;
+    }
 }

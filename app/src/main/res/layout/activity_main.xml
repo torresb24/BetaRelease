@@ -123,7 +123,6 @@
                 app:rippleColor="@color/ripple" />
 
         </LinearLayout>
-
     </RelativeLayout>
 
     <RelativeLayout
@@ -138,25 +137,6 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:gravity="center">
-
-            <TextView
-                android:id="@+id/timeElaTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="Time Elapsed:"
-                android:textColor="#FFFFFF"
-                android:textSize="20sp" />
-            <TextView
-                android:id="@+id/timeTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center|top"
-                android:text="X:XX"
-                android:textColor="#FFFFFF"
-                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/pTurnTextView"
@@ -194,6 +174,25 @@
                 android:layout_weight="1"
                 android:gravity="center|top"
                 android:text="King"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/timeElaTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Time Elapsed:"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp" />
+            <TextView
+                android:id="@+id/timeTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center|top"
+                android:text="X:XX"
                 android:textColor="#FFFFFF"
                 android:textSize="20sp" />
 

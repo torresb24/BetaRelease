@@ -37,7 +37,7 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
     private int buffersizeHoriz;
     private int buffersizeVert;
 
-    private int moveBoardHor;
+    private int moveBoardHor, moveBoardVer;
 
     private int xcord;
     private int ycord;
@@ -52,8 +52,10 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
     private Paint P2paint;
     private ShogiLocalGame game;
     private ShogiGameState state;
+    private Board board;
     Matrix transform;
     private ArrayList<Integer> holdCords;
+    private ArrayList<Tile> tiles;
 
     public MainSurfaceView(Context context, AttributeSet attrs) {
         super(context, attrs); // Call parent constructor
@@ -64,18 +66,24 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
         imgPaint = new Paint();
         imgPaint.setColor(Color.BLACK);
         toggle = 0;
-        imagesize = 1050;
+        imagesize = 1030;
         buffersizeHoriz = 563;
         buffersizeVert = 14;
 
-        moveBoardHor = 484;
-        xcord = ycord = -1;
-        tileSize = imagesize/9;
+        moveBoardHor = 479;
+        moveBoardVer = 24;
+
+        xcord = ycord = -100;
+        tileSize = imagesize / 9 - 3;
+        tiles = new ArrayList<>();
+
+        //TODO: NULLPOINTEREXCEPTION FIX IT
+        board = state.getBoard();
 
         paint = new Paint();
         P2paint = new Paint();
         paint.setARGB(255/2, 255, 145, 164);
-        P2paint.setARGB(255/4, 199, 0, 200);
+        P2paint.setARGB(255/2, 199, 0, 200);
 
         currID = 0;
         lever = 0;
@@ -112,10 +120,48 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
             image = BitmapFactory.decodeResource(getResources(), p.pieceType.getID());
             transform.setTranslate(moveBoardHor + ((tileSize) * p.getCol()),((tileSize) * p.getRow()));
             canvas.drawBitmap(image, transform, imgPaint);
-            canvas.drawRect(moveBoardHor + tileSize * p.getCol() + buffersizeHoriz/25, tileSize * p.getRow(),
-                    moveBoardHor + (tileSize * p.getCol()) + tileSize + buffersizeHoriz/25,
-                    (tileSize * p.getRow()) + tileSize ,P2paint);
         }
+
+        board.drawBoard(canvas);
+/*
+        int left = 0, top = 0, right = 0, bottom = 0;
+        int offsetLeft;
+        int offsetVer = 0;
+        Tile temp;
+        for (int i = 0; i < 9; i++) {
+            offsetLeft = 0;
+            switch (i) {
+                case 1: case 4: case 5: case 6:
+                    offsetVer += 4;
+                    break;
+                case 2: case 3: case 7: case 8:
+                    offsetVer += 5;
+                    break;
+            }
+
+            top = moveBoardVer + (i * tileSize) + offsetVer;
+            bottom = moveBoardVer + ((i + 1) * tileSize) + offsetVer;
+
+            for (int j = 0; j < 9; j++) {
+                switch (j) {
+                    case 1: case 4: case 5: case 6: case 7: case 8:
+                        offsetLeft += 4;
+                        break;
+                    case 2: case 3:
+                        offsetLeft += 5;
+                        break;
+                }
+
+                left = moveBoardHor + (j * tileSize) + offsetLeft;
+                right = moveBoardHor + ((j + 1) * tileSize) + offsetLeft;
+                temp = new Tile();
+                temp.setOccupied(true);
+                temp.setRow(i);
+                temp.setCol(j);
+                temp.setCords(left, top, right, bottom);
+                enemyTiles.add(temp);
+            }
+        }*/
 
         //draw the possible moves
         for (int i = 0; i < state.cords.size(); i += 2) {
@@ -131,9 +177,9 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
     }
 
     @Override
-    public boolean onTouch(View view, MotionEvent e){
+    public boolean onTouch(View view, MotionEvent e) {
         //TODO: This is where to send moves to the game using game.sendAction(new ShogiAction)
-        if (e.getActionMasked() == MotionEvent.ACTION_DOWN){
+        if (e.getActionMasked() == MotionEvent.ACTION_DOWN) {
             float x = e.getX();
             float y = e.getY();
 

@@ -79,7 +79,7 @@ public class ShogiLocalGame extends LocalGame {
         int ycord = y;
         
         /**IF PLAYER 1*/
-        if(turn) {
+        if (turn) {
             // MOVE TOP LEFT
             for (int i = 1; i <= TL; i++) {
                 xcord = x - i;

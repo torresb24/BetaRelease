@@ -267,6 +267,7 @@ public class ShogiGameState extends GameState {
                         p.setCol(4);
                         break;
                 }
+                board.placeOnBoard(p, p.getRow(), p.getCol());
             }
         } //end p2 setup
     }
@@ -283,7 +284,15 @@ public class ShogiGameState extends GameState {
         }
     }
 
-    public boolean getTurn(){return turn;}
-    public void setTurn(boolean _Turn){turn = _Turn;}
+    public boolean getTurn() {
+        return turn;
+    }
 
+    public void setTurn(boolean turn) {
+        this.turn = turn;
+    }
+
+    public Board getBoard() {
+        return board;
+    }
 }
