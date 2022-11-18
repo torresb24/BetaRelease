@@ -111,7 +111,9 @@
                 android:layout_weight="1"
                 android:text="New Game"
                 android:textSize="20sp"
-                app:rippleColor="@color/ripple" />
+                android:background="@drawable/rounded_corners"
+                app:rippleColor="@color/ripple"
+                android:layout_marginBottom="20dp"/>
 
             <Button
                 android:id="@+id/quitButton"
@@ -120,7 +122,9 @@
                 android:layout_weight="1"
                 android:text="Quit"
                 android:textSize="20sp"
-                app:rippleColor="@color/ripple" />
+                android:background="@drawable/rounded_corners"
+                app:rippleColor="@color/ripple"
+                android:layout_marginBottom="20dp"/>
 
         </LinearLayout>
     </RelativeLayout>
@@ -177,24 +181,15 @@
                 android:textColor="#FFFFFF"
                 android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/timeElaTextView"
+            <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="Time Elapsed:"
-                android:textColor="#FFFFFF"
-                android:textSize="20sp" />
-            <TextView
-                android:id="@+id/timeTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center|top"
-                android:text="X:XX"
-                android:textColor="#FFFFFF"
-                android:textSize="20sp" />
+                android:text="Promote"
+                android:textSize="20sp"
+                android:background="@drawable/rounded_corners"
+                app:rippleColor="@color/ripple" />
 
         </LinearLayout>
     </RelativeLayout>
