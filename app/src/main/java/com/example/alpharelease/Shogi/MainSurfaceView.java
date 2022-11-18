@@ -1,4 +1,4 @@
-package com.example.alpharelease;
+package com.example.alpharelease.Shogi;
 
 import android.graphics.Color;
 import android.graphics.Matrix;
@@ -11,7 +11,6 @@ import android.graphics.Paint;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.view.View;
-import android.widget.TextView;
 
 import com.example.alpharelease.GameFramework.LocalGame;
 import com.example.alpharelease.R;

@@ -1,6 +1,5 @@
-package com.example.alpharelease;
+package com.example.alpharelease.Shogi;
 
-import android.graphics.Color;
 import android.view.View;
 
 import com.example.alpharelease.GameFramework.GameMainActivity;
@@ -9,8 +8,10 @@ import com.example.alpharelease.GameFramework.infoMessage.GameInfo;
 import com.example.alpharelease.GameFramework.infoMessage.IllegalMoveInfo;
 import com.example.alpharelease.GameFramework.infoMessage.NotYourTurnInfo;
 import com.example.alpharelease.GameFramework.players.GameHumanPlayer;
-import com.example.alpharelease.GameFramework.players.GamePlayer;
 import com.example.alpharelease.GameFramework.utilities.Logger;
+import com.example.alpharelease.R;
+import com.example.alpharelease.Shogi.MainSurfaceView;
+import com.example.alpharelease.Shogi.ShogiGameState;
 
 public class ShogiHumanPlayer extends GameHumanPlayer {
 

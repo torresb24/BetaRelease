@@ -1,4 +1,4 @@
-package com.example.alpharelease;
+package com.example.alpharelease.Shogi;
 
 import com.example.alpharelease.GameFramework.infoMessage.GameInfo;
 import com.example.alpharelease.GameFramework.players.GameComputerPlayer;

@@ -1,4 +1,4 @@
-package com.example.alpharelease;
+package com.example.alpharelease.Shogi;
 
 import java.util.ArrayList;
 

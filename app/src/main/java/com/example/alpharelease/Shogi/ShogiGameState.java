@@ -1,7 +1,7 @@
-package com.example.alpharelease;
+package com.example.alpharelease.Shogi;
 
-import com.example.alpharelease.GameFramework.Game;
 import com.example.alpharelease.GameFramework.infoMessage.GameState;
+import com.example.alpharelease.R;
 
 import java.util.ArrayList;
 import java.util.Random;

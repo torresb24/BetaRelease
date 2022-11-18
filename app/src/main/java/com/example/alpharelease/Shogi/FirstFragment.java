@@ -1,4 +1,4 @@
-package com.example.alpharelease;
+package com.example.alpharelease.Shogi;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

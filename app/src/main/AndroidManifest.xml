@@ -10,7 +10,7 @@
         android:icon="@drawable/shogimenuicon"
         android:label="@string/app_name">
         <activity
-            android:name="com.example.alpharelease.MainActivity"
+            android:name="com.example.alpharelease.Shogi.MainActivity"
             android:screenOrientation="landscape"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
             android:exported="true">

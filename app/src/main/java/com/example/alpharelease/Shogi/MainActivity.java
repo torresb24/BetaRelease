@@ -1,4 +1,4 @@
-package com.example.alpharelease;
+package com.example.alpharelease.Shogi;
 
 import com.example.alpharelease.GameFramework.GameMainActivity;
 import com.example.alpharelease.GameFramework.LocalGame;
@@ -9,6 +9,7 @@ import com.example.alpharelease.GameFramework.infoMessage.GameState;
 import com.example.alpharelease.GameFramework.players.GamePlayer;
 import com.example.alpharelease.GameFramework.utilities.Logger;
 import com.example.alpharelease.GameFramework.utilities.Saving;
+import com.example.alpharelease.R;
 
 import java.util.ArrayList;
 
