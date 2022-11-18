@@ -1,7 +1,7 @@
 package com.example.alpharelease.Shogi.Actions;
 
-import com.example.shogialpha.GameFramework.actionMessage.GameAction;
-import com.example.shogialpha.GameFramework.players.GamePlayer;
+import com.example.alpharelease.GameFramework.actionMessage.GameAction;
+import com.example.alpharelease.GameFramework.players.GamePlayer;
 
 public class movePromBishop extends GameAction {
     /**
