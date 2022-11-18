@@ -14,20 +14,20 @@ package com.example.alpharelease.Shogi;
 public class Tile {
     private int row;
     private int col;
-    private float xcord; // top left
-    private float ycord; // top left
+    private float xCord; // top left
+    private float yCord; // top left
     public Tile() {
         row = 0;
         col = 0;
-        xcord = 0;
-        ycord = 0;
+        xCord = 0;
+        yCord = 0;
     }
 
-    public Tile(int _row, int _col, float _xcord, float _ycord) {
-        row = _row;
-        col = _col;
-        xcord = _xcord;
-        ycord = _ycord;
+    public Tile(int row, int col, float xCord, float yCord) {
+        this.row = row;
+        this.col = col;
+        this.xCord = xCord;
+        this.yCord = yCord;
     }
 
 //    public int getCol() {

@@ -95,22 +95,27 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
         Bitmap image;
 
         //draw the initial setup for player 1
-        for(Piece p: state.pieces1){
+        for (Piece p: state.pieces1) {
             image = BitmapFactory.decodeResource(getResources(), p.pieceType.getID());
             canvas.drawBitmap(image, ((tileSize) * p.getCol()), ((tileSize) * p.getRow()), imgPaint);
         }
 
         //draw the initial set up for player 2
-        for(Piece p: state.pieces2){
+        for (Piece p: state.pieces2) {
             image = BitmapFactory.decodeResource(getResources(), p.pieceType.getID());
             transform.setTranslate(((tileSize) * p.getCol()),((tileSize) * p.getRow()));
             canvas.drawBitmap(image, transform, imgPaint);
-            canvas.drawRect(tileSize * p.getCol() + buffersizeHoriz/25, tileSize * p.getRow() , (tileSize * p.getCol()) + tileSize + buffersizeHoriz/25, (tileSize * p.getRow()) + tileSize ,P2paint);
+//            canvas.drawRect(tileSize * p.getCol() + buffersizeHoriz/25, tileSize * p.getRow(),
+//                    (tileSize * p.getCol()) + tileSize + buffersizeHoriz/25,
+//                    (tileSize * p.getRow()) + tileSize ,P2paint);
         }
 
         //draw the possible moves
-        for(int i = 0; i < state.cords.size(); i += 2){
-            canvas.drawRect(tileSize * state.cords.get(i) + buffersizeHoriz/25, tileSize * state.cords.get(i + 1) , (tileSize * state.cords.get(i)) + tileSize + buffersizeHoriz/25, (tileSize * state.cords.get(i + 1)) + tileSize , paint);
+        for (int i = 0; i < state.cords.size(); i += 2) {
+            canvas.drawRect(tileSize * state.cords.get(i) + buffersizeHoriz/25,
+                    tileSize * state.cords.get(i + 1),
+                    (tileSize * state.cords.get(i)) + tileSize + buffersizeHoriz/25,
+                    (tileSize * state.cords.get(i + 1)) + tileSize, paint);
         }
         // Moving the draw down here lets us draw on TOP of the image / circle above
         // For spots, can use for integer based loop or for each

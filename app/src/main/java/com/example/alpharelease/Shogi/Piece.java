@@ -31,6 +31,22 @@ public class Piece {
             this.amount = _amount;
         }
 
+        public enum OPP_GAME_PIECES {
+            KING(R.drawable.king, 1), GOLD_GENERAL(R.drawable.gold_gen, 2), SILVER_GENERAL(R.drawable.silv_gen, 2),
+            PROMOTED_SILVER_GENERAL(R.drawable.promoted_silv_gen, 2), BISHOP(R.drawable.bishop, 1),
+            PROMOTED_BISHOP(R.drawable.promoted_bishop, 1), ROOK(R.drawable.rook, 1),
+            PROMOTED_ROOK(R.drawable.promoted_rook, 1), LANCE(R.drawable.lance, 2), PROMOTED_LANCE(R.drawable.promoted_lance, 2),
+            KNIGHT(R.drawable.knight, 2), PROMOTED_KNIGHT(R.drawable.promoted_knight, 2),
+            PAWN(R.drawable.pawn, 9), PROMOTED_PAWN(R.drawable.promoted_pawn, 9);
+
+            private final int id;
+            private final int amount;
+
+            GAME_PIECES(int drawableID, int _amount) {
+                this.id = drawableID;
+                this.amount = _amount;
+            }
+
         public int getID() {
             return this.id;
         }
