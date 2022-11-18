@@ -16,6 +16,10 @@ public class Tile {
     private int col;
     private float xCord; // top left
     private float yCord; // top left
+    private final float length = 74; //Length of tile (y axis)
+    private final float width = 74; //Width of tile (x axis)
+    private final float lineWidth = 3; //Width of lines on board
+
     public Tile() {
         row = 0;
         col = 0;
