@@ -36,6 +36,9 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
     private int imagesize;
     private int buffersizeHoriz;
     private int buffersizeVert;
+
+    private int moveBoardHor;
+
     private int xcord;
     private int ycord;
     private int tileSize;
@@ -57,19 +60,23 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
         // 2 Enable drawing
         setWillNotDraw(false);
         // 3 setup any required member variables
+
         imgPaint = new Paint();
         imgPaint.setColor(Color.BLACK);
         toggle = 0;
         imagesize = 1050;
         buffersizeHoriz = 563;
         buffersizeVert = 14;
-        xcord = -1;
-        ycord = -1;
+
+        moveBoardHor = 484;
+        xcord = ycord = -1;
         tileSize = imagesize/9;
+
         paint = new Paint();
         P2paint = new Paint();
         paint.setARGB(255/2, 255, 145, 164);
         P2paint.setARGB(255/4, 199, 0, 200);
+
         currID = 0;
         lever = 0;
         Piecex = Piecey = -1;
@@ -97,17 +104,17 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
         //draw the initial setup for player 1
         for (Piece p: state.pieces1) {
             image = BitmapFactory.decodeResource(getResources(), p.pieceType.getID());
-            canvas.drawBitmap(image, ((tileSize) * p.getCol()), ((tileSize) * p.getRow()), imgPaint);
+            canvas.drawBitmap(image, moveBoardHor + ((tileSize) * p.getCol()), ((tileSize) * p.getRow()), imgPaint);
         }
 
         //draw the initial set up for player 2
         for (Piece p: state.pieces2) {
             image = BitmapFactory.decodeResource(getResources(), p.pieceType.getID());
-            transform.setTranslate(((tileSize) * p.getCol()),((tileSize) * p.getRow()));
+            transform.setTranslate(moveBoardHor + ((tileSize) * p.getCol()),((tileSize) * p.getRow()));
             canvas.drawBitmap(image, transform, imgPaint);
-//            canvas.drawRect(tileSize * p.getCol() + buffersizeHoriz/25, tileSize * p.getRow(),
-//                    (tileSize * p.getCol()) + tileSize + buffersizeHoriz/25,
-//                    (tileSize * p.getRow()) + tileSize ,P2paint);
+            canvas.drawRect(moveBoardHor + tileSize * p.getCol() + buffersizeHoriz/25, tileSize * p.getRow(),
+                    moveBoardHor + (tileSize * p.getCol()) + tileSize + buffersizeHoriz/25,
+                    (tileSize * p.getRow()) + tileSize ,P2paint);
         }
 
         //draw the possible moves

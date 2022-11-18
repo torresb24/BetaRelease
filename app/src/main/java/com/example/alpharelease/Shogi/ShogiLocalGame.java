@@ -694,7 +694,7 @@ public class ShogiLocalGame extends LocalGame {
         
 
         /**IF PLAYER 1*/
-        if(turn) {
+        if (turn) {
             if (!(x - 1 < 0 || y - 2 < 0)) { //
                 int lever = 0;
                 for (Piece p : ((ShogiGameState) state).pieces1) {
@@ -770,40 +770,43 @@ public class ShogiLocalGame extends LocalGame {
         int yCoord = -1;
 
 
-        for(Piece p: ((ShogiGameState) state).pieces1){
-            if(p.pieceType.getID() == R.drawable.king){
+        for (Piece p: ((ShogiGameState) state).pieces1){
+            if (p.pieceType.getID() == R.drawable.king) {
                 xCoord = p.getCol();
                 yCoord = p.getRow();
                 break;
             }
         }
 
-        for(Piece p: ((ShogiGameState) state).pieces1){
-            if(p.pieceType.getID() == R.drawable.gold_gen){
+        for (Piece p: ((ShogiGameState) state).pieces1) {
+            if (p.pieceType.getID() == R.drawable.gold_gen) {
                 moveGoldGen(turn, p.getCol(), p.getRow());
-                for(int i = 0; i < ((ShogiGameState) state).cords.size(); i += 2){
-                    if(((ShogiGameState) state).cords.get(i) == xCoord && ((ShogiGameState) state).cords.get(i + 1) == yCoord){
+                for (int i = 0; i < ((ShogiGameState) state).cords.size(); i += 2) {
+                    if (((ShogiGameState) state).cords.get(i) == xCoord &&
+                            ((ShogiGameState) state).cords.get(i + 1) == yCoord) {
                         return true;
                     }
                 }
 
             }
-            if(p.pieceType.getID() == R.drawable.promoted_gold_gen){
+            if (p.pieceType.getID() == R.drawable.promoted_gold_gen) {
 
             }
-            if(p.pieceType.getID() == R.drawable.silv_gen){
+            if (p.pieceType.getID() == R.drawable.silv_gen) {
                 moveSilvGen(turn, p.getCol(), p.getRow());
-                for(int i = 0; i < ((ShogiGameState) state).cords.size(); i += 2){
-                    if(((ShogiGameState) state).cords.get(i) == xCoord && ((ShogiGameState) state).cords.get(i + 1) == yCoord){
+                for (int i = 0; i < ((ShogiGameState) state).cords.size(); i += 2) {
+                    if (((ShogiGameState) state).cords.get(i) == xCoord &&
+                            ((ShogiGameState) state).cords.get(i + 1) == yCoord) {
                         return true;
                     }
                 }
 
             }
-            if(p.pieceType.getID() == R.drawable.promoted_silv_gen){
+            if (p.pieceType.getID() == R.drawable.promoted_silv_gen) {
                 moveGoldGen(turn, p.getCol(), p.getRow());
-                for(int i = 0; i < ((ShogiGameState) state).cords.size(); i += 2){
-                    if(((ShogiGameState) state).cords.get(i) == xCoord && ((ShogiGameState) state).cords.get(i + 1) == yCoord){
+                for (int i = 0; i < ((ShogiGameState) state).cords.size(); i += 2) {
+                    if (((ShogiGameState) state).cords.get(i) == xCoord &&
+                            ((ShogiGameState) state).cords.get(i + 1) == yCoord) {
                         return true;
                     }
                 }
