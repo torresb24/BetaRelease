@@ -815,7 +815,6 @@ public class localGame {
 
             }
             if(p.pieceType.getID() == R.drawable.knight){
-                //TODO: moveKnight
             }
             if(p.pieceType.getID() == R.drawable.promoted_knight){
                 movePromKnight(turn, p.getCol(), p.getRow());

@@ -51,6 +51,7 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
     private ShogiGameState state;
     Matrix transform;
     private ArrayList<Integer> holdCords;
+
     public MainSurfaceView(Context context, AttributeSet attrs) {
         super(context, attrs); // Call parent constructor
         // 2 Enable drawing
@@ -124,7 +125,7 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
             float x = e.getX();
             float y = e.getY();
 
-            if(x >= 0 && x <= imagesize && y <= imagesize && y >= 0){
+            if (x >= 0 && x <= imagesize && y <= imagesize && y >= 0){
                 // X cord
 
                 for (int i = 0; i < 9; i++) {
@@ -139,9 +140,9 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
                 noMove = 2;
                 if (lever == 0) { // first click""
                  //   System.out.println(state.getTurn());
-                    if(state.getTurn()){
-                        for(Piece p : state.pieces1){
-                            if(p.getCol() == xcord && p.getRow() == ycord){
+                    if (state.getTurn()){
+                        for (Piece p : state.pieces1){
+                            if (p.getCol() == xcord && p.getRow() == ycord){
                                 currID = p.pieceType.getID();
                                 Piecex = p.getCol();
                                 Piecey = p.getRow();
