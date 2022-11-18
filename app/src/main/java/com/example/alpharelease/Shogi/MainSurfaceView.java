@@ -72,7 +72,7 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
         currID = 0;
         lever = 0;
         Piecex = Piecey = -1;
-        noMove =0;
+        noMove = 0;
         holdCords = new ArrayList<Integer>();
         state = new ShogiGameState();
         game = new ShogiLocalGame(state);
@@ -90,12 +90,8 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
         // -- a device if garbage collection is not fast enough
 
         //TODO: Move these images into the constructor so that we only have to create them once
-        //draw the main board
-        Bitmap image = BitmapFactory.decodeResource(getResources(), R.drawable.full_board);
-        //canvas.drawBitmap(image, -1*buffersizeHoriz + tileSize, -1*buffersizeVert, imgPaint);
 
-        //draw the graveyard
-
+        Bitmap image;
 
         //draw the initial setup for player 1
         for(Piece p: state.pieces1){
@@ -131,26 +127,15 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
             if(x >= 0 && x <= imagesize && y <= imagesize && y >= 0){
                 // X cord
 
-                //TODO: FOR LOOP THIS (OPTIMIZATION)
-                if(x < tileSize){xcord = 0;}
-                else if(x > tileSize && x < tileSize*2){xcord = 1;}
-                else if(x > tileSize*2 && x < tileSize*3){xcord = 2;}
-                else if(x > tileSize*3 && x < tileSize*4){xcord = 3;}
-                else if(x > tileSize*4 && x < tileSize*5){xcord = 4;}
-                else if(x > tileSize*5 && x < tileSize*6){xcord = 5;}
-                else if(x > tileSize*6 && x < tileSize*7){xcord = 6;}
-                else if(x > tileSize*7 && x < tileSize*8){xcord = 7;}
-                else if(x > tileSize*8 && x < tileSize*9){xcord = 8;}
-                // Y cord
-                if(y < tileSize ){ycord = 0;}
-                else if(y > tileSize  && y < tileSize *2){ycord = 1;}
-                else if(y > tileSize *2 && y < tileSize *3){ycord = 2;}
-                else if(y > tileSize*3 && y < tileSize *4){ycord = 3;}
-                else if(y > tileSize *4 && y < tileSize *5){ycord = 4;}
-                else if(y > tileSize *5 && y < tileSize *6){ycord = 5;}
-                else if(y > tileSize *6 && y < tileSize *7){ycord = 6;}
-                else if(y > tileSize *7 && y < tileSize *8){ycord = 7;}
-                else if(y > tileSize *8 && y < tileSize *9){ycord = 8;}
+                for (int i = 0; i < 9; i++) {
+                    if (tileSize * i <= x && x < tileSize * (i + 1)) {
+                        xcord = i;
+                    }
+                    if (tileSize * i <= y && y < tileSize * (i + 1)) {
+                        ycord = i;
+                    }
+                }
+
                 noMove = 2;
                 if (lever == 0) { // first click""
                  //   System.out.println(state.getTurn());
