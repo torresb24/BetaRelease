@@ -63,6 +63,9 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
         setWillNotDraw(false);
         // 3 setup any required member variables
 
+        state = new ShogiGameState();
+        game = new ShogiLocalGame(state);
+
         imgPaint = new Paint();
         imgPaint.setColor(Color.BLACK);
         toggle = 0;
@@ -77,7 +80,6 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
         tileSize = imagesize / 9 - 3;
         tiles = new ArrayList<>();
 
-        //TODO: NULLPOINTEREXCEPTION FIX IT
         board = state.getBoard();
 
         paint = new Paint();
@@ -90,8 +92,7 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
         Piecex = Piecey = -1;
         noMove = 0;
         holdCords = new ArrayList<Integer>();
-        state = new ShogiGameState();
-        game = new ShogiLocalGame(state);
+
         transform = new Matrix();
         transform.preRotate(180);
         //spots = new ArrayList<Spot>(); // Optional to repeat or not repeat the type <Spot>
@@ -123,45 +124,6 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
         }
 
         board.drawBoard(canvas);
-/*
-        int left = 0, top = 0, right = 0, bottom = 0;
-        int offsetLeft;
-        int offsetVer = 0;
-        Tile temp;
-        for (int i = 0; i < 9; i++) {
-            offsetLeft = 0;
-            switch (i) {
-                case 1: case 4: case 5: case 6:
-                    offsetVer += 4;
-                    break;
-                case 2: case 3: case 7: case 8:
-                    offsetVer += 5;
-                    break;
-            }
-
-            top = moveBoardVer + (i * tileSize) + offsetVer;
-            bottom = moveBoardVer + ((i + 1) * tileSize) + offsetVer;
-
-            for (int j = 0; j < 9; j++) {
-                switch (j) {
-                    case 1: case 4: case 5: case 6: case 7: case 8:
-                        offsetLeft += 4;
-                        break;
-                    case 2: case 3:
-                        offsetLeft += 5;
-                        break;
-                }
-
-                left = moveBoardHor + (j * tileSize) + offsetLeft;
-                right = moveBoardHor + ((j + 1) * tileSize) + offsetLeft;
-                temp = new Tile();
-                temp.setOccupied(true);
-                temp.setRow(i);
-                temp.setCol(j);
-                temp.setCords(left, top, right, bottom);
-                enemyTiles.add(temp);
-            }
-        }*/
 
         //draw the possible moves
         for (int i = 0; i < state.cords.size(); i += 2) {
