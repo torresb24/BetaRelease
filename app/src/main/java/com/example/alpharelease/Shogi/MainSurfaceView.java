@@ -92,7 +92,7 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
         //TODO: Move these images into the constructor so that we only have to create them once
         //draw the main board
         Bitmap image = BitmapFactory.decodeResource(getResources(), R.drawable.full_board);
-        canvas.drawBitmap(image, -1*buffersizeHoriz + tileSize, -1*buffersizeVert, imgPaint);
+        //canvas.drawBitmap(image, -1*buffersizeHoriz + tileSize, -1*buffersizeVert, imgPaint);
 
         //draw the graveyard
 
