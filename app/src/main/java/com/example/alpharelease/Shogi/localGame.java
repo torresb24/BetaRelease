@@ -1,4 +1,6 @@
-package com.example.alpharelease;
+package com.example.alpharelease.Shogi;
+
+import com.example.alpharelease.Shogi.ShogiGameState;
 
 public class localGame {
     /*Includes methods for everything:
@@ -813,7 +815,6 @@ public class localGame {
 
             }
             if(p.pieceType.getID() == R.drawable.knight){
-                //TODO: moveKnight
             }
             if(p.pieceType.getID() == R.drawable.promoted_knight){
                 movePromKnight(turn, p.getCol(), p.getRow());

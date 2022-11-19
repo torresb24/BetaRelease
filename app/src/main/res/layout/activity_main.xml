@@ -1,21 +1,198 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/top_gui_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"><!-- add activitymain here-->
+    android:layout_margin="3dp"
+    android:id="@+id/top_gui_layout"
+    android:orientation="horizontal"
+    tools:context=".Shogi.MainActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <RelativeLayout
+        android:id="@+id/LeftGrave"
+        android:layout_width="306dp"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:layout_alignParentLeft="true"
+        android:layout_weight="1"
+        android:layout_marginRight="3dp"
+        android:orientation="vertical">
 
-        <com.example.alpharelease.MainSurfaceView
+        <ImageView
+            android:id="@+id/EnemyGrave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="1px"
+            android:background="@drawable/shogi_grave" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/Middle"
+        android:layout_width="720dp"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/backgroundBoard"
+            android:layout_width="720dp"
+            android:layout_height="720dp"
+            android:background="@drawable/shogi_board" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/RightGrave"
+        android:layout_width="300dp"
+        android:layout_height="303dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="3dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/UserGrave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="1px"
+            android:background="@drawable/shogi_grave" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.example.alpharelease.Shogi.MainSurfaceView
             android:id="@+id/surfaceView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </LinearLayout>
+            android:layout_height="match_parent"
+            android:background="@drawable/full_board"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/LeftStuff"
+        android:layout_width="303dp"
+        android:layout_height="397dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:gravity="center">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="bottom|center|center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/endStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="You lost. Get fucked."
+                android:textColor="#FFFFFF"
+                android:textSize="30sp"
+                android:layout_weight="4"/>
+
+            <Button
+                android:id="@+id/newGameButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Surrender"
+                android:textSize="20sp"
+                android:background="@drawable/rounded_corners"
+                app:rippleColor="@color/ripple"
+                android:layout_marginBottom="20dp"/>
+
+            <Button
+                android:id="@+id/quitButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Quit"
+                android:onClick="quit"
+                android:textSize="20sp"
+                android:background="@drawable/rounded_corners"
+                app:rippleColor="@color/ripple"
+                android:layout_marginBottom="20dp"/>
+
+        </LinearLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/RightStuff"
+        android:layout_width="303dp"
+        android:layout_height="397dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/pTurnTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Player Turn:"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp" />
+            <TextView
+                android:id="@+id/turnWhoTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center|top"
+                android:text="Player X"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/currPieceTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Current Piece:"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/pieceTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center|top"
+                android:text="King"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/promoButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Promote"
+                android:textSize="20sp"
+                android:background="@drawable/rounded_corners"
+                app:rippleColor="@color/ripple" />
+
+        </LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>

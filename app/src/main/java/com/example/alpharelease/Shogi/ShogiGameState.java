@@ -1,7 +1,7 @@
-package com.example.alpharelease;
+package com.example.alpharelease.Shogi;
 
-import com.example.alpharelease.GameFramework.Game;
 import com.example.alpharelease.GameFramework.infoMessage.GameState;
+import com.example.alpharelease.R;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -50,7 +50,6 @@ public class ShogiGameState extends GameState {
     public ArrayList<Piece> pieces1;
     public ArrayList<Piece> pieces2;
     public ArrayList<Integer> cords;
-    private int turnCount = 0;
 
     /**
      * Current state of the game constructor
@@ -80,10 +79,10 @@ public class ShogiGameState extends GameState {
         this.pieces1 = new ArrayList<Piece>();
         this.pieces2 = new ArrayList<Piece>();
         // for loop through
-        for(Piece p : orig.pieces1){
+        for (Piece p : orig.pieces1) {
             this.pieces1.add(p);
         }
-        for(Piece p : orig.pieces2){
+        for(Piece p : orig.pieces2) {
             this.pieces2.add(p);
         }
         this.cords = new ArrayList<Integer>();
@@ -98,8 +97,6 @@ public class ShogiGameState extends GameState {
      * Determine next turn based on current turn
      */
     public void changeTurn() {
-        turn = turn;
-
         if (turn) {
             banner = "Player one's Turn";
         } else {
@@ -112,8 +109,14 @@ public class ShogiGameState extends GameState {
     private void assignPieces() {
         for (Piece.GAME_PIECES piece : Piece.GAME_PIECES.values()) {
             for (int i = 0; i < piece.getAmount(); i++) {
-                pieces1.add( new Piece(piece, Piece.DIRECTION.FORWARD)); //player 1 (id = 0)
-                pieces2.add( new Piece(piece, Piece.DIRECTION.BACKWARD)); //player 2 (id = 1)
+                switch (piece.getPlayer()) {
+                    case 0:
+                        pieces1.add(new Piece(piece, Piece.DIRECTION.FORWARD)); //player 1 (id = 0)
+                        break;
+                    case 1:
+                        pieces2.add(new Piece(piece, Piece.DIRECTION.BACKWARD)); //player 2 (id = 1)
+                        break;
+                }
             } // for i
         } // for pieces
         placePieces(pieces1, 0);
@@ -202,28 +205,28 @@ public class ShogiGameState extends GameState {
         if (id == 1) { //backward facing pieces (player 2)
             for (Piece p : piece) {
                 switch (p.pieceType.getID()) { //What kind of piece is it
-                    case R.drawable.promoted_bishop:
-                    case R.drawable.promoted_lance:
-                    case R.drawable.promoted_knight:
-                    case R.drawable.promoted_pawn:
-                    case R.drawable.promoted_rook:
-                    case R.drawable.promoted_silv_gen:
+                    case R.drawable.opp_promo_bish:
+                    case R.drawable.opp_promo_lance:
+                    case R.drawable.opp_promo_knight:
+                    case R.drawable.opp_promo_pawn:
+                    case R.drawable.opp_promo_rook:
+                    case R.drawable.opp_promo_silv:
                         //if it's a promoted piece skip it
                         break;
-                    case R.drawable.pawn:
+                    case R.drawable.opp_pawn:
                         p.setRow(2); //up down
                         p.setCol(pawnNum); //side to side
                         pawnNum++;
                         break;
-                    case R.drawable.bishop: //switch cols for opponent bishop and rook bc perspective
+                    case R.drawable.opp_bish: //switch cols for opponent bishop and rook bc perspective
                         p.setRow(1);
                         p.setCol(7);
                         break;
-                    case R.drawable.rook:
+                    case R.drawable.opp_rook:
                         p.setRow(1);
                         p.setCol(1);
                         break;
-                    case R.drawable.lance:
+                    case R.drawable.opp_lance:
                         p.setRow(0);
                         if (lanceNum == 0) {
                             p.setCol(0);
@@ -232,7 +235,7 @@ public class ShogiGameState extends GameState {
                         }
                         lanceNum++;
                         break;
-                    case R.drawable.knight:
+                    case R.drawable.opp_knight:
                         p.setRow(0);
                         if (knightNum == 0) {
                             p.setCol(1);
@@ -241,7 +244,7 @@ public class ShogiGameState extends GameState {
                         }
                         knightNum++;
                         break;
-                    case R.drawable.silv_gen:
+                    case R.drawable.opp_silv_gen:
                         p.setRow(0);
                         if (silvNum == 0) {
                             p.setCol(2);
@@ -250,7 +253,7 @@ public class ShogiGameState extends GameState {
                         }
                         silvNum++;
                         break;
-                    case R.drawable.gold_gen:
+                    case R.drawable.opp_gold_gen:
                         p.setRow(0);
                         if (goldNum == 0) {
                             p.setCol(3);
@@ -259,11 +262,12 @@ public class ShogiGameState extends GameState {
                         }
                         goldNum++;
                         break;
-                    case R.drawable.king:
+                    case R.drawable.opp_king:
                         p.setRow(0);
                         p.setCol(4);
                         break;
                 }
+                board.placeOnBoard(p, p.getRow(), p.getCol());
             }
         } //end p2 setup
     }
@@ -280,7 +284,15 @@ public class ShogiGameState extends GameState {
         }
     }
 
-    public boolean getTurn(){return turn;}
-    public void setTurn(boolean _Turn){turn = _Turn;}
+    public boolean getTurn() {
+        return turn;
+    }
 
+    public void setTurn(boolean turn) {
+        this.turn = turn;
+    }
+
+    public Board getBoard() {
+        return board;
+    }
 }
