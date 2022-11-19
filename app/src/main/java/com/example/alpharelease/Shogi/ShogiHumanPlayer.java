@@ -101,7 +101,8 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
         switch (v.getId()) {
             case R.id.newGameButton:
                 Log.i("HUMAN_SURRENDER", "HAHAHAHAHA loser");
-                this.sendInfo(new GameOverInfo("Woooooow you really just gave up"));
+                this.sendInfo(new GameOverInfo("You kinda suck at this game. "));
+                break;
         }
     }
 }

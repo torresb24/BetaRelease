@@ -67,11 +67,29 @@ public class Piece {
     public DIRECTION directionMovement;
 
     private int row, col;
+    private boolean isAlive, isOnBoard;
 
     public Piece(GAME_PIECES type, DIRECTION dir) {
         row = col = -1;
         pieceType = type;
         directionMovement = dir;
+        isAlive = true;
+        firstIsOnBoard(type);
+    }
+
+    private void firstIsOnBoard(GAME_PIECES type) {
+        switch (type.getID()) {
+            case R.drawable.promoted_pawn: case R.drawable.promoted_lance: case R.drawable.promoted_rook:
+            case R.drawable.promoted_bishop: case R.drawable.promoted_knight: case R.drawable.promoted_silv_gen:
+            case R.drawable.promoted_gold_gen: case R.drawable.opp_promo_pawn: case R.drawable.opp_promo_lance:
+            case R.drawable.opp_promo_rook: case R.drawable.opp_promo_bish: case R.drawable.opp_promo_knight:
+            case R.drawable.opp_promo_silv: case R.drawable.opp_promo_gold:
+                isOnBoard = false;
+                break;
+            default:
+                isOnBoard = true;
+                break;
+        }
     }
 
     public int getCol() {
@@ -88,6 +106,22 @@ public class Piece {
 
     public void setRow(int row) {
         this.row = row;
+    }
+
+    public boolean isAlive() {
+        return isAlive;
+    }
+
+    public boolean isOnBoard() {
+        return isOnBoard;
+    }
+
+    public void setOnBoard(boolean onBoard) {
+        isOnBoard = onBoard;
+    }
+
+    public void setAlive(boolean alive) {
+        isAlive = alive;
     }
 
     public DIRECTION getDirection() {

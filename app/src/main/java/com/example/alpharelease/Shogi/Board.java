@@ -21,8 +21,10 @@ public class Board {
     private final int size = 9;
     private final int imagesize = 1030;
     private int tileSize;
-    private int moveBoardHor = 479;
-    private int moveBoardVer = 24;
+    private final int boardLeftEdge = 479;
+    private final int boardTopEdge = 24;
+    private final int boardRightEdge = 1516;
+    private final int boardBottomEdge = 1063;
     int offsetLeft;
     int offsetVer;
     private int left, top, right, bottom;
@@ -52,8 +54,8 @@ public class Board {
                     break;
             }
 
-            top = moveBoardVer + (i * tileSize) + offsetVer;
-            bottom = moveBoardVer + ((i + 1) * tileSize) + offsetVer;
+            top = boardTopEdge + (i * tileSize) + offsetVer;
+            bottom = boardTopEdge + ((i + 1) * tileSize) + offsetVer;
 
             for (int j = 0; j < size; j++) {
                 switch (j) {
@@ -65,8 +67,9 @@ public class Board {
                         break;
                 }
 
-                left = moveBoardHor + (j * tileSize) + offsetLeft;
-                right = moveBoardHor + ((j + 1) * tileSize) + offsetLeft;
+                left = boardLeftEdge + (j * tileSize) + offsetLeft;
+                right = boardLeftEdge + ((j + 1) * tileSize) + offsetLeft;
+
                 temp = new Tile();
                 temp.setOccupied(false);
                 temp.setRow(i);
@@ -84,11 +87,9 @@ public class Board {
                 t.setOccupied(true);
                 t.setPiece(p);
             }
-            //TODO: This will have/cause a few bugs when moving pieces around
-            /*if (t.getRow() == p.getRow() && t.getCol() == p.getCol()) {
-                t.setOccupied(false);
-                t.setPiece(null);
-            }*/
+
+            //TODO: ELABORATE ON THIS METHOD
+                    //PERHAPS SPLIT INTO TWO METHODS OR SMTH IDK
         }
     } //End placeOnBoard
 
@@ -96,6 +97,44 @@ public class Board {
         for (Tile t : tiles) {
             t.drawTile(c);
         }
+    }
+
+    public void drawMoves(Canvas c, ArrayList<Tile> tileArray) {
+        for (Tile t : tileArray) {
+
+        }
+    }
+
+    /**
+     * checks to see if the point given is within the confines of the board
+     *
+     * @param xCord the horizontal component of the coordinate
+     * @param yCord the vertical component of the coordinate
+     */
+    public boolean onBoard(float xCord, float yCord) {
+        return ((boardLeftEdge <= xCord || xCord <= boardRightEdge)
+                && (boardTopEdge <= yCord || yCord <= boardBottomEdge));
+    }
+
+    /**
+     * checks to see which tile was touched
+     *
+     * @param xCord the horizontal component of the coordinate
+     * @param yCord the vertical component of the coordinate
+     *
+     *
+     * Due to how the tiles were created, there may be a single x or y value in some of the lines
+     *      between some tiles that won't count towards a tile
+     */
+    public Tile getTouchedTile(float xCord, float yCord) {
+        for (Tile t : tiles) { //Check the tiles coordinates (with slight leeway bc of the lines btwn)
+            if ((t.getxCord() - 2 <= xCord || xCord <= t.getxCordEnd() + 2)
+                    && (t.getyCord() - 2 <= yCord || yCord <= t.getyCordEnd() + 2)) {
+                return t;
+            }
+        }
+
+        return null; //In some rare cases the point may fall between the lines of tiles, thus null
     }
 
     public ArrayList<Tile> getTiles() {

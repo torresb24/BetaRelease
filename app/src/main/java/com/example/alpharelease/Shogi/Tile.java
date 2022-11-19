@@ -23,7 +23,7 @@ public class Tile {
     private float xCordEnd; // right
     private float yCordEnd; // bottom
     private boolean isOccupied;
-    private Paint tilePaint, occupiedPaint, emptyPaint;
+    private Paint tilePaint, occupiedPaint, emptyPaint, possPaint;
     private Piece piece;
 
     public Tile() {
@@ -41,6 +41,8 @@ public class Tile {
         emptyPaint.setColor(Color.TRANSPARENT);
         occupiedPaint = new Paint();
         occupiedPaint.setARGB(255/4, 199, 0, 200);
+        possPaint = new Paint();
+        possPaint.setARGB(255/2, 255, 145, 164);
 
         tilePaint.setColor(emptyPaint.getColor());
     }
@@ -52,6 +54,10 @@ public class Tile {
             this.tilePaint.setColor(emptyPaint.getColor());
         }
         c.drawRect(this.xCord, this.yCord, this.xCordEnd, this.yCordEnd, tilePaint);
+    }
+
+    public void drawPossibleMove(Canvas c) {
+        c.drawRect(this.xCord, this.yCord, this.xCordEnd, this.yCordEnd, possPaint);
     }
 
     public void setOccupied(boolean occupied) {
@@ -67,6 +73,22 @@ public class Tile {
         this.yCord = y;
         this.xCordEnd = xEnd;
         this.yCordEnd = yEnd;
+    }
+
+    public float getxCord() {
+        return xCord;
+    }
+
+    public float getxCordEnd() {
+        return xCordEnd;
+    }
+
+    public float getyCord() {
+        return yCord;
+    }
+
+    public float getyCordEnd() {
+        return yCordEnd;
     }
 
     public void setRow(int row) {
