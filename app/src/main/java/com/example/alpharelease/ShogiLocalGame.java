@@ -73,7 +73,7 @@ public class ShogiLocalGame extends LocalGame {
      * bottom        +   B
      * bottom right  +   BR
      * */
-    public void makeMove(boolean turn, int x, int y,int TL, int T, int TR, int L, int R, int BL, int B, int BR){
+    public void makeMove(boolean turn, int x, int y,int TL, int T, int TR, int R, int BR, int B, int BL, int L){
         int xcord = x;
         int ycord = y;
         
@@ -83,7 +83,7 @@ public class ShogiLocalGame extends LocalGame {
             for (int i = 1; i <= TL; i++) {
                 xcord = x - i;
                 ycord = y - i;
-                if (xcord < 0 || ycord < 0) {
+                if (xcord < 0 || ycord < 0 || xcord > 8 || ycord > 8) {
                     break;
                 }
                 int notin = 0;
@@ -116,8 +116,8 @@ public class ShogiLocalGame extends LocalGame {
             // MOVE TOP
             for (int i = 1; i <= T; i++) {
                 xcord = x;
-                ycord = y -i;
-                if (xcord < 0) {
+                ycord = y-i;
+                if (xcord < 0 || ycord < 0 || xcord > 8 || ycord > 8) {
                     break;
                 }
                 int notin = 0;
@@ -150,7 +150,7 @@ public class ShogiLocalGame extends LocalGame {
             for (int i = 1; i <= TR; i++) {
                 xcord = x + i;
                 ycord = y - i;
-                if (xcord < 0 || ycord > 8) {
+                if (xcord < 0 || ycord < 0 || xcord > 8 || ycord > 8) {
                     break;
                 }
                 int notin = 0;
@@ -183,7 +183,7 @@ public class ShogiLocalGame extends LocalGame {
             for (int i = 1; i <= R; i++) {
                 ycord = y;
                 xcord = x + i;
-                if (ycord > 8) {
+                if (xcord < 0 || ycord < 0 || xcord > 8 || ycord > 8) {
                     break;
                 }
                 int notin = 0;
@@ -216,7 +216,7 @@ public class ShogiLocalGame extends LocalGame {
             for (int i = 1; i <= BR; i++) {
                 xcord = x + i;
                 ycord = y + i;
-                if (xcord > 8 || ycord > 8) {
+                if (xcord < 0 || ycord < 0 || xcord > 8 || ycord > 8) {
                     break;
                 }
                 int notin = 0;
@@ -249,7 +249,7 @@ public class ShogiLocalGame extends LocalGame {
             for (int i = 1; i <= B; i++) {
                 xcord = x;
                 ycord = y + i;
-                if (xcord > 8) {
+                if (xcord < 0 || ycord < 0 || xcord > 8 || ycord > 8) {
                     break;
                 }
                 int notin = 0;
@@ -282,7 +282,7 @@ public class ShogiLocalGame extends LocalGame {
             for (int i = 1; i <= BL; i++) {
                 xcord = x - i;
                 ycord = y + i;
-                if (xcord > 8 || ycord < 0) {
+                if (xcord < 0 || ycord < 0 || xcord > 8 || ycord > 8) {
                     break;
                 }
                 int notin = 0;
@@ -315,7 +315,7 @@ public class ShogiLocalGame extends LocalGame {
             for (int i = 1; i <= L; i++) {
                 ycord = y;
                 xcord = x - i;
-                if (ycord < 0) {
+                if (xcord < 0 || ycord < 0 || xcord > 8 || ycord > 8) {
                     break;
                 }
                 int notin = 0;
@@ -351,7 +351,7 @@ public class ShogiLocalGame extends LocalGame {
             for (int i = 1; i <= TL; i++) {
                 xcord = x + i;
                 ycord = y + i;
-                if (xcord > 8 || ycord >8) {
+                if (xcord < 0 || ycord < 0 || xcord > 8 || ycord > 8) {
                     break;
                 }
                 int notin = 0;
@@ -385,7 +385,7 @@ public class ShogiLocalGame extends LocalGame {
             for (int i = 1; i <= T; i++) {
                 xcord = x;
                 ycord = y + i;
-                if (ycord > 8) {
+                if (xcord < 0 || ycord < 0 || xcord > 8 || ycord > 8) {
                     break;
                 }
                 int notin = 0;
@@ -418,7 +418,7 @@ public class ShogiLocalGame extends LocalGame {
             for (int i = 1; i <= TR; i++) {
                 xcord = x - i;
                 ycord = y + i;
-                if (xcord < 0 || ycord > 8) {
+                if (xcord < 0 || ycord < 0 || xcord > 8 || ycord > 8) {
                     break;
                 }
                 int notin = 0;
@@ -451,7 +451,7 @@ public class ShogiLocalGame extends LocalGame {
             for (int i = 1; i <= R; i++) {
                 ycord = y;
                 xcord = x - i;
-                if (xcord < 0) {
+                if (xcord < 0 || ycord < 0 || xcord > 8 || ycord > 8) {
                     break;
                 }
                 int notin = 0;
@@ -484,7 +484,7 @@ public class ShogiLocalGame extends LocalGame {
             for (int i = 1; i <= BR; i++) {
                 xcord = x - i;
                 ycord = y + i;
-                if (xcord < 0 || ycord > 8) {
+                if (xcord < 0 || ycord < 0 || xcord > 8 || ycord > 8) {
                     break;
                 }
                 int notin = 0;
@@ -517,7 +517,7 @@ public class ShogiLocalGame extends LocalGame {
             for (int i = 1; i <= B; i++) {
                 xcord = x;
                 ycord = y - i;
-                if (ycord < 0) {
+                if (xcord < 0 || ycord < 0 || xcord > 8 || ycord > 8) {
                     break;
                 }
                 int notin = 0;
@@ -550,7 +550,7 @@ public class ShogiLocalGame extends LocalGame {
             for (int i = 1; i <= BL; i++) {
                 xcord = x + i;
                 ycord = y - i;
-                if (xcord > 8 || ycord < 0) {
+                if (xcord < 0 || ycord < 0 || xcord > 8 || ycord > 8) {
                     break;
                 }
                 int notin = 0;
@@ -583,7 +583,7 @@ public class ShogiLocalGame extends LocalGame {
             for (int i = 1; i <= L; i++) {
                 ycord = y;
                 xcord = x + i;
-                if (xcord > 8) {
+                if (xcord < 0 || ycord < 0 || xcord > 8 || ycord > 8) {
                     break;
                 }
                 int notin = 0;
@@ -654,27 +654,27 @@ public class ShogiLocalGame extends LocalGame {
     }
 
     public void moveGoldGen(boolean turn, int x, int y){
-        makeMove(turn, x, y, 1, 1, 1, 1, 1, 0, 1, 0);
+        makeMove(turn, x, y, 1, 1, 1, 1, 0, 1, 0, 1);
     }
 
     public void moveSilvGen(boolean turn, int x, int y){
-        makeMove(turn, x, y, 1, 1, 1, 0, 0, 1, 0, 1);
+        makeMove(turn, x, y, 1, 1, 1, 0, 1, 0, 1, 0);
     }
 
     public void moveBishop(boolean turn, int x, int y){
-        makeMove(turn, x, y, 7, 0, 7, 0, 0, 7, 0, 7);
+        makeMove(turn, x, y, 8, 0, 8, 0, 8, 0, 8, 0);
     }
 
     public void movePromBishop(boolean turn, int x, int y){
-        makeMove(turn, x, y, 7, 1, 7, 1, 1, 7, 1, 7);
+        makeMove(turn, x, y, 8, 1, 8, 1, 8, 1, 8, 1);
     }
 
     public void moveRook(boolean turn, int x, int y){
-        makeMove(turn, x, y, 0, 8, 0, 8, 8, 0, 8, 0);
+        makeMove(turn, x, y, 0, 8, 0, 8, 0, 8, 0, 8);
     }
 
     public void movePromRook(boolean turn, int x, int y){
-        makeMove(turn, x, y, 1, 8, 1, 8, 8, 1, 8, 1);
+        makeMove(turn, x, y, 1, 8, 1, 8, 1, 8, 1, 8);
     }
 
     public void moveLance(boolean turn, int x, int y){
