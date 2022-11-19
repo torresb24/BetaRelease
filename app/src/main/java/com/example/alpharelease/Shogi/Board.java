@@ -137,7 +137,4 @@ public class Board {
         return null; //In some rare cases the point may fall between the lines of tiles, thus null
     }
 
-    public ArrayList<Tile> getTiles() {
-        return tiles;
-    }
 }

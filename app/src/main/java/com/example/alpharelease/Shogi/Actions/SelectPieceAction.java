@@ -4,16 +4,16 @@ import com.example.alpharelease.GameFramework.actionMessage.GameAction;
 import com.example.alpharelease.GameFramework.players.GamePlayer;
 import com.example.alpharelease.Shogi.Piece;
 
-public class movePiece extends GameAction {
-    Piece moving;
+public class SelectPieceAction extends GameAction {
+    public Piece selected;
 
     /**
      * constructor for GameAction
      *
      * @param player the player who created the action
      */
-    public movePiece(GamePlayer player, Piece p) {
+    public SelectPieceAction(GamePlayer player, Piece selected) {
         super(player);
-        moving = p;
+        this.selected = selected;
     }
 }

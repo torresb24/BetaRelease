@@ -49,11 +49,12 @@ public class ShogiGameState extends GameState {
     private Graveyard grave_2;
     public ArrayList<Piece> pieces1;
     public ArrayList<Piece> pieces2;
+    public ArrayList<Tile> tileArray;
     public ArrayList<Integer> cords;
-
     /**
      * Current state of the game constructor
      */
+
     public ShogiGameState() { //Cntr
         turn = first();
         board = new Board();
@@ -61,7 +62,9 @@ public class ShogiGameState extends GameState {
         grave_2 = new Graveyard();
         pieces1 = new ArrayList<Piece>();
         pieces2 = new ArrayList<Piece>();
+        tileArray = new ArrayList<>();
         cords = new ArrayList<>();
+
         assignPieces();
         changeTurn();
         //Declare turn the opposite of first so we can call the changeTurn method
@@ -119,8 +122,8 @@ public class ShogiGameState extends GameState {
                 }
             } // for i
         } // for pieces
-        placePieces(pieces1, 0);
-        placePieces(pieces2, 1);
+        initPieces(pieces1, 0);
+        initPieces(pieces2, 1);
     }
 
 
@@ -128,7 +131,7 @@ public class ShogiGameState extends GameState {
      * Assigns rows and columns to each piece for initial setup for each player
      * Promotion pieces are unassigned due to them not existing on the board at that time
      */
-    private void placePieces(ArrayList<Piece> piece, int id) { //board is 9x9 tiles
+    private void initPieces(ArrayList<Piece> piece, int id) { //board is 9x9 tiles
         //front row is 9 pawns
         //middle row is 1 space, bishop, 5 spaces, rook, 1 space (left to right from players pov)
         //back row is lance, knight, silver, gold, king, gold, silver, knight, lance
@@ -294,5 +297,9 @@ public class ShogiGameState extends GameState {
 
     public Board getBoard() {
         return board;
+    }
+
+    public ArrayList<Integer> getCords() {
+        return cords;
     }
 }

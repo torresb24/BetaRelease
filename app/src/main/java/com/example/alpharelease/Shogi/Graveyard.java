@@ -20,12 +20,12 @@ public class Graveyard {
     private ArrayList<Piece> graveBoard = new ArrayList<Piece>();
 
     //Graveyard Constructor
-    public Graveyard(){
+    public Graveyard() {
         //ensure that every initializing call to the graveyard is an empty grave
     }
 
     //drop (remove from grave board and add to game board)
-    public void dropPiece(){
+    public void dropPiece() {
         //iterate through Array List by indexing pieces, use specified piece as key
         for(Piece piece: graveBoard){
             //check if specified piece is in graveyard

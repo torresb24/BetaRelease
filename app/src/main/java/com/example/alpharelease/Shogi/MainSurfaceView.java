@@ -33,30 +33,26 @@ import java.util.Random;
 public class MainSurfaceView extends SurfaceView implements View.OnTouchListener {
 
     private int toggle;
-    private int imagesize;
+    private int imagesize, tileSize;
     private int boardLeft, boardTop, boardRight, boardBottom;
+    private int boardCol, boardRow;
 
-    private int boardCol;
-    private int boardRow;
-    private int tileSize;
-    LocalGame lg;
-    Paint paint;
+    private int buffersizeHoriz, buffersizeVert;
 
     private int currID;
     private int lever;
     private int pieceCol, pieceRow;
     private int noMove;
-
     private Paint imgPaint;
-    private Paint P2paint;
+    private Paint paint;
 
     private ShogiLocalGame game;
     private ShogiGameState state;
     private Board board;
 
     Matrix transform;
-    private ArrayList<Integer> holdCords;
 
+    private ArrayList<Integer> holdCords;
     private ArrayList<Tile> tiles;
 
     public MainSurfaceView(Context context, AttributeSet attrs) {
@@ -68,12 +64,14 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
         state = new ShogiGameState();
         game = new ShogiLocalGame(state);
 
+        paint = new Paint();
+        paint.setARGB(255/2, 255, 145, 164);
         imgPaint = new Paint();
         imgPaint.setColor(Color.BLACK);
         toggle = 0;
         imagesize = 1030;
-        //buffersizeHoriz = 563;
-        //buffersizeVert = 14;
+        buffersizeHoriz = 563;
+        buffersizeVert = 14;
 
         boardLeft = 479;
         boardTop = 24;
@@ -86,11 +84,6 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
 
 
         board = state.getBoard();
-
-        paint = new Paint();
-        P2paint = new Paint();
-        paint.setARGB(255/2, 255, 145, 164);
-        P2paint.setARGB(255/2, 199, 0, 200);
 
         currID = 0;
         lever = 0;
@@ -131,12 +124,12 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
         board.drawBoard(canvas);
 
         //draw the possible moves
-        /*for (int i = 0; i < state.cords.size(); i += 2) {
+        for (int i = 0; i < state.cords.size(); i += 2) {
             canvas.drawRect(tileSize * state.cords.get(i) + buffersizeHoriz/25,
                     tileSize * state.cords.get(i + 1),
                     (tileSize * state.cords.get(i)) + tileSize + buffersizeHoriz/25,
                     (tileSize * state.cords.get(i + 1)) + tileSize, paint);
-        }*/
+        }
         // Moving the draw down here lets us draw on TOP of the image / circle above
         // For spots, can use for integer based loop or for each
 
@@ -294,8 +287,8 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
         return false;
     }
 
-    public void setLocalGame(LocalGame g) {
-        lg = g;
+    public void setLocalGame(ShogiLocalGame g) {
+        game = g;
     }
 
     public void setGameState(ShogiGameState g) {
