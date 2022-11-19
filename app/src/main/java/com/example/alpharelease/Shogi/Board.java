@@ -84,11 +84,11 @@ public class Board {
                 t.setOccupied(true);
                 t.setPiece(p);
             }
-            //TODO: This will probably have/cause a few bugs when moving pieces around
-            if (t.getRow() == p.getRow() && t.getCol() == p.getCol()) {
+            //TODO: This will have/cause a few bugs when moving pieces around
+            /*if (t.getRow() == p.getRow() && t.getCol() == p.getCol()) {
                 t.setOccupied(false);
                 t.setPiece(null);
-            }
+            }*/
         }
     } //End placeOnBoard
 

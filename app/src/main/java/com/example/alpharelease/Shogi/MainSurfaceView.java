@@ -44,15 +44,19 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
     private int tileSize;
     LocalGame lg;
     Paint paint;
+
     private int currID;
     private int lever;
     private int Piecex,Piecey;
     private int noMove;
+
     private Paint imgPaint;
     private Paint P2paint;
+
     private ShogiLocalGame game;
     private ShogiGameState state;
     private Board board;
+
     Matrix transform;
     private ArrayList<Integer> holdCords;
     private ArrayList<Tile> tiles;
@@ -141,6 +145,7 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
     @Override
     public boolean onTouch(View view, MotionEvent e) {
         //TODO: This is where to send moves to the game using game.sendAction(new ShogiAction)
+
         if (e.getActionMasked() == MotionEvent.ACTION_DOWN) {
             float x = e.getX();
             float y = e.getY();

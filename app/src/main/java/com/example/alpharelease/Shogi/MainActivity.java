@@ -1,5 +1,7 @@
 package com.example.alpharelease.Shogi;
 
+import android.view.View;
+
 import com.example.alpharelease.GameFramework.GameMainActivity;
 import com.example.alpharelease.GameFramework.LocalGame;
 
@@ -36,7 +38,7 @@ public class MainActivity extends GameMainActivity {
 
         playerTypes.add(new GamePlayerType("Local Human Player") {
             public GamePlayer createPlayer(String name) {
-                return new ShogiHumanPlayer(name, R.layout.activity_main);
+                return new ShogiHumanPlayer(name);
             }
         });
 
@@ -99,6 +101,10 @@ public class MainActivity extends GameMainActivity {
         super.loadGame(appName);
         Logger.log(TAG, "Loading: " + gameName);
         return (GameState) new ShogiGameState((ShogiGameState) Saving.readFromFile(appName, this.getApplicationContext()));
+    }
+
+    public void quit(View view) {
+        finishAffinity();
     }
 
 

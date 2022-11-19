@@ -1,6 +1,7 @@
 package com.example.alpharelease.Shogi;
 
 import android.view.View;
+import android.widget.Button;
 
 import com.example.alpharelease.GameFramework.GameMainActivity;
 import com.example.alpharelease.GameFramework.LocalGame;
@@ -13,10 +14,11 @@ import com.example.alpharelease.R;
 import com.example.alpharelease.Shogi.MainSurfaceView;
 import com.example.alpharelease.Shogi.ShogiGameState;
 
-public class ShogiHumanPlayer extends GameHumanPlayer {
+public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickListener {
 
     private MainSurfaceView surfaceView;
-    private int layoutId;
+    private Button promo;
+    private Button newGame;
 
     /**
      * Callback method, called when player gets a message
@@ -44,21 +46,24 @@ public class ShogiHumanPlayer extends GameHumanPlayer {
         }
     }
 
-    public ShogiHumanPlayer(String name, int activity_main) {
+    public ShogiHumanPlayer(String name) {
             super(name);
-            this.layoutId = activity_main;
     }
 
     @Override
     public void setAsGui(GameMainActivity activity) {
-        activity.setContentView(layoutId);
+        activity.setContentView(R.layout.activity_main);
         myActivity = (GameMainActivity) activity;
         surfaceView = activity.findViewById(R.id.surfaceView);
 
         surfaceView.setLocalGame((LocalGame) game);
         surfaceView.setOnTouchListener(surfaceView);
 
+        promo = activity.findViewById(R.id.promoButton);
+        newGame = activity.findViewById(R.id.surrenderButton);
 
+        promo.setOnClickListener(this);
+        newGame.setOnClickListener(this);
     }
 
     /**
@@ -83,5 +88,10 @@ public class ShogiHumanPlayer extends GameHumanPlayer {
     @Override
     public GameMainActivity getActivity() {
         return myActivity;
+    }
+
+    @Override
+    public void onClick(View v) {
+
     }
 }
