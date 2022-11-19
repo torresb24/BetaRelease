@@ -1,11 +1,13 @@
 package com.example.alpharelease.Shogi;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import com.example.alpharelease.GameFramework.GameMainActivity;
 import com.example.alpharelease.GameFramework.LocalGame;
 import com.example.alpharelease.GameFramework.infoMessage.GameInfo;
+import com.example.alpharelease.GameFramework.infoMessage.GameOverInfo;
 import com.example.alpharelease.GameFramework.infoMessage.IllegalMoveInfo;
 import com.example.alpharelease.GameFramework.infoMessage.NotYourTurnInfo;
 import com.example.alpharelease.GameFramework.players.GameHumanPlayer;
@@ -17,6 +19,8 @@ import com.example.alpharelease.Shogi.ShogiGameState;
 public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickListener {
 
     private MainSurfaceView surfaceView;
+    private ShogiGameState copyState;
+
     private Button promo;
     private Button newGame;
 
@@ -40,6 +44,8 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
             return;
         else {
             //got an updated state, need to redraw (send the info to the surfaceView)
+            ShogiGameState state = (ShogiGameState) info;
+            copyState = (ShogiGameState) info;
             surfaceView.setGameState((ShogiGameState)info);
             surfaceView.invalidate();
             Logger.log("ShogiHumanPlayer", "receiving");
@@ -60,7 +66,7 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
         surfaceView.setOnTouchListener(surfaceView);
 
         promo = activity.findViewById(R.id.promoButton);
-        newGame = activity.findViewById(R.id.surrenderButton);
+        newGame = activity.findViewById(R.id.newGameButton);
 
         promo.setOnClickListener(this);
         newGame.setOnClickListener(this);
@@ -92,6 +98,10 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-
+        switch (v.getId()) {
+            case R.id.newGameButton:
+                Log.i("HUMAN_SURRENDER", "HAHAHAHAHA loser");
+                this.sendInfo(new GameOverInfo("Woooooow you really just gave up"));
+        }
     }
 }
