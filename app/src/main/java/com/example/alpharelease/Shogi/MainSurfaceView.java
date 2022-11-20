@@ -72,8 +72,6 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
         imgPaint.setColor(Color.BLACK);
         toggle = 0;
         imagesize = 1030;
-        //buffersizeHoriz = 563;
-        //buffersizeVert = 14;
 
         boardLeft = 479;
         boardTop = 24;
@@ -118,25 +116,23 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
         //draw the initial setup for player 1
         for (Piece p: state.pieces1) {
             image = BitmapFactory.decodeResource(getResources(), p.pieceType.getID());
-            canvas.drawBitmap(image, boardLeft + ((tileSize) * p.getCol()), ((tileSize) * p.getRow()), imgPaint);
+            canvas.drawBitmap(image, boardLeft + ((tileSize) * p.getCol()), ((tileSize) * p.getRow())+50, imgPaint);
         }
 
         //draw the initial set up for player 2
         for (Piece p: state.pieces2) {
             image = BitmapFactory.decodeResource(getResources(), p.pieceType.getID());
-            transform.setTranslate(boardLeft + ((tileSize) * p.getCol()),((tileSize) * p.getRow()));
+            transform.setTranslate(boardLeft + ((tileSize) * p.getCol()),((tileSize) * p.getRow())+50);
             canvas.drawBitmap(image, transform, imgPaint);
         }
 
         board.drawBoard(canvas);
 
         //draw the possible moves
-        /*for (int i = 0; i < state.cords.size(); i += 2) {
-            canvas.drawRect(tileSize * state.cords.get(i) + buffersizeHoriz/25,
-                    tileSize * state.cords.get(i + 1),
-                    (tileSize * state.cords.get(i)) + tileSize + buffersizeHoriz/25,
-                    (tileSize * state.cords.get(i + 1)) + tileSize, paint);
-        }*/
+        for (int i = 0; i < state.cords.size(); i += 2) {
+            canvas.drawRect(boardLeft+(tileSize*state.cords.get(i)), tileSize*state.cords.get(i+1) + boardTop,
+                    boardLeft+(tileSize*state.cords.get(i)) + tileSize, tileSize*state.cords.get(i+1) + tileSize + boardTop,paint);
+        }
         // Moving the draw down here lets us draw on TOP of the image / circle above
         // For spots, can use for integer based loop or for each
 
@@ -150,22 +146,26 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
         if (e.getActionMasked() == MotionEvent.ACTION_DOWN) {
             float x = e.getX();
             float y = e.getY();
-
+            int xcord = -1;
+            int ycord = -1;
             if (board.onBoard(x, y)) { //If they touched the board
                 Tile chosen = new Tile();
                 chosen = board.getTouchedTile(x, y);
 
+                for(int v = 0; v < 9 ; v++){
+                    if((x > boardLeft + tileSize*v) && (x < boardLeft + tileSize*(v+1))){xcord = v;}
+                    if((y > boardTop + tileSize*v) && (y < boardTop + tileSize*(v+1))){ycord = v;}
+                }
+
                 noMove = 2;
                 if (lever == 0) { // first click""
-                 //   System.out.println(state.getTurn());
                     if (state.getTurn()) {
                         for (Piece p : state.pieces1) {
-                            if (p.getCol() == boardCol && p.getRow() == boardRow) {
+                            if (p.getCol() == xcord && p.getRow() == ycord) {
                                 currID = p.pieceType.getID();
                                 pieceCol = p.getCol();
                                 pieceRow = p.getRow();
                                 state.cords.clear();
-
                                 state.cords = game.callCorrectMovement(currID,state.getTurn(), pieceCol, pieceRow);
                                 lever = 1;
                                 break;
@@ -193,6 +193,7 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
                     }
                     // Dumb AI Playing
                     else if (!state.getTurn()) {
+                        state.cords.clear();
                         int randIndex = -1;
                         pieceCol = -1;
                         pieceRow = -1;
@@ -204,11 +205,11 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
                             currID = state.pieces2.get(randIndex).pieceType.getID();
 
                             state.cords = game.callCorrectMovement(currID,state.getTurn(), pieceCol, pieceRow);
-                            if (currID == R.drawable.promoted_bishop || currID == R.drawable.promoted_knight ||
-                                    currID == R.drawable.promoted_lance ||
-                                    currID == R.drawable.promoted_pawn ||
-                                    currID == R.drawable.promoted_rook ||
-                                    currID == R.drawable.promoted_silv_gen
+                            if (currID == R.drawable.opp_promo_bish || currID == R.drawable.opp_promo_knight ||
+                                    currID == R.drawable.opp_promo_lance ||
+                                    currID == R.drawable.opp_promo_pawn ||
+                                    currID == R.drawable.opp_promo_rook ||
+                                    currID == R.drawable.opp_promo_silv
                             ) {
                                 state.cords.clear();
                             }
@@ -221,18 +222,15 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
                             if(pieceCol == p.getCol() && pieceRow == p.getRow() && p.pieceType.getID() == currID){
                                 p.setCol(state.cords.get(randIndex));
                                 p.setRow(state.cords.get(randIndex+1));
+                                // AI CAPTURE
+                                for (int j = 0; j < state.pieces1.size(); j++) {
+                                    if(state.pieces1.get(j).getCol() == p.getCol() && state.pieces1.get(j).getRow() == p.getRow()){
+                                        state.pieces1.remove(j);
+                                        break;
+                                    }
+                                }
+                                // END OF AI CAPTURE
                             }
-                        }
-                        holdCords.clear();
-                        for (int j = 0; j < state.pieces1.size()-1; j++) {
-                            if(state.pieces1.get(j).getCol() == state.cords.get(randIndex) && (state.pieces2.get(j).getRow() == state.cords.get(randIndex+1))){
-                                holdCords.add(j);
-                            }
-                        }
-                        Collections.sort(holdCords);
-                        Collections.reverse(holdCords);
-                        for(Integer l : holdCords){
-                            state.pieces1.remove(l);
                         }
                         state.cords.clear();
                         if(game.checkMate(state.getTurn())){
@@ -245,28 +243,22 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
                 } // if lever == 0
                 else if(lever == 1){
                     for(int i = 0; i < state.cords.size(); i+= 2){
-                        if(state.cords.get(i) == boardCol && state.cords.get(i+1) == boardRow){
+                        if(state.cords.get(i) == xcord && state.cords.get(i+1) == ycord){
                             noMove = 1;
                             if(state.getTurn()){
                                 for(Piece p : state.pieces1){
                                     if(p.pieceType.getID() == currID && p.getCol() == pieceCol && p.getRow() == pieceRow){
-                                        p.setCol(boardCol);
-                                        p.setRow(boardRow);
+                                        p.setCol(xcord);
+                                        p.setRow(ycord);
                                         // flip turn aswell
                                        // state.changeTurn();
                                         holdCords.clear();
                                         for(int j = 0; j < state.pieces2.size(); j++){
-                                            if(state.pieces2.get(j).getCol() == boardCol && (state.pieces2.get(j).getRow() == boardRow)){
+                                            if(state.pieces2.get(j).getCol() == xcord && (state.pieces2.get(j).getRow() == ycord)){
                                                 state.pieces2.remove(j);
-                                                //holdCords.add(j);
+                                                break;
                                             }
                                         }
-                                       /** Collections.sort(holdCords);
-                                        Collections.reverse(holdCords);
-                                        for(Integer l : holdCords){
-                                            state.pieces2.remove(l);
-                                        }*/
-
                                         lever = 0;
                                         state.cords.clear();
                                         if(game.checkMate(state.getTurn())){

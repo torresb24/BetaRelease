@@ -49,7 +49,7 @@ public class Tile {
 
     public void drawTile(Canvas c) {
         if (this.isOccupied() && this.piece.getDirection() == Piece.DIRECTION.BACKWARD) { //If occupied by the enemy
-            this.tilePaint.setColor(occupiedPaint.getColor());
+            this.tilePaint.setColor(emptyPaint.getColor());
         } else {
             this.tilePaint.setColor(emptyPaint.getColor());
         }

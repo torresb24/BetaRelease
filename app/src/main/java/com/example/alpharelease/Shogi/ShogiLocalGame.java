@@ -37,7 +37,7 @@ public class ShogiLocalGame extends LocalGame {
         return null;
     }
 
-    @Override
+      @Override
     protected boolean makeMove(GameAction action) {
         //TODO: Using action, makeMove, and return true if move was made
         ShogiGameState theState = (ShogiGameState) state;
@@ -74,7 +74,7 @@ public class ShogiLocalGame extends LocalGame {
      * bottom        +   B
      * bottom right  +   BR
      * */
-    public void makeMove(boolean turn, int x, int y,int TL, int T, int TR, int R, int BR, int B, int BL, int L){
+    public void makeMoves(boolean turn, int x, int y,int TL, int T, int TR, int R, int BR, int B, int BL, int L){
         int xcord = x;
         int ycord = y;
         
@@ -619,31 +619,32 @@ public class ShogiLocalGame extends LocalGame {
     public ArrayList<Integer> callCorrectMovement(int ID, boolean turn, int x, int y){
         ((ShogiGameState) state).cords.clear();
         switch(ID) {
-            case (R.drawable.king):
+            case (R.drawable.king): case (R.drawable.opp_king):
                 moveKing(turn, x, y);
                 break;
-            case (R.drawable.gold_gen): case(R.drawable.promoted_silv_gen): case (R.drawable.promoted_pawn): case (R.drawable.promoted_lance): case (R.drawable.promoted_knight):
+            case (R.drawable.gold_gen): case(R.drawable.promoted_silv_gen): case(R.drawable.promoted_pawn): case(R.drawable.promoted_lance): case(R.drawable.promoted_knight):
+            case(R.drawable.opp_gold_gen): case(R.drawable.opp_promo_silv): case(R.drawable.opp_promo_pawn): case(R.drawable.opp_promo_lance): case(R.drawable.opp_promo_knight):
                 moveGoldGen(turn, x, y);
                 break;
-            case (R.drawable.silv_gen):
+            case (R.drawable.silv_gen): case (R.drawable.opp_silv_gen):
                 moveSilvGen(turn, x, y);
                 break;
-            case (R.drawable.bishop):
+            case (R.drawable.bishop): case (R.drawable.opp_bish):
                 moveBishop(turn, x, y);
                 break;
-            case (R.drawable.promoted_bishop):
+            case (R.drawable.promoted_bishop): case (R.drawable.opp_promo_bish):
                 movePromBishop(turn, x, y);
                 break;
-            case (R.drawable.rook):
+            case (R.drawable.rook): case (R.drawable.opp_rook):
                 moveRook(turn, x, y);
                 break;
-            case (R.drawable.lance):
+            case (R.drawable.lance): case (R.drawable.opp_lance):
                 moveLance(turn, x, y);
                 break;
-            case (R.drawable.pawn):
+            case (R.drawable.pawn): case (R.drawable.opp_pawn):
                 movePawn(turn, x, y);
                 break;
-            case (R.drawable.knight):
+            case (R.drawable.knight): case (R.drawable.opp_knight):
                 moveKnight(turn, x, y);
                 break;
         }
@@ -651,39 +652,39 @@ public class ShogiLocalGame extends LocalGame {
     }
     // TODO move up to case switch only
     public void moveKing(boolean turn, int x, int y) {
-        makeMove(turn, x, y, 1, 1, 1, 1, 1, 1, 1, 1);
+        makeMoves(turn, x, y, 1, 1, 1, 1, 1, 1, 1, 1);
     }
 
     public void moveGoldGen(boolean turn, int x, int y){
-        makeMove(turn, x, y, 1, 1, 1, 1, 0, 1, 0, 1);
+        makeMoves(turn, x, y, 1, 1, 1, 1, 0, 1, 0, 1);
     }
 
     public void moveSilvGen(boolean turn, int x, int y){
-        makeMove(turn, x, y, 1, 1, 1, 0, 1, 0, 1, 0);
+        makeMoves(turn, x, y, 1, 1, 1, 0, 1, 0, 1, 0);
     }
 
     public void moveBishop(boolean turn, int x, int y){
-        makeMove(turn, x, y, 8, 0, 8, 0, 8, 0, 8, 0);
+        makeMoves(turn, x, y, 8, 0, 8, 0, 8, 0, 8, 0);
     }
 
     public void movePromBishop(boolean turn, int x, int y){
-        makeMove(turn, x, y, 8, 1, 8, 1, 8, 1, 8, 1);
+        makeMoves(turn, x, y, 8, 1, 8, 1, 8, 1, 8, 1);
     }
 
     public void moveRook(boolean turn, int x, int y){
-        makeMove(turn, x, y, 0, 8, 0, 8, 0, 8, 0, 8);
+        makeMoves(turn, x, y, 0, 8, 0, 8, 0, 8, 0, 8);
     }
 
     public void movePromRook(boolean turn, int x, int y){
-        makeMove(turn, x, y, 1, 8, 1, 8, 1, 8, 1, 8);
+        makeMoves(turn, x, y, 1, 8, 1, 8, 1, 8, 1, 8);
     }
 
     public void moveLance(boolean turn, int x, int y){
-        makeMove(turn, x, y, 0, 8, 0, 0, 0, 0, 0, 0);
+        makeMoves(turn, x, y, 0, 8, 0, 0, 0, 0, 0, 0);
     }
 
     public void movePawn(boolean turn, int x, int y){
-        makeMove(turn, x, y, 0, 1, 0, 0, 0, 0, 0, 0);
+        makeMoves(turn, x, y, 0, 1, 0, 0, 0, 0, 0, 0);
     }
 
     public void moveKnight(boolean turn, int x, int y){
@@ -911,4 +912,11 @@ public class ShogiLocalGame extends LocalGame {
         }
         return false;
     }
+    /**
+    public ArrayList<Piece> getP1(){
+        return ((ShogiGameState) state).pieces1);
+    }
+    public ArrayList<Piece> getP2(){
+        return ((ShogiGameState) state).pieces2);
+    }*/
 }
