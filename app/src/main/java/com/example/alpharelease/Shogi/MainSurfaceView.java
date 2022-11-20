@@ -167,6 +167,7 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
                                 pieceRow = p.getRow();
                                 state.cords.clear();
                                 state.cords = game.callCorrectMovement(currID,state.getTurn(), pieceCol, pieceRow);
+                              //  System.out.println(state.cords);
                                 lever = 1;
                                 break;
                             } // if piece matches selected cords
