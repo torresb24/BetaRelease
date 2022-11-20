@@ -16,8 +16,7 @@ import android.graphics.Paint;
  * */
 
 public class Tile {
-    private int row;
-    private int col;
+    private int row, col, tileIndex;
     private float xCord; // left
     private float yCord; // top
     private float xCordEnd; // right
@@ -27,12 +26,8 @@ public class Tile {
     private Piece piece;
 
     public Tile() {
-        row = 0;
-        col = 0;
-        xCord = 0;
-        yCord = 0;
-        xCordEnd = 0;
-        yCordEnd = 0;
+        row = col = tileIndex = 0;
+        xCord = yCord = xCordEnd = yCordEnd = 0;
         isOccupied = false;
         piece = null;
 
@@ -47,8 +42,9 @@ public class Tile {
         tilePaint.setColor(emptyPaint.getColor());
     }
 
-    public void drawTile(Canvas c) {
-        if (this.isOccupied() && this.piece.getDirection() == Piece.DIRECTION.BACKWARD) { //If occupied by the enemy
+
+    public void drawEnemyTile(Canvas c) {
+        if (this.isOccupied() && this.piece.directionMovement == Piece.DIRECTION.BACKWARD) { //If occupied by the enemy change color
             this.tilePaint.setColor(occupiedPaint.getColor());
         } else {
             this.tilePaint.setColor(emptyPaint.getColor());
@@ -105,6 +101,14 @@ public class Tile {
 
     public int getCol() {
         return col;
+    }
+
+    public void setTileIndex(int tileIndex) {
+        this.tileIndex = tileIndex;
+    }
+
+    public int getTileIndex() {
+        return tileIndex;
     }
 
     public void setPiece(Piece piece) {

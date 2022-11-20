@@ -81,19 +81,12 @@ public class ShogiGameState extends GameState {
         this.grave_2 = orig.grave_2;
         this.pieces1 = new ArrayList<Piece>();
         this.pieces2 = new ArrayList<Piece>();
-        // for loop through
-        for (Piece p : orig.pieces1) {
-            this.pieces1.add(p);
-        }
-        for(Piece p : orig.pieces2) {
-            this.pieces2.add(p);
-        }
         this.cords = new ArrayList<Integer>();
-        for(Integer i : orig.cords){
-            this.cords.add(i);
-        }
-        //this.pieces1.addAll(orig.pieces1);
-        //this.pieces2.addAll(orig.pieces2);
+
+        // for loop through
+        this.pieces1.addAll(orig.pieces1);
+        this.pieces2.addAll(orig.pieces2);
+        this.cords.addAll(orig.cords);
     }
 
     /**
@@ -136,143 +129,89 @@ public class ShogiGameState extends GameState {
         //middle row is 1 space, bishop, 5 spaces, rook, 1 space (left to right from players pov)
         //back row is lance, knight, silver, gold, king, gold, silver, knight, lance
         int pawnNum = 0, lanceNum = 0, knightNum = 0, goldNum = 0, silvNum = 0;
+        int backRow = -1, middleRow = -1, frontRow = -1, bishopCol = -1, rookCol = -1;
 
-        if (id == 0) { //forward facing pieces (player 1)
-            for (Piece p : piece) {
-                switch (p.pieceType.getID()) { //What kind of piece is it
-                    case R.drawable.promoted_bishop:
-                    case R.drawable.promoted_lance:
-                    case R.drawable.promoted_knight:
-                    case R.drawable.promoted_pawn:
-                    case R.drawable.promoted_rook:
-                    case R.drawable.promoted_silv_gen:
-                        //if it's a promoted piece skip it
-                        break;
-                    case R.drawable.pawn:
-                        p.setRow(6); //up down
-                        p.setCol(pawnNum); //side to side
-                        pawnNum++;
-                        break;
-                    case R.drawable.bishop:
-                        p.setRow(7);
+        switch (piece.get(0).directionMovement) {
+            case FORWARD: //Forward facing pieces
+                backRow = 8;
+                middleRow = 7;
+                frontRow = 6;
+                bishopCol = 1;
+                rookCol = 7;
+                break;
+            case BACKWARD: //Backward facing pieces
+                backRow = 0;
+                middleRow = 1;
+                frontRow = 2;
+                bishopCol = 7;
+                rookCol = 1;
+                break;
+        }
+        for (Piece p : piece) {
+            switch (p.pieceType) { //What kind of piece is it
+                case PROMOTED_BISHOP: case PROMOTED_LANCE: case PROMOTED_KNIGHT:
+                case PROMOTED_PAWN: case PROMOTED_ROOK: case PROMOTED_SILVER_GENERAL:
+                case OPP_PROMOTED_BISHOP: case OPP_PROMOTED_SILVER_GENERAL:
+                case OPP_PROMOTED_LANCE: case OPP_PROMOTED_PAWN:
+                case OPP_PROMOTED_KNIGHT: case OPP_PROMOTED_ROOK:
+                    //if it's a promoted piece skip it
+                    break;
+                case PAWN: case OPP_PAWN:
+                    p.setRow(frontRow); //up down
+                    p.setCol(pawnNum); //side to side
+                    pawnNum++;
+                    break;
+                case BISHOP: case OPP_BISHOP:
+                    p.setRow(middleRow);
+                    p.setCol(bishopCol);
+                    break;
+                case ROOK: case OPP_ROOK:
+                    p.setRow(middleRow);
+                    p.setCol(rookCol);
+                    break;
+                case LANCE: case OPP_LANCE:
+                    p.setRow(backRow);
+                    if (lanceNum == 0) {
+                        p.setCol(0);
+                    } else {
+                        p.setCol(8);
+                    }
+                    lanceNum++;
+                    break;
+                case KNIGHT: case OPP_KNIGHT:
+                    p.setRow(backRow);
+                    if (knightNum == 0) {
                         p.setCol(1);
-                        break;
-                    case R.drawable.rook:
-                        p.setRow(7);
+                    } else {
                         p.setCol(7);
-                        break;
-                    case R.drawable.lance:
-                        p.setRow(8);
-                        if (lanceNum == 0) {
-                            p.setCol(0);
-                        } else {
-                            p.setCol(8);
-                        }
-                        lanceNum++;
-                        break;
-                    case R.drawable.knight:
-                        p.setRow(8);
-                        if (knightNum == 0) {
-                            p.setCol(1);
-                        } else {
-                            p.setCol(7);
-                        }
-                        knightNum++;
-                        break;
-                    case R.drawable.silv_gen:
-                        p.setRow(8);
-                        if (silvNum == 0) {
-                            p.setCol(2);
-                        } else {
-                            p.setCol(6);
-                        }
-                        silvNum++;
-                        break;
-                    case R.drawable.gold_gen:
-                        p.setRow(8);
-                        if (goldNum == 0) {
-                            p.setCol(3);
-                        } else {
-                            p.setCol(5);
-                        }
-                        goldNum++;
-                        break;
-                    case R.drawable.king:
-                        p.setRow(8);
-                        p.setCol(4);
-                        break;
-                }
+                    }
+                    knightNum++;
+                    break;
+                case SILVER_GENERAL: case OPP_SILVER_GENERAL:
+                    p.setRow(backRow);
+                    if (silvNum == 0) {
+                        p.setCol(2);
+                    } else {
+                        p.setCol(6);
+                    }
+                    silvNum++;
+                    break;
+                case GOLD_GENERAL: case OPP_GOLD_GEN:
+                    p.setRow(backRow);
+                    if (goldNum == 0) {
+                        p.setCol(3);
+                    } else {
+                        p.setCol(5);
+                    }
+                    goldNum++;
+                    break;
+                case KING: case OPP_KING:
+                    p.setRow(backRow);
+                    p.setCol(4);
+                    break;
             }
-        } //end p1 setup
-
-        if (id == 1) { //backward facing pieces (player 2)
-            for (Piece p : piece) {
-                switch (p.pieceType.getID()) { //What kind of piece is it
-                    case R.drawable.opp_promo_bish:
-                    case R.drawable.opp_promo_lance:
-                    case R.drawable.opp_promo_knight:
-                    case R.drawable.opp_promo_pawn:
-                    case R.drawable.opp_promo_rook:
-                    case R.drawable.opp_promo_silv:
-                        //if it's a promoted piece skip it
-                        break;
-                    case R.drawable.opp_pawn:
-                        p.setRow(2); //up down
-                        p.setCol(pawnNum); //side to side
-                        pawnNum++;
-                        break;
-                    case R.drawable.opp_bish: //switch cols for opponent bishop and rook bc perspective
-                        p.setRow(1);
-                        p.setCol(7);
-                        break;
-                    case R.drawable.opp_rook:
-                        p.setRow(1);
-                        p.setCol(1);
-                        break;
-                    case R.drawable.opp_lance:
-                        p.setRow(0);
-                        if (lanceNum == 0) {
-                            p.setCol(0);
-                        } else {
-                            p.setCol(8);
-                        }
-                        lanceNum++;
-                        break;
-                    case R.drawable.opp_knight:
-                        p.setRow(0);
-                        if (knightNum == 0) {
-                            p.setCol(1);
-                        } else {
-                            p.setCol(7);
-                        }
-                        knightNum++;
-                        break;
-                    case R.drawable.opp_silv_gen:
-                        p.setRow(0);
-                        if (silvNum == 0) {
-                            p.setCol(2);
-                        } else {
-                            p.setCol(6);
-                        }
-                        silvNum++;
-                        break;
-                    case R.drawable.opp_gold_gen:
-                        p.setRow(0);
-                        if (goldNum == 0) {
-                            p.setCol(3);
-                        } else {
-                            p.setCol(5);
-                        }
-                        goldNum++;
-                        break;
-                    case R.drawable.opp_king:
-                        p.setRow(0);
-                        p.setCol(4);
-                        break;
-                }
-                board.placeOnBoard(p, p.getRow(), p.getCol());
-            }
-        } //end p2 setup
+            board.placeOnBoard(p, p.getRow(), p.getCol());
+        }//End direction switch
     }
 
 

@@ -41,13 +41,16 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
 
     private int currID;
     private int lever;
+    private Piece.GAME_PIECES type;
     private int pieceCol, pieceRow;
     private int noMove;
     private Paint imgPaint;
     private Paint paint;
 
-    private ShogiLocalGame game;
+
     private ShogiGameState state;
+    private ShogiLocalGame game;
+    private LocalGame lg;
     private Board board;
 
     Matrix transform;
@@ -63,6 +66,7 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
 
         state = new ShogiGameState();
         game = new ShogiLocalGame(state);
+        board = state.getBoard();
 
         paint = new Paint();
         paint.setARGB(255/2, 255, 145, 164);
@@ -82,10 +86,8 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
         tileSize = imagesize / 9 - 3;
         tiles = new ArrayList<>();
 
-
-        board = state.getBoard();
-
         currID = 0;
+        type = null;
         lever = 0;
         pieceCol = pieceRow = -1;
         noMove = 0;
@@ -145,8 +147,19 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
             float y = e.getY();
 
             if (board.onBoard(x, y)) { //If they touched the board
-                Tile chosen = new Tile();
+/*                Tile chosen;
                 chosen = board.getTouchedTile(x, y);
+                boardCol = chosen.getCol();
+                boardRow = chosen.getRow();*/
+
+                for (int i = 0; i < 9; i++) {
+                    if (tileSize * i <= x && x < tileSize * (i + 1)) {
+                        boardCol = i;
+                    }
+                    if (tileSize * i <= y && y < tileSize * (i + 1)) {
+                        boardRow = i;
+                    }
+                }
 
                 noMove = 2;
                 if (lever == 0) { // first click""
@@ -158,7 +171,6 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
                                 pieceCol = p.getCol();
                                 pieceRow = p.getRow();
                                 state.cords.clear();
-
                                 state.cords = game.callCorrectMovement(currID,state.getTurn(), pieceCol, pieceRow);
                                 lever = 1;
                                 break;
@@ -187,16 +199,33 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
                     // Dumb AI Playing
                     else if (!state.getTurn()) {
                         int randIndex = -1;
-                        pieceCol = -1;
-                        pieceRow = -1;
+                        int randIndex2;
+                        Tile randTile;
+                        pieceCol = -30;
+                        pieceRow = -30;
                         Random rand = new Random();
                         while (state.cords.isEmpty()) {
+                            randIndex2 = rand.nextInt(80);
+                            randTile = board.getRandTile(randIndex2);
+                            pieceCol = randTile.getCol();
+
+
+
                             randIndex = rand.nextInt(state.pieces2.size());
                             pieceCol = state.pieces2.get(randIndex).getCol();
                             pieceRow = state.pieces2.get(randIndex).getRow();
                             currID = state.pieces2.get(randIndex).pieceType.getID();
 
                             state.cords = game.callCorrectMovement(currID,state.getTurn(), pieceCol, pieceRow);
+
+
+                            switch () { //MAKE THIS BASED OFF OF PIECE TYPE
+                                case R.drawable.opp_promo_pawn: case R.drawable.opp_promo_lance:
+                                case R.drawable.opp_promo_rook: case R.drawable.opp_promo_bish: case R.drawable.opp_promo_knight:
+                                case R.drawable.opp_promo_silv: case R.drawable.opp_promo_gold:
+                                    state.cords.clear();
+                                    break;
+                            }
                             if (currID == R.drawable.promoted_bishop || currID == R.drawable.promoted_knight ||
                                     currID == R.drawable.promoted_lance ||
                                     currID == R.drawable.promoted_pawn ||
@@ -287,8 +316,8 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
         return false;
     }
 
-    public void setLocalGame(ShogiLocalGame g) {
-        game = g;
+    public void setLocalGame(LocalGame g) {
+        lg = g;
     }
 
     public void setGameState(ShogiGameState g) {

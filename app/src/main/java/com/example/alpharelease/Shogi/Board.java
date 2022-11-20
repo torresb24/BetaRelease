@@ -25,9 +25,8 @@ public class Board {
     private final int boardTopEdge = 24;
     private final int boardRightEdge = 1516;
     private final int boardBottomEdge = 1063;
-    int offsetLeft;
-    int offsetVer;
-    private int left, top, right, bottom;
+    private int offsetLeft, offsetVer;
+    private int left, top, right, bottom, tileNum;
     private Tile temp;
 
     public Board() {
@@ -41,6 +40,7 @@ public class Board {
         tiles.clear();
 
         left = top = right = bottom = 0;
+        tileNum = 0;
         offsetVer = 0;
 
         for (int i = 0; i < size; i++) {
@@ -75,7 +75,9 @@ public class Board {
                 temp.setRow(i);
                 temp.setCol(j);
                 temp.setCords(left, top, right, bottom);
+                temp.setTileIndex(tileNum);
                 tiles.add(temp);
+                tileNum++;
             }
         }
 
@@ -84,7 +86,6 @@ public class Board {
     public void placeOnBoard(Piece p, int row, int col) {
         for (Tile t : tiles) {
             if (t.getRow() == row && t.getCol() == col) {
-                t.setOccupied(true);
                 t.setPiece(p);
             }
 
@@ -95,7 +96,7 @@ public class Board {
 
     public void drawBoard(Canvas c) {
         for (Tile t : tiles) {
-            t.drawTile(c);
+            t.drawEnemyTile(c);
         }
     }
 
@@ -133,8 +134,16 @@ public class Board {
                 return t;
             }
         }
-
         return null; //In some rare cases the point may fall between the lines of tiles, thus null
+    }
+
+    public Tile getRandTile(int index) {
+        for (Tile t : tiles) { //Check the tile indexes
+            if (t.getTileIndex() == index) {
+                return t;
+            }
+        }
+        return null;
     }
 
 }

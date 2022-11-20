@@ -62,7 +62,7 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
         myActivity = (GameMainActivity) activity;
         surfaceView = activity.findViewById(R.id.surfaceView);
 
-        surfaceView.setLocalGame((ShogiLocalGame) game);
+        surfaceView.setLocalGame((LocalGame) game);
         surfaceView.setOnTouchListener(surfaceView);
 
         promo = activity.findViewById(R.id.promoButton);

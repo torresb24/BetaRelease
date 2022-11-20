@@ -34,12 +34,12 @@ public class Piece {
         OPP_KNIGHT(R.drawable.opp_knight, 2, 1), OPP_PROMOTED_KNIGHT(R.drawable.opp_promo_knight, 2, 1),
         OPP_PAWN(R.drawable.opp_pawn, 9, 1), OPP_PROMOTED_PAWN(R.drawable.opp_promo_pawn, 9, 1);
 
-        private final int id;
+        private final int pieceID;
         private final int amount;
         private final int player;
 
         GAME_PIECES(int drawableID, int amount, int player) {
-            this.id = drawableID;
+            this.pieceID = drawableID;
             this.amount = amount;
             this.player = player;
         }
@@ -49,12 +49,11 @@ public class Piece {
         }
 
         public int getID() {
-            return this.id;
+            return this.pieceID;
         }
 
         public int getAmount() {
             return this.amount;
-
         }
     }
 
@@ -122,9 +121,5 @@ public class Piece {
 
     public void setAlive(boolean alive) {
         isAlive = alive;
-    }
-
-    public DIRECTION getDirection() {
-        return directionMovement;
     }
 }

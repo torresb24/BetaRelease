@@ -17,10 +17,6 @@ public class ShogiComputerPlayer extends GameComputerPlayer {
 
         state = (ShogiGameState) info;
 
-
-
-
-
     }
 
 
