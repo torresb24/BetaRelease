@@ -219,7 +219,7 @@ public class MainSurfaceView extends SurfaceView implements View.OnTouchListener
                             state.cords = game.callCorrectMovement(currID,state.getTurn(), pieceCol, pieceRow);
 
 
-                            switch () { //MAKE THIS BASED OFF OF PIECE TYPE
+                            switch (currID) { //MAKE THIS BASED OFF OF PIECE TYPE
                                 case R.drawable.opp_promo_pawn: case R.drawable.opp_promo_lance:
                                 case R.drawable.opp_promo_rook: case R.drawable.opp_promo_bish: case R.drawable.opp_promo_knight:
                                 case R.drawable.opp_promo_silv: case R.drawable.opp_promo_gold:
