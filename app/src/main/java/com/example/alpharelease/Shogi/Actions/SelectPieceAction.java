@@ -5,15 +5,15 @@ import com.example.alpharelease.GameFramework.players.GamePlayer;
 import com.example.alpharelease.Shogi.Piece;
 
 public class SelectPieceAction extends GameAction {
-    public Piece selected;
+    public int selected;
 
     /**
      * constructor for GameAction
      *
      * @param player the player who created the action
      */
-    public SelectPieceAction(GamePlayer player, Piece selected) {
+    public SelectPieceAction(GamePlayer player, int selectedIndex) {
         super(player);
-        this.selected = selected;
+        this.selected = selectedIndex;
     }
 }
