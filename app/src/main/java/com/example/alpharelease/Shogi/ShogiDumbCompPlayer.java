@@ -53,6 +53,8 @@ public class ShogiDumbCompPlayer extends GameComputerPlayer {
             goToTile = board.getTile(randIndex);
 
             game.sendAction(new MovePieceAction(this, randIndex));
+
+            sendInfo(state);
         }
     }
 }

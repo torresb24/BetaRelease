@@ -104,7 +104,7 @@ public class ShogiLocalGame extends LocalGame {
         return false;
     }
 
-    public boolean checkMate() {
+    public boolean checkCheck() {
         if  (((ShogiGameState) state).pieces2.size() == 1) {
             return true;
         }
