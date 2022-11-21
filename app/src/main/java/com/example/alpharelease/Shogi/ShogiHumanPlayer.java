@@ -33,7 +33,6 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
     private EditText whichPiece;
     private EditText results;
 
-    int boardRow = -10, boardCol = -10;
     boolean pieceIsSelected = false;
     Tile chosenTile = null, fromThisTile = null, goToTile = null;
 
