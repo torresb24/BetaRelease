@@ -51,7 +51,7 @@ public class MainActivity extends GameMainActivity {
         GameConfig defaultConfig = new GameConfig(playerTypes, 2,2, "Shogi", 1285);
 
         defaultConfig.addPlayer("Human", 0); // first shogi human player
-        defaultConfig.addPlayer("Computer", 1); // first computer (dumb) player
+        defaultConfig.addPlayer("Game Crasher >:(", 1); // first computer (dumb) player
 
         // Initial info set
         defaultConfig.setRemoteData("Remote Player", "", 1); // red-on-yellow GUI
