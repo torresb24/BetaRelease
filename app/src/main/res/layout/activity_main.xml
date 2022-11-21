@@ -94,7 +94,7 @@
             android:gravity="bottom|center|center_vertical"
             android:orientation="vertical">
 
-            <TextView
+            <EditText
                 android:id="@+id/endStatus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -152,7 +152,8 @@
                 android:text="Player Turn:"
                 android:textColor="#FFFFFF"
                 android:textSize="20sp" />
-            <TextView
+
+            <EditText
                 android:id="@+id/turnWhoTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -172,7 +173,7 @@
                 android:textColor="#FFFFFF"
                 android:textSize="20sp" />
 
-            <TextView
+            <EditText
                 android:id="@+id/pieceTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
