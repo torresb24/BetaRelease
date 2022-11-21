@@ -41,20 +41,24 @@ public class MainActivity extends GameMainActivity {
             }
         });
 
-        playerTypes.add(new GamePlayerType("Computer Player (dumb)") {
+        playerTypes.add(new GamePlayerType("Computer Player (Dumb)") {
             public GamePlayer createPlayer(String name) {
                 return new ShogiDumbCompPlayer(name);
             }
         });
 
+        playerTypes.add(new GamePlayerType("Computer Player (Less Dumb)") {
+            public GamePlayer createPlayer(String name) { return new ShogiSmartCompPlayer(name); }});
 
-        GameConfig defaultConfig = new GameConfig(playerTypes, 2,2, "Shogi", 1285);
+
+        GameConfig defaultConfig = new GameConfig(playerTypes, 2,2, "Shogi", 2009);
 
         defaultConfig.addPlayer("Human", 0); // first shogi human player
         defaultConfig.addPlayer("Game Crasher >:(", 1); // first computer (dumb) player
+        defaultConfig.addPlayer("Less Dumb Computer", 1); // second computer (smart) player
 
         // Initial info set
-        defaultConfig.setRemoteData("Remote Player", "", 1); // red-on-yellow GUI
+        defaultConfig.setRemoteData("Remote Player", "", 1);
 
         return defaultConfig;
     }
