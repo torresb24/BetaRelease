@@ -143,7 +143,7 @@ public class Board {
      * returns the selected Tile if found and null if not
      */
     public Tile getTile(int col, int row) {
-        for (Tile t : tiles) { //Check the tiles coordinates (with slight leeway bc of the lines btwn)
+        for (Tile t : tiles) { //Check the tiles rows/col
             if (t.getCol() == col && t.getRow() == row) {
                 return t;
             }
@@ -194,9 +194,12 @@ public class Board {
         Piece.DIRECTION dir;
         ArrayList<Tile> possibleTiles = new ArrayList<>();
         int[] nums;
+        Tile tempy;
+        int rowMod = 2;
         nums = tile.getPiece().getMoveNum();
         dir = tile.getPiece().directionMovement;
-        int rowMod = 2;
+
+
 
         if (tile.getPiece().pieceType == Piece.GAME_PIECES.KNIGHT ||
                 tile.getPiece().pieceType == Piece.GAME_PIECES.OPP_KNIGHT) { //Knights have different moves
@@ -204,32 +207,36 @@ public class Board {
                 rowMod = -rowMod;
             }
             for (int j = -1; j < 2; j = j + 2) {
-                temp = getTile(tile.getCol() + j, tile.getRow() + rowMod);
-                if (temp == null || (temp.isOccupied() && temp.getPiece().directionMovement == dir)) {
+                tempy = getTile(tile.getCol() + j, tile.getRow() + rowMod);
+                if (tempy == null || (tempy.isOccupied() && tempy.getPiece().directionMovement == dir)) {
                     //Out of bounds or an ally is on that tile
-                    break;
+                    continue;
                 }
-                temp.setPossible(true);
+                tempy.setPossible(true);
             }
         }
 
         for (int j = -1; j < 2; j++) { //0, 1, 2
-            for (int i = 0; i <= nums[j + 1]; i++) {//Check Top Row
-                temp = getTile(tile.getCol() + (i * j), tile.getRow() - i);
-                if (temp == null) {
-                    j++; //Can't go any further in this direction, so move on
+            if (nums[j + 1] == 0) {
+                continue;
+            }
+            for (int i = 1; i < nums[j + 1] + 1; i++) {//Check Top Directions
+                tempy = getTile(tile.getCol() + (i * j), tile.getRow() - i);
+                if (tempy == null) {
+                    //Can't go any further in this direction, so move on
                     break;
-                } else if (temp.isOccupied()) {
-                    if (temp.getPiece().directionMovement == dir) {//Same team
-                        j++; //Move onto the next possible direction
+                } else if (tempy.isOccupied()) {
+                    if (tempy.getPiece().directionMovement == dir) {//Same team
+                        // Move onto the next possible direction
                         break;
                     } else { //Opposite team
-                        temp.setPossible(true); //You can jump your enemy
-                        j++; //Move onto the next possible direction
+                        tempy.setPossible(true); //You can jump your enemy
+                        //Move onto the next possible direction
                         break;
                     }
                 }
-                temp.setPossible(true);
+                tempy.setPossible(true);
+                possibleTiles.add(tempy);
             }
         }
 
@@ -238,42 +245,48 @@ public class Board {
             if (j == 0) {
                colMod = -1;
             }
-            for (int i = 0; i <= nums[j + 3]; i++) {//Check Middle Row
-                temp = getTile(tile.getCol() + colMod, tile.getRow());
-                if (temp == null) {
-                    j++; //Can't go any further in this direction, so move on
+            if (nums[j + 3] == 0) {
+                continue;
+            }
+            for (int i = 1; i <= nums[j + 3] + 1; i++) {//Check Middle Row
+                tempy = getTile(tile.getCol() + (i * colMod), tile.getRow());
+                if (tempy == null) {
+                    //Can't go any further in this direction, so move on
                     break;
-                } else if (temp.isOccupied()) {
-                    if (temp.getPiece().directionMovement == dir) {//Same team
-                        j++; //Move onto the next possible direction
+                } else if (tempy.isOccupied()) {
+                    if (tempy.getPiece().directionMovement == dir) {//Same team
+                        //Move onto the next possible direction
                         break;
                     } else { //Opposite team
-                        temp.setPossible(true); //You can jump your enemy
-                        j++; //Move onto the next possible direction
+                        tempy.setPossible(true); //You can jump your enemy
+                        //Move onto the next possible direction
                         break;
                     }
                 }
-                temp.setPossible(true);
+                tempy.setPossible(true);
             }
         }
 
         for (int j = -1; j < 2; j++) { //5, 6, 7
-            for (int i = 0; i <= nums[j + 6]; i++) {//Check Bottom Row
-                temp = getTile(tile.getCol() + (i * j), tile.getRow() + i);
-                if (temp == null) {
-                    j++; //Can't go any further in this direction, so move on
+            if (nums[j + 6] == 0) {
+                continue;
+            }
+            for (int i = 1; i <= nums[j + 6] + 1; i++) {//Check Bottom Row
+                tempy = getTile(tile.getCol() + (i * j), tile.getRow() + i);
+                if (tempy == null) {
+                    //Can't go any further in this direction, so move on
                     break;
-                } else if (temp.isOccupied()) {
-                    if (temp.getPiece().directionMovement == dir) {//Same team
-                        j++; //Move onto the next possible direction
+                } else if (tempy.isOccupied()) {
+                    if (tempy.getPiece().directionMovement == dir) {//Same team
+                        //Move onto the next possible direction
                         break;
                     } else { //Opposite team
-                        temp.setPossible(true); //You can jump your enemy
-                        j++; //Move onto the next possible direction
+                        tempy.setPossible(true); //You can jump your enemy
+                        //Move onto the next possible direction
                         break;
                     }
                 }
-                temp.setPossible(true);
+                tempy.setPossible(true);
             }
         }
 

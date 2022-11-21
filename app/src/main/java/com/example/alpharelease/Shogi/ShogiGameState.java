@@ -40,10 +40,11 @@ public class ShogiGameState extends GameState {
      * *** if stalemate ***
      * Previous turn state
      */
-    private boolean turn; // [true = Player 1, false = other]
+    private boolean isInCheck, isInCheckmate;
     private Board board;
     private final int p1 = 0;
     private final int p2 = 1;
+    private int whoseTurn;
     private String banner;
     private Graveyard grave_1;
     private Graveyard grave_2;
@@ -56,7 +57,7 @@ public class ShogiGameState extends GameState {
      */
 
     public ShogiGameState() { //Cntr
-        turn = first();
+        whoseTurn = first();
         board = new Board();
         grave_1 = new Graveyard();
         grave_2 = new Graveyard();
@@ -66,16 +67,13 @@ public class ShogiGameState extends GameState {
         cords = new ArrayList<>();
 
         assignPieces();
-        changeTurn();
-        //Declare turn the opposite of first so we can call the changeTurn method
-        //to assign banner a value and correct the turn value bc I'm lazy
     }
 
     /**
      * Current state of the game deep copy constructor
      */
     public ShogiGameState(ShogiGameState orig) {
-        this.turn = orig.turn;
+        this.whoseTurn = orig.whoseTurn;
         this.board = orig.board;
         this.grave_1 = orig.grave_1;
         this.grave_2 = orig.grave_2;
@@ -87,17 +85,6 @@ public class ShogiGameState extends GameState {
         this.pieces1.addAll(orig.pieces1);
         this.pieces2.addAll(orig.pieces2);
         this.cords.addAll(orig.cords);
-    }
-
-    /**
-     * Determine next turn based on current turn
-     */
-    public void changeTurn() {
-        if (turn) {
-            banner = "Player one's Turn";
-        } else {
-            banner = "Player two's turn";
-        }
     }
 
     //Make methods for defined actions
@@ -117,6 +104,7 @@ public class ShogiGameState extends GameState {
         } // for pieces
         initPieces(pieces1, 0);
         initPieces(pieces2, 1);
+
     }
 
 
@@ -210,35 +198,52 @@ public class ShogiGameState extends GameState {
                     p.setCol(4);
                     break;
             }
-            board.placeOnBoard(p, p.getRow(), p.getCol());
         }//End direction switch
+        board.assignTile(piece); //Assign each piece to a tile
     }
-
 
     // see who goes first
-    public boolean first() {
+    public int first() {
         Random rand = new Random();
         int i = rand.nextInt(11);
-        if (i < 6) {
-            return true;
-        } else {
-            return true; // should be false
-        }
+        return i % 2;
     }
 
-    public boolean getTurn() {
-        return turn;
+    /**
+     * Determine next turn based on current turn
+     */
+    public void changeTurn(int id) {
+        this.whoseTurn = id;
     }
 
-    public void setTurn(boolean turn) {
-        this.turn = turn;
+    public int getWhoseTurn() {
+        return whoseTurn;
     }
 
     public Board getBoard() {
         return board;
     }
 
-    public ArrayList<Integer> getCords() {
-        return cords;
+    public ArrayList<Piece> getPieceArray(int id) {
+        if (id == 0) {
+            return pieces1;
+        }
+        return pieces2;
+    }
+
+    public boolean isInCheck() {
+        return isInCheck;
+    }
+
+    public boolean isInCheckmate() {
+        return isInCheckmate;
+    }
+
+    public void setInCheck(boolean inCheck) {
+        isInCheck = inCheck;
+    }
+
+    public void setInCheckmate(boolean inCheckmate) {
+        isInCheckmate = inCheckmate;
     }
 }

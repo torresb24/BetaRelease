@@ -13,22 +13,22 @@ import android.graphics.Paint;
  *
  * @version 10/11/2022
  *
- * */
+ */
 
 public class Tile {
     private int row, col, tileIndex;
-    private float xCord; // left
-    private float yCord; // top
-    private float xCordEnd; // right
-    private float yCordEnd; // bottom
-    private boolean isOccupied;
+    private float xCoord; // left
+    private float yCoord; // top
+    private float xCoordEnd; // right
+    private float yCoordEnd; // bottom
+    private boolean isOccupied, possible;
     private Paint tilePaint, occupiedPaint, emptyPaint, possPaint;
     private Piece piece;
 
     public Tile() {
         row = col = tileIndex = 0;
-        xCord = yCord = xCordEnd = yCordEnd = 0;
-        isOccupied = false;
+        xCoord = yCoord = xCoordEnd = yCoordEnd = 0;
+        isOccupied = possible = false;
         piece = null;
 
         tilePaint = new Paint();
@@ -37,24 +37,24 @@ public class Tile {
         occupiedPaint = new Paint();
         occupiedPaint.setARGB(255/4, 199, 0, 200);
         possPaint = new Paint();
-        possPaint.setARGB(255/2, 255, 145, 164);
+        possPaint.setARGB(255/2, 100, 155, 100);
 
         tilePaint.setColor(emptyPaint.getColor());
     }
 
-
-    public void drawEnemyTile(Canvas c) {
-        if (this.isOccupied() && this.piece.directionMovement == Piece.DIRECTION.BACKWARD) { //If occupied by the enemy change color
+    public void drawTiles(Canvas c) {
+        if (isPossible()) { //If you can move there color it this color
+            this.tilePaint.setColor(possPaint.getColor());
+        } else if (this.isOccupied() &&
+                this.piece.directionMovement == Piece.DIRECTION.BACKWARD) { //If occupied by the enemy change color
             this.tilePaint.setColor(occupiedPaint.getColor());
         } else {
             this.tilePaint.setColor(emptyPaint.getColor());
         }
-        c.drawRect(this.xCord, this.yCord, this.xCordEnd, this.yCordEnd, tilePaint);
+        c.drawRect(this.xCoord, this.yCoord, this.xCoordEnd, this.yCoordEnd, tilePaint);
     }
 
-    public void drawPossibleMove(Canvas c) {
-        c.drawRect(this.xCord, this.yCord, this.xCordEnd, this.yCordEnd, possPaint);
-    }
+    /** vvv Various getters and setters vvv */
 
     public void setOccupied(boolean occupied) {
         this.isOccupied = occupied;
@@ -64,27 +64,27 @@ public class Tile {
         return this.isOccupied;
     }
 
-    public void setCords(int x, int y, int xEnd, int yEnd) {
-        this.xCord = x;
-        this.yCord = y;
-        this.xCordEnd = xEnd;
-        this.yCordEnd = yEnd;
+    public void setCoords(int x, int y, int xEnd, int yEnd) {
+        this.xCoord = x;
+        this.yCoord = y;
+        this.xCoordEnd = xEnd;
+        this.yCoordEnd = yEnd;
     }
 
-    public float getxCord() {
-        return xCord;
+    public float getxCoord() {
+        return xCoord;
     }
 
-    public float getxCordEnd() {
-        return xCordEnd;
+    public float getxCoordEnd() {
+        return xCoordEnd;
     }
 
-    public float getyCord() {
-        return yCord;
+    public float getyCoord() {
+        return yCoord;
     }
 
-    public float getyCordEnd() {
-        return yCordEnd;
+    public float getyCoordEnd() {
+        return yCoordEnd;
     }
 
     public void setRow(int row) {
@@ -103,6 +103,14 @@ public class Tile {
         return col;
     }
 
+    public boolean isPossible() {
+        return possible;
+    }
+
+    public void setPossible(boolean possible) {
+        this.possible = possible;
+    }
+
     public void setTileIndex(int tileIndex) {
         this.tileIndex = tileIndex;
     }
@@ -113,5 +121,14 @@ public class Tile {
 
     public void setPiece(Piece piece) {
         this.piece = piece;
+        this.isOccupied = true;
+        piece.setRow(this.row);
+        piece.setCol(this.col);
+        piece.setOnBoard(true);
     }
+
+    public Piece getPiece() {
+        return this.piece;
+    }
+
 }

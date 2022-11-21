@@ -2,6 +2,8 @@ package com.example.alpharelease.Shogi;
 
 import com.example.alpharelease.R;
 
+import java.util.Arrays;
+
 /**
  *
  * @author Kathryn Weidman
@@ -66,29 +68,106 @@ public class Piece {
     public DIRECTION directionMovement;
 
     private int row, col;
-    private boolean isAlive, isOnBoard;
+    private boolean isAlive, isOnBoard, isSelected;
+    private int[] moveNum; //TL = 0, T = 1, TR = 2, L = 3, R = 4, BL = 5, B = 6, BR = 7 for indexes
 
     public Piece(GAME_PIECES type, DIRECTION dir) {
         row = col = -1;
         pieceType = type;
         directionMovement = dir;
         isAlive = true;
-        firstIsOnBoard(type);
+        isSelected = false;
+        moveNum = new int[8];
+
+        setMoveNum();
+        firstIsOnBoard();
     }
 
-    private void firstIsOnBoard(GAME_PIECES type) {
-        switch (type.getID()) {
-            case R.drawable.promoted_pawn: case R.drawable.promoted_lance: case R.drawable.promoted_rook:
-            case R.drawable.promoted_bishop: case R.drawable.promoted_knight: case R.drawable.promoted_silv_gen:
-            case R.drawable.promoted_gold_gen: case R.drawable.opp_promo_pawn: case R.drawable.opp_promo_lance:
-            case R.drawable.opp_promo_rook: case R.drawable.opp_promo_bish: case R.drawable.opp_promo_knight:
-            case R.drawable.opp_promo_silv: case R.drawable.opp_promo_gold:
+    private void firstIsOnBoard() {
+        switch (this.pieceType) {
+            case PROMOTED_PAWN: case PROMOTED_LANCE: case PROMOTED_ROOK:
+            case PROMOTED_BISHOP: case PROMOTED_KNIGHT: case PROMOTED_SILVER_GENERAL:
+            case OPP_PROMOTED_PAWN: case OPP_PROMOTED_LANCE: case OPP_PROMOTED_ROOK:
+            case OPP_PROMOTED_BISHOP: case OPP_PROMOTED_KNIGHT: case OPP_PROMOTED_SILVER_GENERAL:
                 isOnBoard = false;
                 break;
             default:
                 isOnBoard = true;
                 break;
         }
+    }
+
+    private void setMoveNum() { //TL = 0, T = 1, TR = 2, L = 3, R = 4, BL = 5, B = 6, BR = 7 for indexes
+        Arrays.fill(moveNum, 0);
+
+        switch (this.pieceType) {
+            case PAWN:
+                moveNum[1] = 1;
+                break;
+
+            case OPP_PAWN:
+                moveNum[6] = 1;
+                break;
+
+            case BISHOP: case OPP_BISHOP:
+                moveNum[0] = moveNum[2] = moveNum[5] = moveNum[7] = 8;
+                break;
+
+            case ROOK: case OPP_ROOK:
+                moveNum[1] = moveNum[3] = moveNum[4] = moveNum[6] = 8;
+                break;
+
+            case LANCE:
+                moveNum[1] = 8;
+                break;
+
+            case OPP_LANCE:
+                moveNum[6] = 8;
+                break;
+
+            case KNIGHT: case OPP_KNIGHT:
+                break;
+
+            case SILVER_GENERAL:
+                Arrays.fill(moveNum, 1);
+                moveNum[3] = moveNum[4] = moveNum[6] = 0;
+                break;
+
+            case OPP_SILVER_GENERAL:
+                Arrays.fill(moveNum, 1);
+                moveNum[1] = moveNum[3] = moveNum[4] = 0;
+                break;
+
+            case KING: case OPP_KING:
+                Arrays.fill(moveNum, 1);
+                break;
+
+            case PROMOTED_ROOK: case OPP_PROMOTED_ROOK:
+                Arrays.fill(moveNum, 1);
+                moveNum[1] = moveNum[3] = moveNum[4] = moveNum[6] = 8;
+                break;
+
+            case PROMOTED_BISHOP: case OPP_PROMOTED_BISHOP:
+                Arrays.fill(moveNum, 1);
+                moveNum[0] = moveNum[2] = moveNum[5] = moveNum[7] = 8;
+                break;
+
+            case PROMOTED_PAWN: case PROMOTED_LANCE: case PROMOTED_KNIGHT:
+            case PROMOTED_SILVER_GENERAL: case GOLD_GENERAL:
+                Arrays.fill(moveNum, 1);
+                moveNum[5] = moveNum[7] = 0;
+                break;
+
+            case OPP_PROMOTED_PAWN: case OPP_PROMOTED_LANCE: case OPP_PROMOTED_KNIGHT:
+            case OPP_PROMOTED_SILVER_GENERAL: case OPP_GOLD_GEN:
+                Arrays.fill(moveNum, 1);
+                moveNum[0] = moveNum[2] = 0;
+                break;
+        }
+    }//End setMoveNum
+
+    public int[] getMoveNum() {
+        return moveNum;
     }
 
     public int getCol() {
@@ -115,11 +194,25 @@ public class Piece {
         return isOnBoard;
     }
 
+    public boolean isSelected() {
+        return isSelected;
+    }
+
     public void setOnBoard(boolean onBoard) {
         isOnBoard = onBoard;
+        if (!onBoard) {
+            this.row = this.col = -1;
+        } //Take them off the board
     }
 
     public void setAlive(boolean alive) {
         isAlive = alive;
+        if (!alive) {
+            this.setOnBoard(false);
+        } //Take them off the board if dead
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
     }
 }
