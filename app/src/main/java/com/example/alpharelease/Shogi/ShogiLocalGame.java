@@ -62,9 +62,11 @@ public class ShogiLocalGame extends LocalGame {
         if (action instanceof MovePieceAction) {
             Tile goThere = board.getTile(((MovePieceAction)action).destination);
             for (Tile t : board.getTiles()) {
-                if (t.getPiece().isSelected()) {
-                    fromHere = t;
-                    break;
+                if(t.getPiece() != null) {
+                    if (t.getPiece().isSelected()) {
+                        fromHere = t;
+                        break;
+                    }
                 }
             }
 
@@ -79,8 +81,10 @@ public class ShogiLocalGame extends LocalGame {
                 }
                 board.impossAllTiles();
                 Piece p = goThere.getPiece();
-                p.setAlive(false);
-                p.setOnBoard(false);
+                if (p != null) {
+                    p.setAlive(false);
+                    p.setOnBoard(false);
+                }
                 goThere.setPiece(fromHere.getPiece());
                 fromHere.getPiece().setSelected(false);
             }
