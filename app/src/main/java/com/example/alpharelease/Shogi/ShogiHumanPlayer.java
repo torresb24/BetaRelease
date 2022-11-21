@@ -123,7 +123,10 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 
     @Override
     public boolean onTouch(View view, MotionEvent e) {
-        //TODO: This is where to send moves to the game using game.sendAction(new ShogiAction)
+
+        if (!(state.getWhoseTurn() == this.playerNum)) {
+            return false;
+        }
 
         if (e.getActionMasked() == MotionEvent.ACTION_DOWN) {
             float x = e.getX();
@@ -144,7 +147,7 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
                 } //While it's null, try adjusting the coordinates slightly due to the tiny gaps in the board
 
                 if (!pieceIsSelected) { //Nothing is selected
-                    if (!chosenTile.isOccupied() || chosenTile.getPiece().directionMovement == Piece.DIRECTION.BACKWARD) {
+                    if (!chosenTile.isOccupied() || this.playerNum != chosenTile.getPiece().pieceType.getPlayer()) {
                         //Chosen piece either isn't yours or is empty
                         return false;
                     }
@@ -165,7 +168,7 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 
                     return true; //You selected a new piece! Congrats!
 
-                } else if (chosenTile.isOccupied() && chosenTile.getPiece().directionMovement == Piece.DIRECTION.FORWARD) {
+                } else if (chosenTile.isOccupied() && this.playerNum == chosenTile.getPiece().pieceType.getPlayer()) {
                     //You already selected a piece, but chose a different one
                     fromThisTile.getPiece().setSelected(false); //Set old piece to unselected
                     board.impossAllTiles(); //Get rid of previous possibilities

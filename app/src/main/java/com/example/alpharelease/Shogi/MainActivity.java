@@ -11,7 +11,6 @@ import com.example.alpharelease.GameFramework.infoMessage.GameState;
 import com.example.alpharelease.GameFramework.players.GamePlayer;
 import com.example.alpharelease.GameFramework.utilities.Logger;
 import com.example.alpharelease.GameFramework.utilities.Saving;
-import com.example.alpharelease.R;
 
 import java.util.ArrayList;
 
@@ -44,7 +43,7 @@ public class MainActivity extends GameMainActivity {
 
         playerTypes.add(new GamePlayerType("Computer Player (dumb)") {
             public GamePlayer createPlayer(String name) {
-                return new ShogiComputerPlayer(name);
+                return new ShogiDumbCompPlayer(name);
             }
         });
 

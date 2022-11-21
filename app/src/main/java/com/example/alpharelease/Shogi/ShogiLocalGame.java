@@ -62,7 +62,7 @@ public class ShogiLocalGame extends LocalGame {
         if (action instanceof MovePieceAction) {
             Tile goThere = board.getTile(((MovePieceAction)action).destination);
             for (Tile t : board.getTiles()) {
-                if(t.getPiece() != null) {
+                if (t.getPiece() != null) {
                     if (t.getPiece().isSelected()) {
                         fromHere = t;
                         break;
@@ -75,10 +75,12 @@ public class ShogiLocalGame extends LocalGame {
             }
 
             if (goThere.isPossible()) {
-                if (goThere.isOccupied() && goThere.getPiece().pieceType == Piece.GAME_PIECES.KING
-                        && goThere.getPiece().pieceType == Piece.GAME_PIECES.OPP_KING) {
+
+                if (goThere.isOccupied() && (goThere.getPiece().pieceType == Piece.GAME_PIECES.KING
+                        || goThere.getPiece().pieceType == Piece.GAME_PIECES.OPP_KING)) {
                     state.setInCheckmate(true);
-                }
+                } //They snatched the king!
+
                 board.impossAllTiles();
                 Piece p = goThere.getPiece();
                 if (p != null) {
@@ -91,9 +93,9 @@ public class ShogiLocalGame extends LocalGame {
 
             fromHere.setPiece(null);
 
-            return goThere.isOccupied();
+            state.changeTurn(1 - state.getWhoseTurn());
 
-            //state.changeTurn(1 - state.getWhoseTurn());
+            return goThere.isOccupied();
         }
 
 
