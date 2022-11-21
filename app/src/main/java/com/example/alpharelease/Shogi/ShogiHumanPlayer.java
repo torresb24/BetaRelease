@@ -156,11 +156,17 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 
                     whichPiece.setText("" + fromThisTile.getPiece().pieceType);
 
+                    if (state.getWhoseTurn() == 0) {
+                        whichPlayer.setText(allPlayerNames[0] + "'s Turn");
+                    } else {
+                        whichPlayer.setText(allPlayerNames[1] + "'s Turn");
+                    }
+
                     this.sendInfo(state);
 
                     return true; //You selected a new piece! Congrats!
 
-                } else if (chosenTile.getPiece().directionMovement == Piece.DIRECTION.FORWARD) {
+                } else if (chosenTile.isOccupied() && chosenTile.getPiece().directionMovement == Piece.DIRECTION.FORWARD) {
                     //You already selected a piece, but chose a different one
                     fromThisTile.getPiece().setSelected(false); //Set old piece to unselected
                     board.impossAllTiles(); //Get rid of previous possibilities
@@ -171,24 +177,30 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 
                     whichPiece.setText("" + fromThisTile.getPiece().pieceType);
 
+                    if (state.getWhoseTurn() == 0) {
+                        whichPlayer.setText(allPlayerNames[0] + "'s Turn");
+                    } else {
+                        whichPlayer.setText(allPlayerNames[1] + "'s Turn");
+                    }
+
                     this.sendInfo(state);
 
                     return true; //You selected a new piece! Congrats!
 
                 } else { //Unoccupied or is occupied by an enemy. Sally forth!
-                    fromThisTile.getPiece().setSelected(false);
-                    board.impossAllTiles();
 
                     goToTile = chosenTile;
                     game.sendAction(new MovePieceAction(this, goToTile.getTileIndex()));
                     pieceIsSelected = false;
-                }
-            }
 
-            if (state.getWhoseTurn() == 0) {
-                whichPlayer.setText(allPlayerNames[0] + "'s Turn");
-            } else {
-                whichPlayer.setText(allPlayerNames[1] + "'s Turn");
+                    if (state.getWhoseTurn() == 0) {
+                        whichPlayer.setText(allPlayerNames[0] + "'s Turn");
+                    } else {
+                        whichPlayer.setText(allPlayerNames[1] + "'s Turn");
+                    }
+
+                    this.sendInfo(state);
+                }
             }
 
         }

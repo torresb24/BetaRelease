@@ -121,10 +121,14 @@ public class Tile {
 
     public void setPiece(Piece piece) {
         this.piece = piece;
-        this.isOccupied = true;
-        piece.setRow(this.row);
-        piece.setCol(this.col);
-        piece.setOnBoard(true);
+        if (piece != null) {
+            this.isOccupied = true;
+            piece.setRow(this.row);
+            piece.setCol(this.col);
+            piece.setOnBoard(true);
+        } else {
+            this.isOccupied = false;
+        }
     }
 
     public Piece getPiece() {

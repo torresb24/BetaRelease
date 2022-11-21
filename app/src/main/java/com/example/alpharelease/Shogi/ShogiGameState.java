@@ -45,7 +45,6 @@ public class ShogiGameState extends GameState {
     private final int p1 = 0;
     private final int p2 = 1;
     private int whoseTurn;
-    private String banner;
     private Graveyard grave_1;
     private Graveyard grave_2;
     public ArrayList<Piece> pieces1;

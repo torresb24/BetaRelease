@@ -14,8 +14,6 @@ import java.util.ArrayList;
 
 public class ShogiLocalGame extends LocalGame {
 
-    Tile fromHere;
-
     public ShogiLocalGame() {
         super();
         super.state = new ShogiGameState();
@@ -45,6 +43,7 @@ public class ShogiLocalGame extends LocalGame {
     protected boolean makeMove(GameAction action) {
         ShogiGameState state = ((ShogiGameState)super.state);
         Board board = state.getBoard();
+        Tile fromHere = null;
 
         if (action instanceof SelectPieceAction) {
             int tileIndex = ((SelectPieceAction)action).selected;
@@ -62,24 +61,35 @@ public class ShogiLocalGame extends LocalGame {
 
         if (action instanceof MovePieceAction) {
             Tile goThere = board.getTile(((MovePieceAction)action).destination);
+            for (Tile t : board.getTiles()) {
+                if (t.getPiece().isSelected()) {
+                    fromHere = t;
+                    break;
+                }
+            }
 
             if (fromHere == null || goThere == null) {
                 return false;
             }
 
-            if (fromHere.isOccupied()) {
-                Piece p = fromHere.getPiece();
+            if (goThere.isPossible()) {
+                if (goThere.isOccupied() && goThere.getPiece().pieceType == Piece.GAME_PIECES.KING
+                        && goThere.getPiece().pieceType == Piece.GAME_PIECES.OPP_KING) {
+                    state.setInCheckmate(true);
+                }
+                board.impossAllTiles();
+                Piece p = goThere.getPiece();
                 p.setAlive(false);
                 p.setOnBoard(false);
+                goThere.setPiece(fromHere.getPiece());
+                fromHere.getPiece().setSelected(false);
             }
 
-            goThere.setPiece(fromHere.getPiece());
-            goThere.setOccupied(true);
-
             fromHere.setPiece(null);
-            fromHere.setOccupied(false);
 
-            state.changeTurn(1 - state.getWhoseTurn());
+            return goThere.isOccupied();
+
+            //state.changeTurn(1 - state.getWhoseTurn());
         }
 
 
