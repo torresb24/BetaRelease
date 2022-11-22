@@ -28,7 +28,7 @@ public class GameTimer {
     //Tag for logging
     private static final String TAG = "GameTimer";
     // the game to send actions to
-    private Tickable target;
+    private final Tickable target;
 
     // the number of ticks since timer was created (or last reset)
     private int ticks;

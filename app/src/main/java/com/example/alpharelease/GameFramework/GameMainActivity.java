@@ -195,16 +195,8 @@ public abstract class GameMainActivity extends Activity implements
             }
         }
 
-        if (((CheckBox) findViewById(R.id.onScreenLogging)).isChecked()) {
-            Logger.setToastValue(true);
-        } else {
-            Logger.setToastValue(false);
-        }
-        if (((CheckBox) findViewById(R.id.debugLogging)).isChecked()){
-            Logger.setDebugValue(true);
-        }else {
-            Logger.setDebugValue(false);
-        }
+        Logger.setToastValue(((CheckBox) findViewById(R.id.onScreenLogging)).isChecked());
+        Logger.setDebugValue(((CheckBox) findViewById(R.id.debugLogging)).isChecked());
     }// onCreate
 
     /**
@@ -609,20 +601,12 @@ public abstract class GameMainActivity extends Activity implements
 
         //On-screen debugging checkbox
         else if(button.getId() == R.id.onScreenLogging){
-            if(((CheckBox)button).isChecked()){
-                Logger.setToastValue(true);
-            }else{
-                Logger.setToastValue(false);
-            }
+            Logger.setToastValue(((CheckBox) button).isChecked());
         }
 
         //Console debugging checkbox
         else if(button.getId() == R.id.debugLogging){
-            if(((CheckBox)button).isChecked()){
-                Logger.setDebugValue(true);
-            }else{
-                Logger.setDebugValue(false);
-            }
+            Logger.setDebugValue(((CheckBox) button).isChecked());
         }
 
     }// onClick
@@ -858,10 +842,10 @@ public abstract class GameMainActivity extends Activity implements
     private static class SpinnerListListener implements OnItemSelectedListener {
 
         // the textView to disable
-        private TextView correspondingTextField;
+        private final TextView correspondingTextField;
 
         // the position in the spinner of the "Network Player" selection
-        private int disableIndex;
+        private final int disableIndex;
 
         /**
          * constructor

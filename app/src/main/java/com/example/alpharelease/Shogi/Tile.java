@@ -22,7 +22,10 @@ public class Tile {
     private float xCoordEnd; // right
     private float yCoordEnd; // bottom
     private boolean isOccupied, possible;
-    private Paint tilePaint, occupiedPaint, emptyPaint, possPaint;
+    private final Paint tilePaint;
+    private final Paint occupiedPaint;
+    private final Paint emptyPaint;
+    private final Paint possPaint;
     private Piece piece;
 
     public Tile() {

@@ -13,7 +13,7 @@ public class StartGameInfo extends GameInfo {
     private static final long serialVersionUID = -6396033535388393791L;
 
     // an array, in order of the names of all the players playing the game
-    private String[] allPlayerNames;
+    private final String[] allPlayerNames;
 
     /**
      * constructor

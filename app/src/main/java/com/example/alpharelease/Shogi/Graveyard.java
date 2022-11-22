@@ -17,7 +17,7 @@ public class Graveyard {
     //Graveyard instance variables (for possible use)
     private float graveLength;
     private float graveWidth;
-    private ArrayList<Piece> graveBoard = new ArrayList<Piece>();
+    private final ArrayList<Piece> graveBoard = new ArrayList<Piece>();
 
     //Graveyard Constructor
     public Graveyard() {

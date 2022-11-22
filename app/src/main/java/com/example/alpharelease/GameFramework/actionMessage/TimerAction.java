@@ -16,7 +16,7 @@ public class TimerAction extends GameAction {
     private static final long serialVersionUID = -8093996755313861636L;
 
     // the timer that caused this action
-    private GameTimer myTimer;
+    private final GameTimer myTimer;
 
     /**
      * constructor

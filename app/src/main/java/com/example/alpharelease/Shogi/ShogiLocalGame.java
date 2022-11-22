@@ -51,11 +51,8 @@ public class ShogiLocalGame extends LocalGame {
             Piece piece = fromHere.getPiece();
 
             //If it's stuck (just in case)
-            if (board.checkMoves(fromHere).size() == 0) {
-                piece.setSelected(false); //Can't move. Give up.
-            } else { //If it can move
-                piece.setSelected(true);
-            }
+            //If it can move
+            piece.setSelected(board.checkMoves(fromHere).size() != 0); //Can't move. Give up.
             return piece.isSelected();
         }
 
@@ -105,10 +102,6 @@ public class ShogiLocalGame extends LocalGame {
     }
 
     public boolean checkCheck() {
-        if  (((ShogiGameState) state).pieces2.size() == 1) {
-            return true;
-        }
-
-        return false;
+        return ((ShogiGameState) state).pieces2.size() == 1;
     }
 }

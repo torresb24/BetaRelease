@@ -41,12 +41,12 @@ public class ShogiGameState extends GameState {
      * Previous turn state
      */
     private boolean isInCheck, isInCheckmate;
-    private Board board;
+    private final Board board;
     private final int p1 = 0;
     private final int p2 = 1;
     private int whoseTurn;
-    private Graveyard grave_1;
-    private Graveyard grave_2;
+    private final Graveyard grave_1;
+    private final Graveyard grave_2;
     public ArrayList<Piece> pieces1;
     public ArrayList<Piece> pieces2;
     public ArrayList<Tile> tileArray;

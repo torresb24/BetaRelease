@@ -16,7 +16,7 @@ public class MyNameIsAction extends GameAction {
     private static final long serialVersionUID = -4574617895412648866L;
 
     // the player's name
-    private String name;
+    private final String name;
 
     /** constructor
      *

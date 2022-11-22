@@ -32,12 +32,12 @@ import java.util.Random;
 
 public class MainSurfaceView extends SurfaceView {
 
-    private Paint imgPaint;
-    private Paint paint;
+    private final Paint imgPaint;
+    private final Paint paint;
 
 
     private ShogiGameState state;
-    private ShogiLocalGame game;
+    private final ShogiLocalGame game;
     private LocalGame lg;
     private Board board;
 

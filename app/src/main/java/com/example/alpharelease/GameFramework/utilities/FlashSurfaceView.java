@@ -96,13 +96,13 @@ public class FlashSurfaceView extends SurfaceView {
     private class Flasher implements Runnable {
 
         // Drawable that we should flash
-        private Drawable flashDraw;
+        private final Drawable flashDraw;
 
         // Drawable that is the old background, so that we can restore it
-        private Drawable restoreDraw;
+        private final Drawable restoreDraw;
 
         // number of milliseconds for the flash
-        private int millis;
+        private final int millis;
 
         // whether the flash has compeleted
         private boolean done;

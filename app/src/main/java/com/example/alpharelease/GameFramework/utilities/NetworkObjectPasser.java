@@ -33,7 +33,7 @@ public abstract class NetworkObjectPasser {
 
     // a queue for collecting objects that "sent" to this object
     // before the network connection is established
-    private Queue<Object> objQueue = new LinkedList<Object>();
+    private final Queue<Object> objQueue = new LinkedList<Object>();
 
     // the handler the objects "sending thread"
     private Handler sendHandler;
@@ -99,12 +99,12 @@ public abstract class NetworkObjectPasser {
     public abstract void onReceiveObject(Object obj);
 
     private enum RunnerStatus {
-        WAITING, READY, FAILED;
+        WAITING, READY, FAILED
     }
 
     private class CreateRunner implements Runnable {
-        private String ipAddress; // the ipAddress of server (or null if we are server)
-        private int port; // the port
+        private final String ipAddress; // the ipAddress of server (or null if we are server)
+        private final int port; // the port
         private RunnerStatus status;
 
         // constructor
@@ -229,7 +229,7 @@ public abstract class NetworkObjectPasser {
     public void sendObject(Object obj) {
         // schedule the "send" in the object's "sending" thread
         //Check if the object is Serializable
-        if(!Serializable.class.isInstance(obj)){
+        if(!(obj instanceof Serializable)){
             Logger.log(TAG, "Object is not Serializable", Logger.ERROR);
         }
 
@@ -248,7 +248,7 @@ public abstract class NetworkObjectPasser {
         private static final String TAG = "MsgRunnable";
 
         // the object we're going to send
-        private Object obj;
+        private final Object obj;
 
         // constructor
         public MsgRunnable(Object obj) {
@@ -318,7 +318,7 @@ public abstract class NetworkObjectPasser {
         // have already been created. It maps the port number to the pair
         //   - server socket
         //   - number of current users of the server socket
-        private static Hashtable<Integer,Pair<ServerSocket,Integer>> map =
+        private static final Hashtable<Integer,Pair<ServerSocket,Integer>> map =
                 new Hashtable<Integer,Pair<ServerSocket,Integer>>();
 
         /**

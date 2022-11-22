@@ -771,7 +771,7 @@ public class GameConfig {
     public boolean equals(Object object){
         if(! (object instanceof GameConfig)) return false;
         GameConfig gc = (GameConfig) object;
-        if(this.isLocal() == gc.isLocal()
+        return this.isLocal() == gc.isLocal()
                 && this.isUserModifiable() == gc.isUserModifiable()
                 && this.getRemoteName().equals(gc.getRemoteName())
                 && this.getIpCode().equals(gc.getIpCode())
@@ -783,11 +783,7 @@ public class GameConfig {
                 && arrayEquals(this.getAvailTypes(), gc.getAvailTypes())
                 && arrayEquals(this.getSelNames(), gc.getSelNames())
                 && arrayEquals(this.getSelTypes(), gc.getSelTypes())
-                && this.getRemoteSelType().equals(gc.getRemoteSelType())
-        ) {
-            return true;
-        }
-        return false;
+                && this.getRemoteSelType().equals(gc.getRemoteSelType());
     }
 
 }// class GameConfig

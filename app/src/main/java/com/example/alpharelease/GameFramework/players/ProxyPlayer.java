@@ -26,12 +26,12 @@ public class ProxyPlayer implements GamePlayer {
     private Game game;
 
     // the object that connects us to the network
-    private NetworkObjectPasser networkPasser;
+    private final NetworkObjectPasser networkPasser;
 
     // whether this player is ready to play the game.  In this case, being
     // ready essentially means that the a connection with a remote player
     // has been established
-    private boolean isReady;
+    private final boolean isReady;
 
     /**
      * ProxyPlayer constructor.

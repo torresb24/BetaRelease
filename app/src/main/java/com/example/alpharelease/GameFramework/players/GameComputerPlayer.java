@@ -42,7 +42,7 @@ public abstract class GameComputerPlayer implements GamePlayer, Tickable {
     private Handler myHandler; // the handler for this player's thread
     private boolean running; // whether the player's thread is running
     private boolean gameOver = false; // whether the game is over
-    private GameTimer myTimer = new GameTimer(this); // my timer
+    private final GameTimer myTimer = new GameTimer(this); // my timer
 
     /**
      * Returns this game's timer.
@@ -169,7 +169,7 @@ public abstract class GameComputerPlayer implements GamePlayer, Tickable {
     private class MyRunnable implements Runnable {
 
         // the object to post
-        private Object data;
+        private final Object data;
 
         // constructor
         public MyRunnable(Object data) {

@@ -63,7 +63,7 @@ public abstract class LocalGame implements Game, Tickable {
     private int playerFinishedCount = 0; // number of player who have so acknowledged
 
     // this game's timer and timer action
-    private GameTimer myTimer = new GameTimer(this);
+    private final GameTimer myTimer = new GameTimer(this);
 
     // the game's state
     protected GameState state;
@@ -290,7 +290,7 @@ public abstract class LocalGame implements Game, Tickable {
 
         // if the player is NOT a player who is presently allowed to
         // move, send the player a message
-        if (!canMove(playerId)) {;
+        if (!canMove(playerId)) {
             player.sendInfo(new NotYourTurnInfo());
             return;
         }
@@ -413,14 +413,14 @@ public abstract class LocalGame implements Game, Tickable {
     }
 
     // an enum-class that itemizes the game stages
-    protected static enum GameStage {
+    protected enum GameStage {
         BEFORE_GAME, WAITING_FOR_NAMES, WAITING_FOR_READY, DURING_GAME, GAME_OVER, SETUP_PHASE
     }
 
     // a handler class for the game's thread
     private static class MyHandler extends Handler {
         // the game
-        private LocalGame game;
+        private final LocalGame game;
 
         // constructor; parameter is expected to be this game
         public MyHandler(LocalGame game) {
@@ -438,10 +438,7 @@ public abstract class LocalGame implements Game, Tickable {
      * @return
      */
     public boolean inSetupPhase(){
-        if(this.gameStage == GameStage.SETUP_PHASE){
-            return true;
-        }
-        return false;
+        return this.gameStage == GameStage.SETUP_PHASE;
     }
 
     /**

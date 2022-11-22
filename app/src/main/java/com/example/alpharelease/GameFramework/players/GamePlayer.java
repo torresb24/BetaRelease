@@ -15,25 +15,25 @@ import com.example.alpharelease.GameFramework.infoMessage.GameInfo;
 public interface GamePlayer {
     // sets this player as the GUI player (implemented as final in the
     // major player classes)
-    public abstract void gameSetAsGui(GameMainActivity activity);
+    void gameSetAsGui(GameMainActivity activity);
 
     // sets this player as the GUI player (overrideable)
-    public abstract void setAsGui(GameMainActivity activity);
+    void setAsGui(GameMainActivity activity);
 
     // sends a message to the player
-    public abstract void sendInfo(GameInfo info);
+    void sendInfo(GameInfo info);
 
 
     // start the player
-    public abstract void start();
+    void start();
 
     // whether this player requires a GUI
-    public boolean requiresGui();
+    boolean requiresGui();
 
     // whether this player supports a GUI
-    public boolean supportsGui();
+    boolean supportsGui();
 
     //TESTING
-    public GameMainActivity getActivity();
+    GameMainActivity getActivity();
 
 }// interface GamePlayer

@@ -17,10 +17,10 @@ import java.util.ArrayList;
 
 public class Board {
 
-    private ArrayList<Tile> tiles;
+    private final ArrayList<Tile> tiles;
     private final int size = 9;
     private final int imagesize = 1030;
-    private int tileSize;
+    private final int tileSize;
     private final int boardLeftEdge = 479;
     private final int boardTopEdge = 24;
     private final int boardRightEdge = 1516;

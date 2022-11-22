@@ -14,7 +14,7 @@ public class GameOverInfo extends GameInfo {
     private static final long serialVersionUID = -8005304466588509849L;
 
     // the message that gives the game's result
-    private String message;
+    private final String message;
 
     /**
      * constructor

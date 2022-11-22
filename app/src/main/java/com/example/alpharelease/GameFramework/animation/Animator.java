@@ -23,7 +23,7 @@ public interface Animator {
      * @return the time interval (in milliseconds) between calls to this class'
      *         "tick" method.
      */
-    public int interval();
+    int interval();
 
     /**
      * The background color with which to paint the canvas before the animation
@@ -33,7 +33,7 @@ public interface Animator {
      *
      * @return the desired background color
      */
-    public int backgroundColor();
+    int backgroundColor();
 
     /**
      * Tells whether the animation should be paused.
@@ -41,14 +41,14 @@ public interface Animator {
      * @return a true/false value that says whether the animation should be
      *         paused.
      */
-    public boolean doPause();
+    boolean doPause();
 
     /**
      * Tells whether the animation should be stopped.
      *
      * @return true/false value that tells whether to terminate the animation.
      */
-    public boolean doQuit();
+    boolean doQuit();
 
     /**
      * Called once every clock tick (frequency specified by the "interval"
@@ -60,7 +60,7 @@ public interface Animator {
      * @param canvas
      *            the Canvas object on which to draw the animation-frame.
      */
-    public void tick(Canvas canvas);
+    void tick(Canvas canvas);
 
     /**
      * Called whenever the user touches the AnimationSurface so that the
@@ -68,5 +68,5 @@ public interface Animator {
      *
      * @param event a MotionEvent describing the touch
      */
-    public void onTouch(MotionEvent event);
+    void onTouch(MotionEvent event);
 }

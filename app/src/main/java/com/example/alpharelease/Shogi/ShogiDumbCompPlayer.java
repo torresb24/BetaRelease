@@ -24,7 +24,7 @@ public class ShogiDumbCompPlayer extends GameComputerPlayer {
 
         if (state.getWhoseTurn() == this.playerNum) { //The computers turn
 
-            sleep(5);
+            sleep(1);
 
             Random rand = new Random();
             Board board = state.getBoard();

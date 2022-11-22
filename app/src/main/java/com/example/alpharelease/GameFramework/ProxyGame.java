@@ -32,10 +32,10 @@ public class ProxyGame implements Game {
 
     // a queue of objects that are collected, which might have been sent over the
     // network before we are connected to a player
-    private Queue<GameInfo> queuedObjectsForPlayer = new LinkedList<GameInfo>();
+    private final Queue<GameInfo> queuedObjectsForPlayer = new LinkedList<GameInfo>();
 
     // the network-connection object
-    private NetworkObjectPasser networkPasser;
+    private final NetworkObjectPasser networkPasser;
 
     /**
      * Static method used instead of a constructor, so that null can be returned if
@@ -115,7 +115,7 @@ public class ProxyGame implements Game {
                 }
                 catch (Exception x) {
                     // if any other exception occurs, log it
-                    Logger.log(TAG, "Class: "+x.getClass().toString()+ "   Message: " + x.getMessage(), Logger.ERROR);
+                    Logger.log(TAG, "Class: "+ x.getClass() + "   Message: " + x.getMessage(), Logger.ERROR);
                 }
             }
         };

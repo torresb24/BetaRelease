@@ -14,5 +14,5 @@ public interface Tickable {
      * @param timer
      * 		the timer that is associated with the "tick"
      */
-    public abstract void tick(GameTimer timer);
+    void tick(GameTimer timer);
 }

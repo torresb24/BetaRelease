@@ -46,9 +46,9 @@ public abstract class GameHumanPlayer implements GamePlayer, Tickable {
     protected String name; // my player's name
     protected String[] allPlayerNames; // the names of all the player
     protected GameMainActivity myActivity; // the current activity
-    private Handler myHandler; // my thread's handler
-    private Handler saveMe;
-    private GameTimer myTimer = new GameTimer(this); // my player's timer
+    private final Handler myHandler; // my thread's handler
+    private final Handler saveMe;
+    private final GameTimer myTimer = new GameTimer(this); // my player's timer
     private boolean gameOver; // whether the game is over
 
     /**
@@ -168,7 +168,7 @@ public abstract class GameHumanPlayer implements GamePlayer, Tickable {
     private class Unflasher implements Runnable {
 
         // the original color
-        private int oldColor;
+        private final int oldColor;
 
         // constructor
         public Unflasher(int oldColor) {
@@ -231,7 +231,7 @@ public abstract class GameHumanPlayer implements GamePlayer, Tickable {
      */
     private class MyRunnable implements Runnable {
         // the message to send to the player
-        private GameInfo myInfo;
+        private final GameInfo myInfo;
         private Boolean isInitialState = false;
 
         // constructor

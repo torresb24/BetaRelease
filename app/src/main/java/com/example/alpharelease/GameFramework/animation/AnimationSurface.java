@@ -27,7 +27,7 @@ public class AnimationSurface extends SurfaceView implements OnTouchListener {
     // instance variables
     private Animator animator; // our animator
     private AnimationThread animationThread = null; // thread to generate ticks
-    private Paint backgroundPaint = new Paint(); // painter for painting background
+    private final Paint backgroundPaint = new Paint(); // painter for painting background
     private int flashCount; // counts down ticks for background-flash
     private Paint flashPaint; // has color for background flash
 
@@ -141,10 +141,10 @@ public class AnimationSurface extends SurfaceView implements OnTouchListener {
 
         // a reference to a SurfaveView's holder. This is used to "lock" the
         // canvas when we want to write to it
-        private SurfaceHolder surfaceHolder;
+        private final SurfaceHolder surfaceHolder;
 
         // controls animation stop/go based upon instructions from the Animator
-        private boolean threadIsRunning = true;
+        private final boolean threadIsRunning = true;
 
         /** ctor inits instance variables */
         public AnimationThread(SurfaceHolder holder) {
@@ -264,6 +264,6 @@ public class AnimationSurface extends SurfaceView implements OnTouchListener {
             this.animator.onTouch(event);
         }
         return true;
-    };// class AnimationThread
+    }// class AnimationThread
 
 }// class AnimationSurface

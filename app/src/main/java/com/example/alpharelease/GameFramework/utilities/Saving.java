@@ -45,7 +45,7 @@ public class Saving {
             out.close();
         }
         catch (IOException e) {
-            Logger.log(TAG, "File write failed" + e.toString(), Logger.ERROR);
+            Logger.log(TAG, "File write failed" + e, Logger.ERROR);
         }
     }
 
@@ -66,11 +66,11 @@ public class Saving {
             return gameState;
         }
         catch (FileNotFoundException e) {
-            Logger.log(TAG, "File not Found: " + e.toString() , Logger.ERROR);
+            Logger.log(TAG, "File not Found: " + e, Logger.ERROR);
         } catch (IOException e) {
-            Logger.log(TAG, "Can not read file: " + e.toString());
+            Logger.log(TAG, "Can not read file: " + e);
         } catch (ClassNotFoundException e) {
-            Logger.log(TAG, "Object not found: " + e.toString());
+            Logger.log(TAG, "Object not found: " + e);
         }
 
         return null;

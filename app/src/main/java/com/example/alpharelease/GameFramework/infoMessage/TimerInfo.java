@@ -17,7 +17,7 @@ public class TimerInfo extends GameInfo {
     private static final long serialVersionUID = -7138064704052644451L;
 
     // the timer that generated this message
-    private GameTimer myTimer;
+    private final GameTimer myTimer;
 
     /**
      * constructor
