@@ -27,14 +27,14 @@ public class Piece {
         KNIGHT(R.drawable.knight, 2, 0), PROMOTED_KNIGHT(R.drawable.promoted_knight, 2, 0),
         PAWN(R.drawable.pawn, 9, 0), PROMOTED_PAWN(R.drawable.promoted_pawn, 9, 0),
 
-        OPP_KING(R.drawable.opp_king, 1, 1), OPP_GOLD_GEN(R.drawable.opp_gold_gen, 2, 1),
-        OPP_SILVER_GENERAL(R.drawable.opp_silv_gen, 2, 1),
-        OPP_PROMOTED_SILVER_GENERAL(R.drawable.opp_promo_silv, 2, 1),
-        OPP_BISHOP(R.drawable.opp_bish, 1, 1), OPP_PROMOTED_BISHOP(R.drawable.opp_promo_bish, 1, 1),
-        OPP_ROOK(R.drawable.opp_rook, 1, 1), OPP_PROMOTED_ROOK(R.drawable.opp_promo_rook, 1, 1),
-        OPP_LANCE(R.drawable.opp_lance, 2, 1), OPP_PROMOTED_LANCE(R.drawable.opp_promo_lance, 2, 1),
-        OPP_KNIGHT(R.drawable.opp_knight, 2, 1), OPP_PROMOTED_KNIGHT(R.drawable.opp_promo_knight, 2, 1),
-        OPP_PAWN(R.drawable.opp_pawn, 9, 1), OPP_PROMOTED_PAWN(R.drawable.opp_promo_pawn, 9, 1);
+        OPP_KING(R.drawable.king, 1, 1), OPP_GOLD_GEN(R.drawable.gold_gen, 2, 1),
+        OPP_SILVER_GENERAL(R.drawable.silv_gen, 2, 1),
+        OPP_PROMOTED_SILVER_GENERAL(R.drawable.promoted_silv_gen, 2, 1),
+        OPP_BISHOP(R.drawable.bishop, 1, 1), OPP_PROMOTED_BISHOP(R.drawable.promoted_bishop, 1, 1),
+        OPP_ROOK(R.drawable.rook, 1, 1), OPP_PROMOTED_ROOK(R.drawable.promoted_rook, 1, 1),
+        OPP_LANCE(R.drawable.lance, 2, 1), OPP_PROMOTED_LANCE(R.drawable.promoted_lance, 2, 1),
+        OPP_KNIGHT(R.drawable.knight, 2, 1), OPP_PROMOTED_KNIGHT(R.drawable.promoted_knight, 2, 1),
+        OPP_PAWN(R.drawable.pawn, 9, 1), OPP_PROMOTED_PAWN(R.drawable.promoted_pawn, 9, 1);
 
         private final int pieceID;
         private final int amount;

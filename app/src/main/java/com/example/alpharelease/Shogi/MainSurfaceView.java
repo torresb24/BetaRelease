@@ -73,7 +73,16 @@ public class MainSurfaceView extends SurfaceView {
             if (piece == null) {
                 continue;
             }
+
             image = BitmapFactory.decodeResource(getResources(), piece.pieceType.getID());
+
+            /** NOTE: Rotation assisted by Nathaniel Hopper */
+            // TODO: change this to rotate depending on who you are (rotate player 1's if you're player 0, rotate player 0's if you're p1)
+            if (piece.pieceType.getPlayer() == 1) {
+                Matrix matrix = new Matrix();
+                matrix.postRotate(180);
+                image = Bitmap.createBitmap(image, 0, 0, image.getWidth(), image.getHeight(), matrix, true);
+            }
             canvas.drawBitmap(image, t.getxCoord(), t.getyCoord(), imgPaint);
         }
         board.drawBoard(canvas);
