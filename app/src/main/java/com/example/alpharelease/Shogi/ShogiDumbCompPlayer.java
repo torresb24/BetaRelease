@@ -3,6 +3,7 @@ package com.example.alpharelease.Shogi;
 import android.util.Log;
 
 import com.example.alpharelease.GameFramework.infoMessage.GameInfo;
+import com.example.alpharelease.GameFramework.infoMessage.NotYourTurnInfo;
 import com.example.alpharelease.GameFramework.players.GameComputerPlayer;
 import com.example.alpharelease.Shogi.Actions.MovePieceAction;
 import com.example.alpharelease.Shogi.Actions.SelectPieceAction;
@@ -20,11 +21,15 @@ public class ShogiDumbCompPlayer extends GameComputerPlayer {
 
     @Override
     protected void receiveInfo(GameInfo info) {
+        if (info instanceof NotYourTurnInfo) {
+            return;
+        }
+
         state = (ShogiGameState) info;
 
         if (state.getWhoseTurn() == this.playerNum) { //The computers turn
 
-            sleep(1);
+            sleep(.5);
 
             Random rand = new Random();
             Board board = state.getBoard();

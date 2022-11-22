@@ -86,19 +86,18 @@ public class ShogiLocalGame extends LocalGame {
                 }
                 goThere.setPiece(fromHere.getPiece());
                 fromHere.getPiece().setSelected(false);
+
+                fromHere.setPiece(null);
+
+                state.changeTurn(1 - state.getWhoseTurn());
             }
 
-            fromHere.setPiece(null);
-
-            state.changeTurn(1 - state.getWhoseTurn());
-
-            return goThere.isOccupied();
-        }
-
+            return goThere.isPossible();
+        } //End of movepieceaction case
 
 
         //TODO: MAKE OTHER ACTIONS
-        return false;
+        return true;
     }
 
     public boolean checkCheck() {

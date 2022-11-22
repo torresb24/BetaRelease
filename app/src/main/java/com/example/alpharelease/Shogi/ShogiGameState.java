@@ -63,7 +63,6 @@ public class ShogiGameState extends GameState {
         pieces1 = new ArrayList<Piece>();
         pieces2 = new ArrayList<Piece>();
         tileArray = new ArrayList<>();
-        cords = new ArrayList<>();
 
         assignPieces();
     }
@@ -78,12 +77,12 @@ public class ShogiGameState extends GameState {
         this.grave_2 = orig.grave_2;
         this.pieces1 = new ArrayList<Piece>();
         this.pieces2 = new ArrayList<Piece>();
-        this.cords = new ArrayList<Integer>();
+        this.tileArray = new ArrayList<Tile>();
 
         // for loop through
         this.pieces1.addAll(orig.pieces1);
         this.pieces2.addAll(orig.pieces2);
-        this.cords.addAll(orig.cords);
+        this.tileArray.addAll(orig.tileArray);
     }
 
     //Make methods for defined actions
