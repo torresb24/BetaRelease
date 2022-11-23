@@ -33,6 +33,14 @@ import java.util.Random;
 
 public class MainSurfaceView extends SurfaceView {
 
+    /**
+     External Citation
+     Date: 23 November 2022
+     Problem: Not exactly a problem, but the code to draw the piece bitmaps was rather clumsy
+     Resource: Nathaniel Hopper
+     Solution: Use a matrix to rotate the pieces rather than having so many drawable resources
+     */
+
     private final Paint imgPaint;
     private final Paint paint;
 
@@ -77,7 +85,8 @@ public class MainSurfaceView extends SurfaceView {
             image = BitmapFactory.decodeResource(getResources(), piece.pieceType.getID());
 
             /** NOTE: Rotation of pieces assisted by Nathaniel Hopper */
-            // TODO: change this to rotate depending on who you are (rotate player 1's if you're player 0, rotate player 0's if you're p1)
+            // TODO: change this to rotate depending on who you are (rotate player 1's if you're player 0,
+            //  rotate player 0's if you're p1)
             if (piece.pieceType.getPlayer() == 1) {
                 Matrix matrix = new Matrix();
                 matrix.postRotate(180);

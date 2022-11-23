@@ -14,9 +14,17 @@ import java.util.Collections;
 import java.util.Random;
 
 public class ShogiDumbCompPlayer extends GameComputerPlayer {
+    /**
+     External Citation
+     Date: 23 November 2022
+     Problem: Computer was incredibly buggy and would stall/crash at irregular intervals
+     Resource: Nathaniel Hopper
+     Solution: The computer was iterating an incredible number of times.
+                Made it shuffle through the possible tiles instead of the whole board.
+     */
 
     private ShogiGameState state;
-    private ArrayList<Tile> possibleTiles = new ArrayList<Tile>();;
+    private ArrayList<Tile> possibleTiles = new ArrayList<>();;
 
     public ShogiDumbCompPlayer(String name) {
         super(name);

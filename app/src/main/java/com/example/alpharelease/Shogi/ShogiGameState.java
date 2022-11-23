@@ -17,29 +17,16 @@ import java.util.Random;
  *
  * */
 
-//onDraw
-
 public class ShogiGameState extends GameState {
-    /* [other class]/
-     * Board (reference to copy constructor)
-     * Pieces
-     * */
-
     /**
-     * Grave (2)
-     * Button (new game)
-     * TextView (____'s Turn / ____ Wins!)
-     * Turn (keep track) X
-     * <p>
-     * Current selected piece
-     * Selected space
-     * Locations
-     * <p>
-     * Players
-     * <p>
-     * *** if stalemate ***
-     * Previous turn state
+     External Citation
+     Date: 18 November 2022
+     Problem: Didn't understand how enum worked super well so code
+     involving pieces was unsustainable and clumsy
+     Resource: Nathaniel Hopper
+     Solution: Reference the game_piece type rather than it's R.drawable id
      */
+
     private boolean isInCheck, isInCheckmate, selecting;
     private final Board board;
     private int whoseTurn;
@@ -52,7 +39,6 @@ public class ShogiGameState extends GameState {
     /**
      * Current state of the game constructor
      */
-
     public ShogiGameState() { //Cntr
         whoseTurn = first();
         board = new Board();
@@ -85,23 +71,21 @@ public class ShogiGameState extends GameState {
         this.tileArray.addAll(orig.tileArray);
     }
 
-    //Make methods for defined actions
-    //make pieces
     private void assignPieces() {
         for (Piece.GAME_PIECES piece : Piece.GAME_PIECES.values()) {
             for (int i = 0; i < piece.getAmount(); i++) {
                 switch (piece.getPlayer()) {
                     case 0:
-                        pieces1.add(new Piece(piece, Piece.DIRECTION.FORWARD)); //player 1 (id = 0)
+                        pieces1.add(new Piece(piece, Piece.DIRECTION.FORWARD)); //player 1
                         break;
                     case 1:
-                        pieces2.add(new Piece(piece, Piece.DIRECTION.BACKWARD)); //player 2 (id = 1)
+                        pieces2.add(new Piece(piece, Piece.DIRECTION.BACKWARD)); //player 2
                         break;
                 }
             } // for i
         } // for pieces
-        initPieces(pieces1, 0);
-        initPieces(pieces2, 1);
+        initPieces(pieces1);
+        initPieces(pieces2);
     }
 
 
@@ -109,7 +93,7 @@ public class ShogiGameState extends GameState {
      * Assigns rows and columns to each piece for initial setup for each player
      * Promotion pieces are unassigned due to them not existing on the board at that time
      */
-    private void initPieces(ArrayList<Piece> piece, int id) { //board is 9x9 tiles
+    private void initPieces(ArrayList<Piece> piece) { //board is 9x9 tiles
         //front row is 9 pawns
         //middle row is 1 space, bishop, 5 spaces, rook, 1 space (left to right from players pov)
         //back row is lance, knight, silver, gold, king, gold, silver, knight, lance

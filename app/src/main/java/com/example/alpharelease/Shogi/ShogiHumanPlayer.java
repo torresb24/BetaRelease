@@ -213,7 +213,6 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
                 }
             }
         }
-        Log.d("NOT HUMAN TURN", "Uhh not your turn bro");
         surfaceView.invalidate();
         return false;
     }

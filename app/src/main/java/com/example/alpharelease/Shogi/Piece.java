@@ -16,6 +16,14 @@ import java.util.Arrays;
  * */
 
 public class Piece {
+    /**
+     External Citation
+     Date: 18 November 2022
+     Problem: Didn't understand how enum worked super well so code
+                involving pieces was unsustainable and clumsy
+     Resource: Nathaniel Hopper
+     Solution: Reference the game_piece type rather than it's R.drawable id
+     */
 
     public enum GAME_PIECES {
         KING(R.drawable.king, 1, 0), GOLD_GENERAL(R.drawable.gold_gen, 2, 0),
