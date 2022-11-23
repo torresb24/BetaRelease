@@ -45,7 +45,7 @@ public class ShogiLocalGame extends LocalGame {
     protected boolean makeMove(GameAction action) {
         ShogiGameState state = ((ShogiGameState)super.state);
         Board board = state.getBoard();
-        ArrayList<Tile> possibleTiles;
+        ArrayList<Tile> possibleTiles = new ArrayList<>();
         Tile fromHere = null;
 
         if (action instanceof SelectPieceAction) {
@@ -53,7 +53,8 @@ public class ShogiLocalGame extends LocalGame {
             fromHere = board.getTile(tileIndex);
             Piece piece = fromHere.getPiece();
 
-            possibleTiles = board.checkMoves(fromHere);
+            board.checkMoves(fromHere);
+            possibleTiles.addAll(board.getPossibleTiles());
             piece.setSelected(possibleTiles.size() != 0); //False if this piece can't move.
 
             if (piece.isSelected()) {
@@ -71,7 +72,6 @@ public class ShogiLocalGame extends LocalGame {
         }
 
         if (action instanceof MovePieceAction) {
-
             Tile goThere = board.getTile(((MovePieceAction) action).destination);
             for (Tile t : board.getTiles()) {
                 if (t.getPiece() != null) {
@@ -86,7 +86,8 @@ public class ShogiLocalGame extends LocalGame {
                 return false;
             }
 
-            possibleTiles = board.checkMoves(fromHere);
+            board.checkMoves(fromHere);
+            possibleTiles.addAll(board.getPossibleTiles());
 
             if (possibleTiles.contains(goThere)) {
 

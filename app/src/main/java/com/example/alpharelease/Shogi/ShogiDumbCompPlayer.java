@@ -10,6 +10,7 @@ import com.example.alpharelease.Shogi.Actions.MovePieceAction;
 import com.example.alpharelease.Shogi.Actions.SelectPieceAction;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 public class ShogiDumbCompPlayer extends GameComputerPlayer {
@@ -52,26 +53,19 @@ public class ShogiDumbCompPlayer extends GameComputerPlayer {
                     fromThisTile = board.getTile(pieces.get(randIndex).getCol(), pieces.get(randIndex).getRow());
 
                     game.sendAction(new SelectPieceAction(this, fromThisTile.getTileIndex()));
-                    possibleTiles = board.checkMoves(fromThisTile);
+                    board.checkMoves(fromThisTile);
+                    possibleTiles.addAll(board.getPossibleTiles());
                     state.setSelecting(false);
 
                     Log.d("COMP_SELECTED_PIECE", "Wheeee compy chose " + fromThisTile.getTileIndex());
 
-                    sendInfo(state);
+                    Collections.shuffle(possibleTiles);
+                    goToTile = possibleTiles.get(0); //For debugging. Can delete after
 
-                } else {
-
-                    randIndex = rand.nextInt(board.getTiles().size());
-
-                    while (!possibleTiles.contains(board.getTile(randIndex))) { //Pick a random valid spot
-                        randIndex = rand.nextInt(board.getTiles().size());
-                    }
-
-                    goToTile = board.getTile(randIndex); //For debugging. Can delete after
-
+                    int index = board.getTiles().indexOf(goToTile);
                     Log.d("COMP_SELECTED_PLACE", "Wheeee compy sent piece to " + goToTile.getTileIndex());
 
-                    game.sendAction(new MovePieceAction(this, randIndex));
+                    game.sendAction(new MovePieceAction(this, index));
                     possibleTiles.clear();
 
                     sendInfo(state);

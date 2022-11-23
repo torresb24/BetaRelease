@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 public class Board {
 
-    private final ArrayList<Tile> tiles;
+    private final ArrayList<Tile> tiles, possibleTiles;
     private final int size = 9;
     private final int imagesize = 1030;
     private final int tileSize;
@@ -31,6 +31,7 @@ public class Board {
 
     public Board() {
         tiles = new ArrayList<>();
+        possibleTiles = new ArrayList<>();
         tileSize = imagesize / 9 - 3;
 
         makeBoard();
@@ -38,6 +39,7 @@ public class Board {
 
     private void makeBoard() {
         tiles.clear();
+        possibleTiles.clear();
 
         left = top = right = bottom = 0;
         tileNum = 0;
@@ -192,14 +194,12 @@ public class Board {
      */
     public ArrayList<Tile> checkMoves(Tile tile) {
         Piece.DIRECTION dir;
-        ArrayList<Tile> possibleTiles = new ArrayList<>();
         int[] nums;
         Tile tempy;
         int rowMod = 2;
         nums = tile.getPiece().getMoveNum();
         dir = tile.getPiece().directionMovement;
-
-
+        possibleTiles.clear();
 
         if (tile.getPiece().pieceType == Piece.GAME_PIECES.KNIGHT ||
                 tile.getPiece().pieceType == Piece.GAME_PIECES.OPP_KNIGHT) { //Knights have different moves
@@ -298,4 +298,7 @@ public class Board {
         return possibleTiles;
     }//End checkMoves
 
+    public ArrayList<Tile> getPossibleTiles() {
+        return possibleTiles;
+    }
 }

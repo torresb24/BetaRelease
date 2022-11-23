@@ -19,6 +19,7 @@ import com.example.alpharelease.R;
 import com.example.alpharelease.Shogi.Actions.MovePieceAction;
 import com.example.alpharelease.Shogi.Actions.SelectPieceAction;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
@@ -35,7 +36,8 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
     private EditText results;
 
     boolean pieceIsSelected = false;
-    Tile chosenTile = null, fromThisTile = null, goToTile = null;
+    private Tile chosenTile = null, fromThisTile = null, goToTile = null;
+    private ArrayList<Tile> possibleTiles;
 
     /**
      * Callback method, called when player gets a message
@@ -172,6 +174,7 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
                         fromThisTile = chosenTile;
                         game.sendAction(new SelectPieceAction(this, fromThisTile.getTileIndex()));
                         pieceIsSelected = true;
+                        board.checkMoves(fromThisTile);
 
                         whichPiece.setText("" + fromThisTile.getPiece().pieceType);
 
@@ -186,8 +189,15 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
                     } else { //Unoccupied or is occupied by an enemy. Sally forth!
 
                         goToTile = chosenTile;
+                        possibleTiles.addAll(board.getPossibleTiles());
+
+                        if (!possibleTiles.contains(goToTile)) { //If it's not possible
+                            return false;
+                        }
+
                         game.sendAction(new MovePieceAction(this, goToTile.getTileIndex()));
                         pieceIsSelected = false;
+                        possibleTiles.clear();
 
                         if (state.getWhoseTurn() == 0) {
                             whichPlayer.setText(allPlayerNames[1] + "'s Turn");
@@ -205,6 +215,6 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
         }
         Log.d("NOT HUMAN TURN", "Uhh not your turn bro");
         surfaceView.invalidate();
-        return true;
+        return false;
     }
 }
