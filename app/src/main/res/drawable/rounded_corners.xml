@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+    <!--
+    External Citation
+    Date: 14 September 2015
+    Problem: Wanted the Buttons to be more fun and have rounder corners
+    Resource: https://www.codebrainer.com/blog/13-designs-for-buttons-every-android-beginner-should-know
+            (I never was able to get a ripple effect after setting the background, but I don't know how
+                to get everything else I want without using this way so I guess that's that)
+    -->
+
+
 <selector
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item
@@ -42,4 +53,5 @@
                 android:right="10dp"/>
         </shape>
     </item>
+
 </selector>

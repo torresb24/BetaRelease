@@ -24,3 +24,34 @@ To Do List
     Add comments/headers!!!!
 
     Cut down on if-else statements! They make it too easy to cause crashes!!!!
+
+
+Example of an External Citation
+
+    /**
+    External Citation
+     Date: 14 September 2015
+     Problem: Could not get the background color of my button
+     to change
+     Resource:
+     http://stackoverflow.com/questions/7957494/change-
+     background-color-of-a-button-in-an-android-application
+     Solution: I used the example code from this post.
+    */
+
+
+Example of a method header (any method more than 2 lines needs one)
+
+    /**
+     * attempts to take over the world by means of a given plan.
+     * The caller must supply a sidekick.
+     *
+     * CAVEAT: This method has yet to complete successfully.
+     *
+     * @param worldID a unique identifier for the world to be taken over.
+     *                  If this value is set to 0, planet Earth is assumed.
+     * @param plan the current plan for taking over the world.
+     * @param pinky a sidekick is required for success
+     *
+     * @return true if the plan is successful and false otherwise
+     */
