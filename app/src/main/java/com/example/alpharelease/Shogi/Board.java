@@ -196,7 +196,7 @@ public class Board {
         Piece.DIRECTION dir;
         int[] nums;
         Tile tempy;
-        int rowMod = 2;
+        int rowMod = -2;
         nums = tile.getPiece().getMoveNum();
         dir = tile.getPiece().directionMovement;
         possibleTiles.clear();
@@ -209,11 +209,13 @@ public class Board {
             for (int j = -1; j < 2; j = j + 2) {
                 tempy = getTile(tile.getCol() + j, tile.getRow() + rowMod);
                 if (tempy == null || (tempy.isOccupied() && tempy.getPiece().directionMovement == dir)) {
+                    tempy.setPossible(false);
                     //Out of bounds or an ally is on that tile
                     continue;
                 }
                 tempy.setPossible(true);
             }
+            return getPossibleTiles();
         }
 
         for (int j = -1; j < 2; j++) { //0, 1, 2
@@ -227,6 +229,7 @@ public class Board {
                     break;
                 } else if (tempy.isOccupied()) {
                     if (tempy.getPiece().directionMovement == dir) {//Same team
+                        tempy.setPossible(false);
                         // Move onto the next possible direction
                         break;
                     } else { //Opposite team
@@ -248,13 +251,14 @@ public class Board {
             if (nums[j + 3] == 0) {
                 continue;
             }
-            for (int i = 1; i <= nums[j + 3] + 1; i++) {//Check Middle Row
+            for (int i = 1; i < nums[j + 3] + 1; i++) {//Check Middle Row
                 tempy = getTile(tile.getCol() + (i * colMod), tile.getRow());
                 if (tempy == null) {
                     //Can't go any further in this direction, so move on
                     break;
                 } else if (tempy.isOccupied()) {
                     if (tempy.getPiece().directionMovement == dir) {//Same team
+                        tempy.setPossible(false);
                         //Move onto the next possible direction
                         break;
                     } else { //Opposite team
@@ -271,13 +275,14 @@ public class Board {
             if (nums[j + 6] == 0) {
                 continue;
             }
-            for (int i = 1; i <= nums[j + 6] + 1; i++) {//Check Bottom Row
+            for (int i = 1; i < nums[j + 6] + 1; i++) {//Check Bottom Row
                 tempy = getTile(tile.getCol() + (i * j), tile.getRow() + i);
                 if (tempy == null) {
                     //Can't go any further in this direction, so move on
                     break;
                 } else if (tempy.isOccupied()) {
                     if (tempy.getPiece().directionMovement == dir) {//Same team
+                        tempy.setPossible(false);
                         //Move onto the next possible direction
                         break;
                     } else { //Opposite team

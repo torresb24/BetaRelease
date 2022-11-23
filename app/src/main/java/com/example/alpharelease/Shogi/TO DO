@@ -2,19 +2,22 @@
 To Do List
 
     Make the pieces able to move
-        Done bc Nathaniel helped
+        Done bc Nathaniel helped debug
 
     Make knight possible moves!!!
 
     Make it so you can't choose pieces that can't move
+        Done
 
     Implement Computer Player
-        Done bc Nathaniel helped
-
-    Implement Graveyards
+        Done bc Nathaniel helped debug
 
     Implement check and checkmate
 
     Implement Promotion
 
+    Implement Graveyards
+
     Add comments/headers!!!!
+
+    Cut down on if-else statements! They make it too easy to cause crashes!!!!

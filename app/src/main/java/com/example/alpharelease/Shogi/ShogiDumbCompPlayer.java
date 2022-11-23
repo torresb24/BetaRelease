@@ -53,6 +53,7 @@ public class ShogiDumbCompPlayer extends GameComputerPlayer {
                     fromThisTile = board.getTile(pieces.get(randIndex).getCol(), pieces.get(randIndex).getRow());
 
                     game.sendAction(new SelectPieceAction(this, fromThisTile.getTileIndex()));
+
                     board.checkMoves(fromThisTile);
                     possibleTiles.addAll(board.getPossibleTiles());
                     state.setSelecting(false);
