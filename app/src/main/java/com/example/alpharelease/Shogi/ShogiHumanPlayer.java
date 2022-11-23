@@ -1,5 +1,6 @@
 package com.example.alpharelease.Shogi;
 
+import android.graphics.Color;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -48,8 +49,8 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
         if (surfaceView == null) return;
 
         if (info instanceof IllegalMoveInfo || info instanceof NotYourTurnInfo) {
-            // if the move was out of turn or otherwise illegal, flash the screen
-            //surfaceView.flash(Color.RED, 50);
+            // if the move was out of turn or otherwise illegal
+            Log.d("HUMAN_INFO_NOT_GS", "It's not your turn, idiot");
         }
         else if (!(info instanceof ShogiGameState))
             // if we do not have a ShogiGameState, ignore
@@ -102,7 +103,7 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
      * knows what their game-position and opponents' names are.
      */
     protected void initAfterReady() {
-        myActivity.setTitle("Battle of Wits!: "+allPlayerNames[0]+" vs. "+allPlayerNames[1]);
+        myActivity.setTitle("Battle of Wits!: " + allPlayerNames[0] + " vs. " + allPlayerNames[1]);
     }
 
     @Override
@@ -124,88 +125,85 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
     @Override
     public boolean onTouch(View view, MotionEvent e) {
 
-        if (!(state.getWhoseTurn() == this.playerNum)) {
-            return false;
-        }
+        state = surfaceView.getGameState();
 
-        if (e.getActionMasked() == MotionEvent.ACTION_DOWN) {
-            float x = e.getX();
-            float y = e.getY();
+        if (state.getWhoseTurn() == this.playerNum) { //Players turn
 
-            state = surfaceView.getGameState();
-            board = state.getBoard();
+            if (e.getActionMasked() == MotionEvent.ACTION_DOWN) {
+                float x = e.getX();
+                float y = e.getY();
 
-            if (!board.onBoard(x, y)) { //If they didn't touch the board pretend it didn't happen
-                return false;
+                board = state.getBoard();
 
-            } else { //All good to go, boss!
-                chosenTile = board.getTileByCord(x, y);
-                while (chosenTile == null) {
-                    x--;
-                    y--;
+                if (!board.onBoard(x, y)) { //If they didn't touch the board pretend it didn't happen
+                    return false;
+
+                } else { //All good to go, boss!
                     chosenTile = board.getTileByCord(x, y);
-                } //While it's null, try adjusting the coordinates slightly due to the tiny gaps in the board
+                    while (chosenTile == null) {
+                        x--;
+                        y--;
+                        chosenTile = board.getTileByCord(x, y);
+                    } //While it's null, try adjusting the coordinates slightly due to the tiny gaps in the board
 
-                if (!pieceIsSelected) { //Nothing is selected
-                    if (!chosenTile.isOccupied() || this.playerNum != chosenTile.getPiece().pieceType.getPlayer()) {
-                        //Chosen piece either isn't yours or is empty
-                        return false;
+                    if (!pieceIsSelected) { //Nothing is selected
+                        if (!chosenTile.isOccupied() || this.playerNum != chosenTile.getPiece().pieceType.getPlayer()) {
+                            //Chosen piece either isn't yours or is empty
+                            return false;
+                        }
+                        fromThisTile = chosenTile;
+                        game.sendAction(new SelectPieceAction(this, fromThisTile.getTileIndex()));
+                        pieceIsSelected = true;
+                        board.checkMoves(fromThisTile);
+
+                        whichPiece.setText("" + fromThisTile.getPiece().pieceType);
+
+                        Log.d("HUMAN_SELECTED_PIECE", "Wheeee you chose " + fromThisTile.getTileIndex());
+
+                        this.sendInfo(state);
+                        surfaceView.invalidate();
+                        return true; //You selected a new piece! Congrats!
+
+                    } else if (chosenTile.isOccupied() && this.playerNum == chosenTile.getPiece().pieceType.getPlayer()) {
+                        //You already selected a piece, but chose a different one
+                        fromThisTile.getPiece().setSelected(false); //Set old piece to unselected
+                        board.impossAllTiles(); //Get rid of previous possibilities
+
+                        fromThisTile = chosenTile;
+                        game.sendAction(new SelectPieceAction(this, fromThisTile.getTileIndex()));
+                        pieceIsSelected = true;
+
+                        whichPiece.setText("" + fromThisTile.getPiece().pieceType);
+
+                        Log.d("HUMAN_SELECTED_PIECE", "Wheeee you chose (again) " + goToTile.getTileIndex());
+
+                        this.sendInfo(state);
+
+                        surfaceView.invalidate();
+
+                        return true; //You selected a new piece! Congrats!
+
+                    } else { //Unoccupied or is occupied by an enemy. Sally forth!
+
+                        goToTile = chosenTile;
+                        game.sendAction(new MovePieceAction(this, goToTile.getTileIndex()));
+                        pieceIsSelected = false;
+
+                        if (state.getWhoseTurn() == 0) {
+                            whichPlayer.setText(allPlayerNames[1] + "'s Turn");
+                        } else {
+                            whichPlayer.setText(allPlayerNames[0] + "'s Turn");
+                        }
+
+                        Log.d("HUMAN_MOVED_PLACE", "Wheeee you placed it at " + goToTile.getTileIndex());
+                        this.sendInfo(state);
+                        surfaceView.invalidate();
+                        return true;
                     }
-                    fromThisTile = chosenTile;
-                    game.sendAction(new SelectPieceAction(this, fromThisTile.getTileIndex()));
-                    pieceIsSelected = true;
-                    board.checkMoves(fromThisTile);
-
-                    whichPiece.setText("" + fromThisTile.getPiece().pieceType);
-
-                    if (state.getWhoseTurn() == 0) {
-                        whichPlayer.setText(allPlayerNames[0] + "'s Turn");
-                    } else {
-                        whichPlayer.setText(allPlayerNames[1] + "'s Turn");
-                    }
-
-                    this.sendInfo(state);
-
-                    return true; //You selected a new piece! Congrats!
-
-                } else if (chosenTile.isOccupied() && this.playerNum == chosenTile.getPiece().pieceType.getPlayer()) {
-                    //You already selected a piece, but chose a different one
-                    fromThisTile.getPiece().setSelected(false); //Set old piece to unselected
-                    board.impossAllTiles(); //Get rid of previous possibilities
-
-                    fromThisTile = chosenTile;
-                    game.sendAction(new SelectPieceAction(this, fromThisTile.getTileIndex()));
-                    pieceIsSelected = true;
-
-                    whichPiece.setText("" + fromThisTile.getPiece().pieceType);
-
-                    if (state.getWhoseTurn() == 0) {
-                        whichPlayer.setText(allPlayerNames[0] + "'s Turn");
-                    } else {
-                        whichPlayer.setText(allPlayerNames[1] + "'s Turn");
-                    }
-
-                    this.sendInfo(state);
-
-                    return true; //You selected a new piece! Congrats!
-
-                } else { //Unoccupied or is occupied by an enemy. Sally forth!
-
-                    goToTile = chosenTile;
-                    game.sendAction(new MovePieceAction(this, goToTile.getTileIndex()));
-                    pieceIsSelected = false;
-
-                    if (state.getWhoseTurn() == 0) {
-                        whichPlayer.setText(allPlayerNames[0] + "'s Turn");
-                    } else {
-                        whichPlayer.setText(allPlayerNames[1] + "'s Turn");
-                    }
-
-                    this.sendInfo(state);
                 }
             }
-
         }
+        Log.d("NOT HUMAN TURN", "Uhh not your turn bro");
         surfaceView.invalidate();
         return true;
     }

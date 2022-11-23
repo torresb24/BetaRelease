@@ -190,7 +190,7 @@ public class Board {
      *
      * returns an arraylist of all possible tiles
      */
-    public ArrayList checkMoves(Tile tile) {
+    public ArrayList<Tile> checkMoves(Tile tile) {
         Piece.DIRECTION dir;
         ArrayList<Tile> possibleTiles = new ArrayList<>();
         int[] nums;

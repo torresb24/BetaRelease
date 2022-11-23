@@ -1,5 +1,7 @@
 package com.example.alpharelease.Shogi;
 
+import android.util.Log;
+
 import com.example.alpharelease.GameFramework.LocalGame;
 import com.example.alpharelease.GameFramework.actionMessage.GameAction;
 import com.example.alpharelease.GameFramework.players.GamePlayer;
@@ -43,6 +45,7 @@ public class ShogiLocalGame extends LocalGame {
     protected boolean makeMove(GameAction action) {
         ShogiGameState state = ((ShogiGameState)super.state);
         Board board = state.getBoard();
+        ArrayList<Tile> possibleTiles;
         Tile fromHere = null;
 
         if (action instanceof SelectPieceAction) {
@@ -50,14 +53,26 @@ public class ShogiLocalGame extends LocalGame {
             fromHere = board.getTile(tileIndex);
             Piece piece = fromHere.getPiece();
 
-            //If it's stuck (just in case)
-            //If it can move
-            piece.setSelected(board.checkMoves(fromHere).size() != 0); //Can't move. Give up.
-            return piece.isSelected();
+            possibleTiles = board.checkMoves(fromHere);
+            piece.setSelected(possibleTiles.size() != 0); //False if this piece can't move.
+
+            if (piece.isSelected()) {
+                state.setSelecting(false);
+
+                Log.d("SELECTED A PIECE", "Selected a piece! " + fromHere.getTileIndex() +
+                        " and turn is " + state.getWhoseTurn());
+                return true;
+            }
+
+            Log.d("SELECTED A PIECE (BAD)", "Selected bad!!! " + fromHere.getTileIndex() +
+                    " and turn is " + state.getWhoseTurn());
+
+            return false;  //This piece can't move. Try again
         }
 
         if (action instanceof MovePieceAction) {
-            Tile goThere = board.getTile(((MovePieceAction)action).destination);
+
+            Tile goThere = board.getTile(((MovePieceAction) action).destination);
             for (Tile t : board.getTiles()) {
                 if (t.getPiece() != null) {
                     if (t.getPiece().isSelected()) {
@@ -71,14 +86,17 @@ public class ShogiLocalGame extends LocalGame {
                 return false;
             }
 
-            if (goThere.isPossible()) {
+            possibleTiles = board.checkMoves(fromHere);
+
+            if (possibleTiles.contains(goThere)) {
 
                 if (goThere.isOccupied() && (goThere.getPiece().pieceType == Piece.GAME_PIECES.KING
                         || goThere.getPiece().pieceType == Piece.GAME_PIECES.OPP_KING)) {
                     state.setInCheckmate(true);
                 } //They snatched the king!
 
-                board.impossAllTiles();
+                state.changeTurn(1 - fromHere.getPiece().pieceType.getPlayer()); //Change turn
+
                 Piece p = goThere.getPiece();
                 if (p != null) {
                     p.setAlive(false);
@@ -86,21 +104,29 @@ public class ShogiLocalGame extends LocalGame {
                 }
                 goThere.setPiece(fromHere.getPiece());
                 fromHere.getPiece().setSelected(false);
-
                 fromHere.setPiece(null);
 
-                state.changeTurn(1 - state.getWhoseTurn());
+                board.impossAllTiles();
+                state.setSelecting(true);
+
+                Log.d("MOVE A PIECE", "Moved to "  + goThere.getTileIndex() +
+                        " and turn is " + state.getWhoseTurn());
+
+                return true;
             }
 
-            return goThere.isPossible();
+            Log.d("MOVE A PIECE (BAD)", "Tried to move to "  + goThere.getTileIndex() +
+                    " and turn is " + state.getWhoseTurn());
+
+            state.setSelecting(false);
+            return false; //Can't move because chosen place is invalid
         } //End of movepieceaction case
 
-
         //TODO: MAKE OTHER ACTIONS
-        return true;
+        return false;
     }
 
     public boolean checkCheck() {
-        return ((ShogiGameState) state).pieces2.size() == 1;
+        return false;
     }
 }

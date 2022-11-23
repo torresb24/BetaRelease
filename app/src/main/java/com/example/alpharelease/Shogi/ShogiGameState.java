@@ -40,17 +40,15 @@ public class ShogiGameState extends GameState {
      * *** if stalemate ***
      * Previous turn state
      */
-    private boolean isInCheck, isInCheckmate;
+    private boolean isInCheck, isInCheckmate, selecting;
     private final Board board;
-    private final int p1 = 0;
-    private final int p2 = 1;
     private int whoseTurn;
     private final Graveyard grave_1;
     private final Graveyard grave_2;
     public ArrayList<Piece> pieces1;
     public ArrayList<Piece> pieces2;
     public ArrayList<Tile> tileArray;
-    public ArrayList<Integer> cords;
+
     /**
      * Current state of the game constructor
      */
@@ -60,9 +58,10 @@ public class ShogiGameState extends GameState {
         board = new Board();
         grave_1 = new Graveyard();
         grave_2 = new Graveyard();
-        pieces1 = new ArrayList<Piece>();
-        pieces2 = new ArrayList<Piece>();
+        pieces1 = new ArrayList<>();
+        pieces2 = new ArrayList<>();
         tileArray = new ArrayList<>();
+        selecting = true;
 
         assignPieces();
     }
@@ -73,11 +72,12 @@ public class ShogiGameState extends GameState {
     public ShogiGameState(ShogiGameState orig) {
         this.whoseTurn = orig.whoseTurn;
         this.board = orig.board;
+        this.selecting = orig.selecting;
         this.grave_1 = orig.grave_1;
         this.grave_2 = orig.grave_2;
-        this.pieces1 = new ArrayList<Piece>();
-        this.pieces2 = new ArrayList<Piece>();
-        this.tileArray = new ArrayList<Tile>();
+        this.pieces1 = new ArrayList<>();
+        this.pieces2 = new ArrayList<>();
+        this.tileArray = new ArrayList<>();
 
         // for loop through
         this.pieces1.addAll(orig.pieces1);
@@ -102,7 +102,6 @@ public class ShogiGameState extends GameState {
         } // for pieces
         initPieces(pieces1, 0);
         initPieces(pieces2, 1);
-
     }
 
 
@@ -210,12 +209,20 @@ public class ShogiGameState extends GameState {
     /**
      * Determine next turn based on current turn
      */
-    public void changeTurn(int id) {
-        this.whoseTurn = id;
+    public void changeTurn(int playerID) {
+        this.whoseTurn = playerID;
     }
 
     public int getWhoseTurn() {
         return whoseTurn;
+    }
+
+    public void setSelecting(boolean selecting) {
+        this.selecting = selecting;
+    }
+
+    public boolean isSelecting() {
+        return selecting;
     }
 
     public Board getBoard() {

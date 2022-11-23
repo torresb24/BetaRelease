@@ -13,6 +13,7 @@ import android.view.SurfaceView;
 import android.view.View;
 
 import com.example.alpharelease.GameFramework.LocalGame;
+import com.example.alpharelease.GameFramework.utilities.FlashSurfaceView;
 import com.example.alpharelease.R;
 
 import java.util.ArrayList;
@@ -60,7 +61,6 @@ public class MainSurfaceView extends SurfaceView {
 
     // 4 tell the view what to draw/how to draw
     protected void onDraw(Canvas canvas) {
-        //TODO: Move these images into the constructor so that we only have to create them once
 
         Bitmap image;
         Piece piece;
@@ -76,7 +76,7 @@ public class MainSurfaceView extends SurfaceView {
 
             image = BitmapFactory.decodeResource(getResources(), piece.pieceType.getID());
 
-            /** NOTE: Rotation assisted by Nathaniel Hopper */
+            /** NOTE: Rotation of pieces assisted by Nathaniel Hopper */
             // TODO: change this to rotate depending on who you are (rotate player 1's if you're player 0, rotate player 0's if you're p1)
             if (piece.pieceType.getPlayer() == 1) {
                 Matrix matrix = new Matrix();
