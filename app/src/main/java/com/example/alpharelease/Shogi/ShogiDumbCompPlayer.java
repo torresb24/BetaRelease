@@ -16,7 +16,7 @@ import java.util.Random;
 public class ShogiDumbCompPlayer extends GameComputerPlayer {
 
     private ShogiGameState state;
-    private ArrayList<Tile> possibleTiles;
+    private ArrayList<Tile> possibleTiles = new ArrayList<Tile>();;
 
     public ShogiDumbCompPlayer(String name) {
         super(name);
@@ -60,7 +60,12 @@ public class ShogiDumbCompPlayer extends GameComputerPlayer {
                     Log.d("COMP_SELECTED_PIECE", "Wheeee compy chose " + fromThisTile.getTileIndex());
 
                     Collections.shuffle(possibleTiles);
-                    goToTile = possibleTiles.get(0); //For debugging. Can delete after
+
+                    if (possibleTiles.size() == 0) {
+                        state.setSelecting(true);
+                        return;
+                    }
+                    goToTile = possibleTiles.get(0);
 
                     int index = board.getTiles().indexOf(goToTile);
                     Log.d("COMP_SELECTED_PLACE", "Wheeee compy sent piece to " + goToTile.getTileIndex());

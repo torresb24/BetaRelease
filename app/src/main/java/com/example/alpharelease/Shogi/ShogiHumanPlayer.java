@@ -37,7 +37,7 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 
     boolean pieceIsSelected = false;
     private Tile chosenTile = null, fromThisTile = null, goToTile = null;
-    private ArrayList<Tile> possibleTiles;
+    private ArrayList<Tile> possibleTiles = new ArrayList<>();
 
     /**
      * Callback method, called when player gets a message

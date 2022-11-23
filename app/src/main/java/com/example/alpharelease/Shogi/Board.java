@@ -289,16 +289,17 @@ public class Board {
                 tempy.setPossible(true);
             }
         }
+        return getPossibleTiles();
+    }//End checkMoves
+
+    public ArrayList<Tile> getPossibleTiles() {
+        possibleTiles.clear();
 
         for (Tile t : tiles) {
             if (t.isPossible()) {
                 possibleTiles.add(t);
             }
         }
-        return possibleTiles;
-    }//End checkMoves
-
-    public ArrayList<Tile> getPossibleTiles() {
         return possibleTiles;
     }
 }
