@@ -2,6 +2,8 @@ package com.example.alpharelease.Shogi;
 
 import android.graphics.Canvas;
 
+import com.example.alpharelease.R;
+
 import java.util.ArrayList;
 
 /**
@@ -307,4 +309,34 @@ public class Board {
         }
         return possibleTiles;
     }
+
+    public boolean canPromote(Tile t){
+        if(t.getPiece().directionMovement == Piece.DIRECTION.FORWARD) {
+            if (t.getRow() < 3) {
+                return true;
+            }
+        }
+        else if (t.getPiece().directionMovement == Piece.DIRECTION.BACKWARD) {
+            if (t.getRow() > 5) {
+                return true;
+            }
+        }
+        return false;
+    } //canPromote
+    public void promote(Tile t, ShogiGameState state){
+       Piece p = t.getPiece();
+        switch(p.pieceType.getID()) {
+            case (R.drawable.pawn):
+            // Unlink original from tile
+            // Find replacement
+            for (Piece p1 : state.pieces1) {
+                if(p1.pieceType.getID() == R.drawable.promoted_pawn && p1.getRow() == -1 && p1.getCol() == -1)
+                {
+                    // set replacement
+                    t.setPiece(p1);
+                    break;
+                }
+            }
+    }
+    } // promote
 }
