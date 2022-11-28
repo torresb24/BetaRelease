@@ -4,6 +4,8 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+import android.view.View;
+
 import com.example.alpharelease.Shogi.ShogiLocalGame;
 import com.example.alpharelease.Shogi.Tile;
 
@@ -39,13 +41,18 @@ public class ExampleUnitTest {
         assertEquals(4,t1.getyCordEnd());
     }
 
-    public void gameCopy_isCorrect() {
+    public void localCopy_isCorrect() {
         ShogiLocalGame g1 = new ShogiLocalGame();
         ShogiLocalGame g2 = new ShogiLocalGame();
 
         g2.moveKnight(false,1,1);
 
         assertNotEquals(g1, g2);
+    }
+
+    public void pawnMove_isCorrect() {
+
+
     }
 
     /*public void setCords(int x, int y, int xEnd, int yEnd) {
