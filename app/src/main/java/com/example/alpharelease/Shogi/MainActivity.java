@@ -21,7 +21,7 @@ import java.util.ArrayList;
  * @author Brent Torres
  * @author Matthew Tran
  *
- * @version 10/14/2022
+ * @version 11/21/2022
  *
  * */
 
@@ -53,8 +53,8 @@ public class MainActivity extends GameMainActivity {
 
         GameConfig defaultConfig = new GameConfig(playerTypes, 2,2, "Shogi", 2009);
 
-        defaultConfig.addPlayer("Human", 0); // first shogi human player
-        defaultConfig.addPlayer("Game Crasher >:(", 1); // first computer (dumb) player
+        defaultConfig.addPlayer("Humanity's Savior", 0); // first shogi human player
+        defaultConfig.addPlayer("Foolish Fool", 1); // first computer (dumb) player
         defaultConfig.addPlayer("Less Dumb Computer", 1); // second computer (smart) player
 
         // Initial info set

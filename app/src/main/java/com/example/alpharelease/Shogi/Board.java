@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * @author Brent Torres
  * @author Matthew Tran
  *
- * @version 10/11/2022
+ * @version 11/29/2022
  *
  * */
 
@@ -31,6 +31,9 @@ public class Board {
     private int left, top, right, bottom, tileNum;
     private Tile temp;
 
+    /**
+     * constructor for Board class
+     */
     public Board() {
         tiles = new ArrayList<>();
         possibleTiles = new ArrayList<>();
@@ -39,6 +42,9 @@ public class Board {
         makeBoard();
     }
 
+    /**
+     * initializes the tiles to create the initial board setup
+     */
     private void makeBoard() {
         tiles.clear();
         possibleTiles.clear();
@@ -87,6 +93,11 @@ public class Board {
 
     } //End makeBoard
 
+    /**
+     * assigns pieces to tiles based on initial rows and columns
+     *
+     * @param pieces the arraylist of type Piece containing all pieces belonging to a specific player
+     */
     public void assignTile(ArrayList<Piece> pieces) {
         for (Piece p : pieces) {
             for (Tile t : tiles) {
@@ -112,6 +123,8 @@ public class Board {
      *
      * @param xCoord the horizontal component of the coordinate
      * @param yCoord the vertical component of the coordinate
+     *
+     * @return false if the given coords are NOT within the bounds of the board, else true
      */
     public boolean onBoard(float xCoord, float yCoord) {
         return ((boardLeftEdge <= xCoord || xCoord <= boardRightEdge)
@@ -121,12 +134,14 @@ public class Board {
     /**
      * checks to see which tile was touched
      *
+     * CAVEAT: Due to how the tiles were created, there may be a single x or y value in some of
+     *      the lines between some tiles that won't count towards a tile. This is accounted for
+     *      where the method is called
+     *
      * @param xCoord the horizontal component of the coordinate
      * @param yCoord the vertical component of the coordinate
      *
-     *
-     * Due to how the tiles were created, there may be a single x or y value in some of the lines
-     *      between some tiles that won't count towards a tile
+     * @return the selected tile if found and null if not
      */
     public Tile getTileByCord(float xCoord, float yCoord) {
         for (Tile t : tiles) { //Check the tiles coordinates (with slight leeway bc of the lines btwn)
@@ -144,7 +159,7 @@ public class Board {
      * @param col the column of the tile that is currently selected
      * @param row the row of the tile that is currently selected
      *
-     * returns the selected Tile if found and null if not
+     * @return the selected Tile if found and null if not
      */
     public Tile getTile(int col, int row) {
         for (Tile t : tiles) { //Check the tiles rows/col
@@ -160,7 +175,7 @@ public class Board {
      *
      * @param index the index of the tile that is currently selected
      *
-     * returns the selected Tile if found and null if not
+     * @return the selected Tile if found and null if not
      */
     public Tile getTile(int index) {
         for (Tile t : tiles) { //Check the tiles indexes
@@ -188,11 +203,11 @@ public class Board {
     }
 
     /**
-     * checks to see which tile the selected piece can move to
+     * checks to see which tiles the selected piece can move to
      *
      * @param tile the tile that is currently selected
      *
-     * returns an arraylist of all possible tiles
+     * @return an arraylist of all possible tiles
      */
     public ArrayList<Tile> checkMoves(Tile tile) {
         Piece.DIRECTION dir;
@@ -299,6 +314,12 @@ public class Board {
         return getPossibleTiles();
     }//End checkMoves
 
+    /**
+     * Sends an arraylist of tiles a piece can move to based on which tiles
+     *      are marked as possible during the checkMoves method
+     *
+     * @return ArrayList of type Tile
+     */
     public ArrayList<Tile> getPossibleTiles() {
         possibleTiles.clear();
 
@@ -323,7 +344,9 @@ public class Board {
         }
         return false;
     } //canPromote
-    public void promote(Tile t, ShogiGameState state){
+
+
+    public void promote(Tile t, ShogiGameState state) {
        Piece p = t.getPiece();
         switch(p.pieceType.getID()) {
             case (R.drawable.pawn):

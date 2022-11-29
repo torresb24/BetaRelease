@@ -28,6 +28,9 @@ public class Tile {
     private final Paint possPaint;
     private Piece piece;
 
+    /**
+     * constructor for Tile class
+     */
     public Tile() {
         row = col = tileIndex = 0;
         xCoord = yCoord = xCoordEnd = yCoordEnd = 0;
@@ -45,6 +48,12 @@ public class Tile {
         tilePaint.setColor(emptyPaint.getColor());
     }
 
+    /**
+     * draws rectangles on board to show board information
+     *      (whether piece is an enemy, possible, or neither)
+     *
+     * @param c The canvas on which to draw the tiles
+     */
     public void drawTiles(Canvas c) {
         if (isPossible()) { //If you can move there color it this color
             this.tilePaint.setColor(possPaint.getColor());

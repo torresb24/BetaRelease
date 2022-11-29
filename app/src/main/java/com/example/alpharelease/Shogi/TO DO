@@ -23,6 +23,16 @@ To Do List
 
     Implement Network Play
 
+    Make Unit Tests
+
+    Fix EditTexts to update w correct info
+
+    Change onDraw to rotate depending on who you are (rotate player 1's if you're player 0, rotate player 0's if you're p1)
+
+    Update formatting to make consistent
+
+    Change case references to R.drawable. to references to PIECE_TYPE
+
     Add comments/headers!!!!
 
     Cut down on if-else statements! They make it too easy to cause crashes!!!!

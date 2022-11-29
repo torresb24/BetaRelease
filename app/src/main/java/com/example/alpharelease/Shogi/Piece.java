@@ -11,7 +11,7 @@ import java.util.Arrays;
  * @author Brent Torres
  * @author Matthew Tran
  *
- * @version 10/11/2022
+ * @version 11/22/2022
  *
  * */
 
@@ -79,6 +79,14 @@ public class Piece {
     private boolean isAlive, isOnBoard, isSelected;
     private final int[] moveNum; //TL = 0, T = 1, TR = 2, L = 3, R = 4, BL = 5, B = 6, BR = 7 for indexes
 
+
+    /**
+     * constructor for Piece class
+     *
+     * @param type what kind of piece it is (i.e. PAWN, KING, OPP_PAWN, etc.)
+     * @param dir the direction the piece is facing (FORWARD or BACKWARD)
+     *
+     */
     public Piece(GAME_PIECES type, DIRECTION dir) {
         row = col = -1;
         pieceType = type;
@@ -91,20 +99,26 @@ public class Piece {
         firstIsOnBoard();
     }
 
+    /**
+     * sets which pieces are on the board at initialization
+     */
     private void firstIsOnBoard() {
         switch (this.pieceType) {
             case PROMOTED_PAWN: case PROMOTED_LANCE: case PROMOTED_ROOK:
             case PROMOTED_BISHOP: case PROMOTED_KNIGHT: case PROMOTED_SILVER_GENERAL:
             case OPP_PROMOTED_PAWN: case OPP_PROMOTED_LANCE: case OPP_PROMOTED_ROOK:
             case OPP_PROMOTED_BISHOP: case OPP_PROMOTED_KNIGHT: case OPP_PROMOTED_SILVER_GENERAL:
-                isOnBoard = false;
+                this.isOnBoard = false;
                 break;
             default:
-                isOnBoard = true;
+                this.isOnBoard = true;
                 break;
         }
     }
 
+    /**
+     * sets how far in each cardinal and ordinal direction a piece can move
+     */
     private void setMoveNum() { //TL = 0, T = 1, TR = 2, L = 3, R = 4, BL = 5, B = 6, BR = 7 for indexes
         Arrays.fill(moveNum, 0);
 
@@ -173,6 +187,9 @@ public class Piece {
                 break;
         }
     }//End setMoveNum
+
+
+    /**     VARIOUS GETTERS AND SETTERS     */
 
     public int[] getMoveNum() {
         return moveNum;

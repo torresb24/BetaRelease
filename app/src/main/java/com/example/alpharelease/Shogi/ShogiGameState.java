@@ -13,7 +13,7 @@ import java.util.Random;
  * @author Brent Torres
  * @author Matthew Tran
  *
- * @version 10/11/2022
+ * @version 11/22/2022
  *
  * */
 
@@ -71,6 +71,9 @@ public class ShogiGameState extends GameState {
         this.tileArray.addAll(orig.tileArray);
     }
 
+    /**
+     * creates an arraylist of pieces for each player
+     */
     private void assignPieces() {
         for (Piece.GAME_PIECES piece : Piece.GAME_PIECES.values()) {
             for (int i = 0; i < piece.getAmount(); i++) {
@@ -92,6 +95,8 @@ public class ShogiGameState extends GameState {
     /**
      * Assigns rows and columns to each piece for initial setup for each player
      * Promotion pieces are unassigned due to them not existing on the board at that time
+     *
+     * @param piece the arraylist belonging to a specific player containing all their pieces
      */
     private void initPieces(ArrayList<Piece> piece) { //board is 9x9 tiles
         //front row is 9 pawns
@@ -183,16 +188,18 @@ public class ShogiGameState extends GameState {
         board.assignTile(piece); //Assign each piece to a tile
     }
 
-    // see who goes first
+    /**
+     * randomly chooses a player to go first
+     *
+     * @return 0 if player 1 goes first, 1 if player 2 goes first
+     */
     public int first() {
         Random rand = new Random();
         int i = rand.nextInt(11);
         return i % 2;
     }
 
-    /**
-     * Determine next turn based on current turn
-     */
+    /**     VARIOUS GETTERS AND SETTERS     */
     public void changeTurn(int playerID) {
         this.whoseTurn = playerID;
     }

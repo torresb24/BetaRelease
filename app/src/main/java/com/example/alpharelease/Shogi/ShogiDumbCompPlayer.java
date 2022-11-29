@@ -30,6 +30,11 @@ public class ShogiDumbCompPlayer extends GameComputerPlayer {
         super(name);
     }
 
+    /**
+     * receives information about the gamestate and then makes a random move based on that
+     *
+     * @param info the information typically containing the gamestate
+     */
     @Override
     protected void receiveInfo(GameInfo info) {
 

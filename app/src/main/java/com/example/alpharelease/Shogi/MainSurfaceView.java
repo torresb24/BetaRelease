@@ -84,7 +84,6 @@ public class MainSurfaceView extends SurfaceView {
 
             image = BitmapFactory.decodeResource(getResources(), piece.pieceType.getID());
 
-            /** NOTE: Rotation of pieces assisted by Nathaniel Hopper */
             // TODO: change this to rotate depending on who you are (rotate player 1's if you're player 0,
             //  rotate player 0's if you're p1)
             if (piece.pieceType.getPlayer() == 1) {
