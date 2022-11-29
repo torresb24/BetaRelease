@@ -17,6 +17,7 @@ import com.example.alpharelease.GameFramework.players.GameHumanPlayer;
 import com.example.alpharelease.GameFramework.utilities.Logger;
 import com.example.alpharelease.R;
 import com.example.alpharelease.Shogi.Actions.MovePieceAction;
+import com.example.alpharelease.Shogi.Actions.PromoteAction;
 import com.example.alpharelease.Shogi.Actions.SelectPieceAction;
 
 import java.util.ArrayList;
@@ -120,9 +121,12 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
                 Log.i("HUMAN_SURRENDER", "HAHAHAHAHA loser");
                 this.sendInfo(new GameOverInfo("You kinda suck at this game. "));
                 break;
+            case R.id.promoButton:
+                Log.i("HUMAN_PROMOTION", "Wheeee human promotion");
+                game.sendAction(new PromoteAction(this));
+                break;
         }
     }
-
 
     @Override
     public boolean onTouch(View view, MotionEvent e) {
@@ -158,7 +162,11 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
                         pieceIsSelected = true;
                         board.checkMoves(fromThisTile);
 
-                        whichPiece.setText("" + fromThisTile.getPiece().pieceType);
+                        String string = "" + fromThisTile.getPiece().pieceType;
+                        string = string.replace("OPP_", "");
+                        string = string.replace("_", " ");
+                        string = string.replace("GENERAL", "GEN").replace("GEN", "GENERAL");
+                        whichPiece.setText(string);
 
                         Log.d("HUMAN_SELECTED_PIECE", "Wheeee you chose " + fromThisTile.getTileIndex());
 
@@ -176,9 +184,12 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
                         pieceIsSelected = true;
                         board.checkMoves(fromThisTile);
 
-                        whichPiece.setText("" + fromThisTile.getPiece().pieceType);
+                        String string = "" + fromThisTile.getPiece().pieceType;
+                        string = string.replace("OPP_", "");
+                        string = string.replace("_", " ");
+                        whichPiece.setText(string);
 
-                        Log.d("HUMAN_SELECTED_PIECE", "Wheeee you chose (again) " + goToTile.getTileIndex());
+                        Log.d("HUMAN_SELECTED_PIECE", "Wheeee you chose (again) " + fromThisTile.getTileIndex());
 
                         this.sendInfo(state);
 
