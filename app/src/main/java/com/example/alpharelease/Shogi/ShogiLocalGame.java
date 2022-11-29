@@ -7,6 +7,7 @@ import com.example.alpharelease.GameFramework.actionMessage.GameAction;
 import com.example.alpharelease.GameFramework.players.GamePlayer;
 import com.example.alpharelease.R;
 import com.example.alpharelease.Shogi.Actions.MovePieceAction;
+import com.example.alpharelease.Shogi.Actions.PromoteAction;
 import com.example.alpharelease.Shogi.Actions.SelectPieceAction;
 import com.example.alpharelease.Shogi.Actions.SurrenderAction;
 import com.example.alpharelease.Shogi.Piece;
@@ -122,7 +123,15 @@ public class ShogiLocalGame extends LocalGame {
             state.setSelecting(false);
             return false; //Can't move because chosen place is invalid
         } //End of movepieceaction case
+        if (action instanceof PromoteAction){
+            int tileIndex = ((SelectPieceAction)action).selected;
+            fromHere = board.getTile(tileIndex);
+            Piece piece = fromHere.getPiece();
 
+            if(board.canPromote(fromHere)){
+                board.promote(fromHere, state);
+            }
+        }
         //TODO: MAKE OTHER ACTIONS
         return false;
     }
