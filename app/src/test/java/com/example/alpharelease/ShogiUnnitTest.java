@@ -41,8 +41,7 @@ public class ShogiUnnitTest {
         boolean t2 = testState.isSelecting();
         assertEquals(true,t1);
         assertEquals(false,t2);
-    } /** Matt Tran */ 
-    }
+    } /** Matt Tran */
 
     //Testing Implementations for Group Member Brent Torres
     @Test
