@@ -5,7 +5,10 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 import android.graphics.Point;
 
+import com.example.alpharelease.Shogi.Piece;
 import com.example.alpharelease.Shogi.ShogiGameState;
+
+import java.util.ArrayList;
 
 public class ShogiUnnitTest {
     @Test
@@ -55,5 +58,30 @@ public class ShogiUnnitTest {
         ShogiGameState testObject = new ShogiGameState();
 
     }
-    
+
+    // Tests by Emma Kelly
+    @Test
+    public void testTurnPiecesDiffer() throws Exception {
+        ShogiGameState testState = new ShogiGameState();
+        ShogiGameState testState2 = new ShogiGameState();
+
+        ArrayList<Piece> t1 = testState.getPieceArray(0);
+        ArrayList<Piece> t2 = testState.getPieceArray(1);
+        ArrayList<Piece> t3 = testState.getPieceArray(0);
+
+        assertNotEquals(t1, t2);
+        assertEquals(t1, t3);
+    }
+
+    @Test
+    public void testInCheck() throws Exception {
+        ShogiGameState testState = new ShogiGameState();
+        testState.setInCheck(true);
+        boolean t1 = testState.isInCheck();
+        testState.setInCheck(false);
+        boolean t2 = testState.isInCheck();
+        assertEquals(true,t1);
+        assertEquals(false,t2);
+    }
+
 }
