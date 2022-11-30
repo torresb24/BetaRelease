@@ -200,6 +200,7 @@ public class ShogiGameState extends GameState {
     }
 
     /**     VARIOUS GETTERS AND SETTERS     */
+
     public void changeTurn(int playerID) {
         this.whoseTurn = playerID;
     }

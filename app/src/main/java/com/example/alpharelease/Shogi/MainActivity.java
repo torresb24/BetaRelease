@@ -48,14 +48,15 @@ public class MainActivity extends GameMainActivity {
         });
 
         playerTypes.add(new GamePlayerType("Computer Player (Less Dumb)") {
-            public GamePlayer createPlayer(String name) { return new ShogiSmartCompPlayer(name); }});
+            public GamePlayer createPlayer(String name) { return new ShogiSmartCompPlayer(name); }
+        });
 
 
         GameConfig defaultConfig = new GameConfig(playerTypes, 2,2, "Shogi", 2009);
 
         defaultConfig.addPlayer("Humanity's Savior", 0); // first shogi human player
         defaultConfig.addPlayer("Foolish Fool", 1); // first computer (dumb) player
-        defaultConfig.addPlayer("Less Dumb Computer", 1); // second computer (smart) player
+        defaultConfig.addPlayer("Less Foolish Fool", 2); // second computer (smart) player
 
         // Initial info set
         defaultConfig.setRemoteData("Remote Player", "", 1);
