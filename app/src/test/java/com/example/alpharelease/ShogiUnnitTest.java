@@ -20,4 +20,18 @@ public class ShogiUnnitTest {
         ShogiGameState testStateCopy = new ShogiGameState(testState);
         assertEquals(10,testStateCopy.getWhoseTurn());
     }
+
+    //Testing Implementations for Group Member Brent Torres
+    @Test
+    public void testMakeBoard() throws Exception{
+        ShogiGameState testObject = new ShogiGameState();
+
+    }
+
+    @Test
+    public void testAssignTile() throws Exception{
+        ShogiGameState testObject = new ShogiGameState();
+
+    }
+    
 }
