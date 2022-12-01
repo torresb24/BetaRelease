@@ -354,7 +354,7 @@ public class Board {
 
     public void promote(Tile t, ShogiGameState state, int turn) {
        Piece p = t.getPiece();
-       if(turn == 1){
+       if(turn == 0){
         switch(p.pieceType.getID()) {
             /** PAWN */
             case (R.drawable.pawn):
@@ -365,6 +365,7 @@ public class Board {
                         break;
                     }
                 }
+                break;
                 /** LANCE */
             case (R.drawable.lance):
                 for (Piece p1 : state.pieces1) {
@@ -373,6 +374,7 @@ public class Board {
                         break;
                     }
                 }
+                break;
                 /** Rook */
             case (R.drawable.rook):
                 for (Piece p1 : state.pieces1) {
@@ -381,6 +383,7 @@ public class Board {
                         break;
                     }
                 }
+                break;
                 /** BISHOP */
             case (R.drawable.bishop):
                 for (Piece p1 : state.pieces1) {
@@ -389,6 +392,7 @@ public class Board {
                         break;
                     }
                 }
+                break;
                 /** KNIGHT */
             case (R.drawable.knight):
                 for (Piece p1 : state.pieces1) {
@@ -397,7 +401,8 @@ public class Board {
                         break;
                     }
                 }
-                /** LANCE */
+                break;
+                /** SILVER */
             case (R.drawable.silv_gen):
                 for (Piece p1 : state.pieces1) {
                     if (p1.pieceType.getID() == R.drawable.promoted_silv_gen && p1.getRow() == -1 && p1.getCol() == -1) {
@@ -405,9 +410,10 @@ public class Board {
                         break;
                     }
                 }
+                break;
         }
-    } // if Turn == 1
-        else if(turn == 0){
+    } // if Turn == 0
+        else if(turn == 1){
             switch(p.pieceType.getID()) {
                 /** PAWN */
                 case (R.drawable.pawn):
@@ -418,6 +424,7 @@ public class Board {
                             break;
                         }
                     }
+                    break;
                     /** LANCE */
                 case (R.drawable.lance):
                     for (Piece p1 : state.pieces2) {
@@ -426,6 +433,7 @@ public class Board {
                             break;
                         }
                     }
+                    break;
                     /** Rook */
                 case (R.drawable.rook):
                     for (Piece p1 : state.pieces2) {
@@ -434,6 +442,7 @@ public class Board {
                             break;
                         }
                     }
+                    break;
                     /** BISHOP */
                 case (R.drawable.bishop):
                     for (Piece p1 : state.pieces2) {
@@ -442,6 +451,7 @@ public class Board {
                             break;
                         }
                     }
+                    break;
                     /** KNIGHT */
                 case (R.drawable.knight):
                     for (Piece p1 : state.pieces2) {
@@ -450,7 +460,8 @@ public class Board {
                             break;
                         }
                     }
-                    /** LANCE */
+                    break;
+                    /** SILVER */
                 case (R.drawable.silv_gen):
                     for (Piece p1 : state.pieces2) {
                         if (p1.pieceType.getID() == R.drawable.promoted_silv_gen && p1.getRow() == -1 && p1.getCol() == -1) {
@@ -458,8 +469,9 @@ public class Board {
                             break;
                         }
                     }
+                    break;
             }
-        } // if Turn == 0
+        } // if Turn == 1
     } // promote
 
     private void promotehelper(Piece orig, Piece promo, Tile t){

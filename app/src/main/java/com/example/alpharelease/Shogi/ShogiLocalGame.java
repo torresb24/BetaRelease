@@ -138,15 +138,17 @@ public class ShogiLocalGame extends LocalGame {
 
         if (action instanceof PromoteAction){
             fromHere = board.getTile(((PromoteAction) action).SelectedIndex);
-
-            if(board.canPromote(fromHere)){
-                board.promote(fromHere, state,state.getWhoseTurn());
+            
+            if(!board.canPromote(fromHere)){
+                return false;
             }
+
+            board.promote(fromHere, state,state.getWhoseTurn());
             state.changeTurn(1 - fromHere.getPiece().pieceType.getPlayer()); //Change turn
             fromHere = null;
             state.setSelecting(true);
             board.impossAllTiles();
-
+            return true;
         }
         //TODO: Make other actions (post-promotion, not yet implemented)
         return false;
