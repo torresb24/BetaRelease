@@ -251,7 +251,16 @@ public class ShogiGameState extends GameState {
         isInCheckmate = inCheckmate;
     }
 
-    public void addPieceToGrave(int id, Piece p){
-
+    public void addPieceToGrave(Piece p){
+        if(p.pieceType.getPlayer() == 1){
+            p.pieceType.setPlayer(0);
+            p.setAlive(false);
+            board.addToGrave(p);
+        }
+        else if(p.pieceType.getPlayer() == 0){
+            p.pieceType.setPlayer(1);
+            p.setAlive(false);
+            board.addToGrave(p);
+        }
     }
 }

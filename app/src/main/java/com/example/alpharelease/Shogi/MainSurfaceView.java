@@ -90,8 +90,46 @@ public class MainSurfaceView extends SurfaceView {
                 Matrix matrix = new Matrix();
                 matrix.postRotate(180);
                 image = Bitmap.createBitmap(image, 0, 0, image.getWidth(), image.getHeight(), matrix, true);
+            } // if player = 1
+            if(piece.isAlive()) {
+                canvas.drawBitmap(image, t.getxCoord(), t.getyCoord(), imgPaint);
             }
-            canvas.drawBitmap(image, t.getxCoord(), t.getyCoord(), imgPaint);
+        }
+        for(Tile t : board.getGrave1()){
+            piece = t.getPiece();
+            if (piece == null) {
+                continue;
+            }
+
+            image = BitmapFactory.decodeResource(getResources(), piece.pieceType.getID());
+
+            if (piece.pieceType.getPlayer() == 1) {
+                Matrix matrix = new Matrix();
+                matrix.postRotate(180);
+                image = Bitmap.createBitmap(image, 0, 0, image.getWidth(), image.getHeight(), matrix, true);
+            } // if player = 1
+            if(piece.isAlive()) {
+                canvas.drawBitmap(image, t.getxCoord(), t.getyCoord(), imgPaint);
+            }
+
+        }
+        for(Tile t : board.getGrave2()){
+            piece = t.getPiece();
+            if (piece == null) {
+                continue;
+            }
+
+            image = BitmapFactory.decodeResource(getResources(), piece.pieceType.getID());
+
+            if (piece.pieceType.getPlayer() == 1) {
+                Matrix matrix = new Matrix();
+                matrix.postRotate(180);
+                image = Bitmap.createBitmap(image, 0, 0, image.getWidth(), image.getHeight(), matrix, true);
+            } // if player = 1
+            if(piece.isAlive()) {
+                canvas.drawBitmap(image, t.getxCoord(), t.getyCoord(), imgPaint);
+            }
+
         }
         board.drawBoard(canvas);
     }
