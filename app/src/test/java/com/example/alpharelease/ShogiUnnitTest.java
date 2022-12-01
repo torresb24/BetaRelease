@@ -10,6 +10,7 @@ import com.example.alpharelease.Shogi.Piece;
 import com.example.alpharelease.Shogi.ShogiGameState;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class ShogiUnnitTest {
     @Test
@@ -64,11 +65,12 @@ public class ShogiUnnitTest {
 
     @Test void testAssignPieces() throws Exception{
         ShogiGameState testState = new ShogiGameState();
+        Random rand = new Random();
+        int randIndex = rand.nextInt(testState.pieces1.size());
+        assertEquals(Piece.DIRECTION.FORWARD, testState.pieces1.get(randIndex).directionMovement);
 
-        testState.changeTurn(0); //set to player 0
-
-        assertEquals(Piece.DIRECTION.FORWARD, testState.pieces1);
-
+        randIndex = rand.nextInt(testState.pieces1.size());
+        assertEquals(Piece.DIRECTION.BACKWARD, testState.pieces2.get(randIndex).directionMovement);
     }
 
     @Test
@@ -146,4 +148,45 @@ public class ShogiUnnitTest {
         assertEquals(false,t2);
     }
 
+    // Kathryn's Tests
+    @Test
+    public void testCheckMoves()throws Exception{
+        ShogiGameState testState = new ShogiGameState();
+        Board testBoard = testState.getBoard();
+        //King
+        assertEquals(3,testBoard.checkMoves(testBoard.getTile(4,8)).size());
+        assertEquals(7,testBoard.checkMoves(testBoard.getTile(4,8)).get(0).getRow());
+        //Edge Lance
+        assertEquals(1,testBoard.checkMoves(testBoard.getTile(0,0)).size());
+        assertEquals(7,testBoard.checkMoves(testBoard.getTile(0,8)).get(0).getRow());
+    }
+
+    @Test
+    public void testFirstToGo()throws Exception{
+        ShogiGameState testState = new ShogiGameState();
+        int t1 = testState.first();
+        // 1 or 0 only
+        assertTrue(t1<2 && t1 >= 0);
+    }
+
+    @Test
+    public void testPromote() throws Exception{
+        ShogiGameState testState = new ShogiGameState();
+        Board testBoard = testState.getBoard();
+
+        // promote pawn
+        testBoard.promote(testBoard.getTile(0,6),testState,0);
+        assertEquals(R.drawable.promoted_pawn, testBoard.getTile(0,6).getPiece().pieceType);
+        // enemy pawn
+        testBoard.promote(testBoard.getTile(0,3),testState,1);
+        assertEquals(R.drawable.promoted_pawn, testBoard.getTile(0,3).getPiece().pieceType);
+
+        // promote lance
+        testBoard.promote(testBoard.getTile(0,8),testState,0);
+        assertEquals(R.drawable.promoted_lance, testBoard.getTile(0,8).getPiece().pieceType);
+
+        // promote king [Can't promote]
+        testBoard.promote(testBoard.getTile(4,8),testState,0);
+        assertEquals(R.drawable.king, testBoard.getTile(4,8).getPiece().pieceType);
+    }
 }
