@@ -97,8 +97,7 @@ public class ShogiGameState extends GameState {
      * Assigns rows and columns to each piece for initial setup for each player
      * Promotion pieces are unassigned due to them not existing on the board at that time
      *
-     * @param piece
-     *      the arraylist belonging to a specific player containing all their pieces
+     * @param piece the arraylist belonging to a specific player containing all their pieces
      */
     private void initPieces(ArrayList<Piece> piece) { //board is 9x9 tiles
         //front row is 9 pawns
@@ -194,7 +193,8 @@ public class ShogiGameState extends GameState {
      * Randomly chooses a player to go first
      *
      * @return
-     *     0 if player 1 goes first, 1 if player 2 goes first
+     *     0 - if player 1 goes first
+     *     1 - if player 2 goes first
      */
     public int first() {
         Random rand = new Random();
