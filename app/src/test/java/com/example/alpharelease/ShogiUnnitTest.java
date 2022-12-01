@@ -52,12 +52,15 @@ public class ShogiUnnitTest {
     @Test void testAssignPieces() throws Exception{
         ShogiGameState testState = new ShogiGameState();
 
+        testState.changeTurn(0); //set to player 0
+
+        assertEquals(Piece.DIRECTION.FORWARD, testState.pieces1);
+
     }
 
     @Test
     public void testMakeBoard() throws Exception{
         Board testObject = new Board();
-
 
     }
 
@@ -72,10 +75,12 @@ public class ShogiUnnitTest {
 
         //Get tile coords
         for(int i = 0; i < testObject.getTiles().size(); i++){
-            if(){
+            if(testObject.getTiles().contains(R.drawable.king)){
                 kingTileCol =  testObject.getTile(i).getCol();
                 kingTileRow = testObject.getTile(i).getRow();
             }
+
+            //ensure that King is on tile col 4 row 0 through assert equals
             assertEquals(4, kingTileCol);
             assertEquals(0, kingTileRow);
         }

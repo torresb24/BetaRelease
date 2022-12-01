@@ -88,8 +88,10 @@ public class ShogiGameState extends GameState {
                 }
             } // for i
         } // for pieces
+
         initPieces(pieces1);
         initPieces(pieces2);
+
     }
 
 
