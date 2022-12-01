@@ -107,13 +107,15 @@ public class ShogiLocalGame extends LocalGame {
                     state.setInCheckmate(true);
                 } //They snatched the king!
 
-                state.changeTurn(1 - fromHere.getPiece().pieceType.getPlayer()); //Change turn
-
                 Piece p = goThere.getPiece();
                 if (p != null) {
                     p.setAlive(false);
                     p.setOnBoard(false);
+                    state.addPieceToGrave(state.getWhoseTurn(), p);
                 }
+
+                state.changeTurn(1 - fromHere.getPiece().pieceType.getPlayer()); //Change turn
+
                 goThere.setPiece(fromHere.getPiece());
                 fromHere.getPiece().setSelected(false);
                 fromHere.setPiece(null);

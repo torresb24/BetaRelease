@@ -31,8 +31,8 @@ public class ShogiGameState extends GameState {
     private boolean isInCheck, isInCheckmate, selecting;
     private final Board board;
     private int whoseTurn;
-    private final Graveyard grave_1;
-    private final Graveyard grave_2;
+    private Graveyard grave_1;
+    private Graveyard grave_2;
     public ArrayList<Piece> pieces1;
     public ArrayList<Piece> pieces2;
     public ArrayList<Tile> tileArray;
@@ -249,5 +249,14 @@ public class ShogiGameState extends GameState {
 
     public void setInCheckmate(boolean inCheckmate) {
         isInCheckmate = inCheckmate;
+    }
+
+    public void addPieceToGrave(int id, Piece p){
+        if(id == 0){
+            grave_1.addPiece(p);
+        }
+        if(id == 1){
+            grave_2.addPiece(p);
+        }
     }
 }
