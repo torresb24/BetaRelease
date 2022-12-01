@@ -241,9 +241,7 @@ public class ShogiGameState extends GameState {
         return isInCheck;
     }
 
-    public boolean isInCheckmate() {
-        return isInCheckmate;
-    }
+    public boolean isInCheckmate() {return isInCheckmate;}
 
     public void setInCheck(boolean inCheck) {
         isInCheck = inCheck;
@@ -254,11 +252,6 @@ public class ShogiGameState extends GameState {
     }
 
     public void addPieceToGrave(int id, Piece p){
-        if(id == 0){
-            grave_1.addPiece(p);
-        }
-        if(id == 1){
-            grave_2.addPiece(p);
-        }
+
     }
 }

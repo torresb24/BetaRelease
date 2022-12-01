@@ -23,7 +23,6 @@ public class Tile {
     private float yCoordEnd; // bottom
     private boolean isOccupied, possible;
     private final Paint tilePaint;
-    private final Paint occupiedPaint;
     private final Paint emptyPaint;
     private final Paint possPaint;
     private Piece piece;
@@ -40,8 +39,6 @@ public class Tile {
         tilePaint = new Paint();
         emptyPaint = new Paint();
         emptyPaint.setColor(Color.TRANSPARENT);
-        occupiedPaint = new Paint();
-        occupiedPaint.setARGB(255/4, 199, 0, 200);
         possPaint = new Paint();
         possPaint.setARGB(255/2, 100, 155, 100);
 
@@ -58,9 +55,6 @@ public class Tile {
     public void drawTiles(Canvas c) {
         if (isPossible()) { //If you can move there color it this color
             this.tilePaint.setColor(possPaint.getColor());
-        } else if (this.isOccupied() &&
-                this.piece.directionMovement == Piece.DIRECTION.BACKWARD) { //If occupied by the enemy change color
-            this.tilePaint.setColor(occupiedPaint.getColor());
         } else {
             this.tilePaint.setColor(emptyPaint.getColor());
         }

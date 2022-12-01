@@ -60,7 +60,7 @@ public class ShogiUnnitTest {
         assertEquals(false,t2);
     } /** Matt Tran */
 
-    //Testing Implementations for Group Member Brent Torres
+    /**Testing Implementations for Brent Torres*/
 
     @Test void testAssignPieces() throws Exception{
         ShogiGameState testState = new ShogiGameState();
@@ -75,6 +75,17 @@ public class ShogiUnnitTest {
     public void testMakeBoard() throws Exception{
         Board testObject = new Board();
 
+        //test size
+        assertEquals(9*9,testObject.getTiles().size());
+        // test out of bounds
+        assertEquals(null,testObject.getTile(-1,8));
+        assertEquals(null,testObject.getTile(8,-1));
+
+        //front & back
+        assertEquals(0,testObject.getTile(0).getCol());
+        assertEquals(0,testObject.getTile(0).getRow());
+        assertEquals(8,testObject.getTile(81).getCol());
+        assertEquals(8,testObject.getTile(81).getRow());
     }
 
     @Test

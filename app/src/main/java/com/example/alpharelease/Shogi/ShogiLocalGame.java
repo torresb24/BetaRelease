@@ -39,6 +39,15 @@ public class ShogiLocalGame extends LocalGame {
 
     @Override
     protected String checkIfGameOver() {
+        ShogiGameState state = ((ShogiGameState)super.state);
+        if(state.isInCheckmate()){
+            if(state.getWhoseTurn() == 0) {
+                return "First Player Wins!";
+            }
+            if(state.getWhoseTurn() == 1) {
+                return "Second Player Wins!";
+            }
+        }
         return null;
     }
 
@@ -138,13 +147,14 @@ public class ShogiLocalGame extends LocalGame {
 
         if (action instanceof PromoteAction){
             fromHere = board.getTile(((PromoteAction) action).SelectedIndex);
-            
+
             if(!board.canPromote(fromHere)){
                 return false;
             }
 
             board.promote(fromHere, state,state.getWhoseTurn());
             state.changeTurn(1 - fromHere.getPiece().pieceType.getPlayer()); //Change turn
+            fromHere.getPiece().setSelected(false);
             fromHere = null;
             state.setSelecting(true);
             board.impossAllTiles();
