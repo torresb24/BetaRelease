@@ -42,10 +42,10 @@ public class ShogiLocalGame extends LocalGame {
         ShogiGameState state = ((ShogiGameState)super.state);
         if(state.isInCheckmate()){
             if(state.getWhoseTurn() == 0) {
-                return "First Player Wins!";
+                return "Second Player Wins! ";
             }
             if(state.getWhoseTurn() == 1) {
-                return "Second Player Wins!";
+                return "First Player Wins! ";
             }
         }
         return null;
