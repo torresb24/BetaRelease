@@ -142,7 +142,7 @@ public class ShogiLocalGame extends LocalGame {
                 board.promote(fromHere, state);
             }
         }
-        //TODO: Make other actions
+        //TODO: Make other actions (post-promotion, not yet implemented)
         return false;
     }
 
