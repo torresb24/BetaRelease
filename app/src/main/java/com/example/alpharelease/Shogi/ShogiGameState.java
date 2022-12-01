@@ -1,7 +1,8 @@
 package com.example.alpharelease.Shogi;
 
+import android.util.Log;
+
 import com.example.alpharelease.GameFramework.infoMessage.GameState;
-import com.example.alpharelease.R;
 
 import java.util.ArrayList;
 import java.util.Random;
