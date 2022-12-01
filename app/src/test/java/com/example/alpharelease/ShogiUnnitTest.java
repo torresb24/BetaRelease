@@ -48,10 +48,15 @@ public class ShogiUnnitTest {
     } /** Matt Tran */
 
     //Testing Implementations for Group Member Brent Torres
+
+    @Test void testAssignPieces() throws Exception{
+        ShogiGameState testState = new ShogiGameState();
+
+    }
+
     @Test
     public void testMakeBoard() throws Exception{
         Board testObject = new Board();
-
 
 
     }
@@ -66,9 +71,14 @@ public class ShogiUnnitTest {
         int kingTileCol = -1;
 
         //Get tile coords
-
-
-
+        for(int i = 0; i < testObject.getTiles().size(); i++){
+            if(){
+                kingTileCol =  testObject.getTile(i).getCol();
+                kingTileRow = testObject.getTile(i).getRow();
+            }
+            assertEquals(4, kingTileCol);
+            assertEquals(0, kingTileRow);
+        }
     }
 
     // Tests by Emma Kelly
