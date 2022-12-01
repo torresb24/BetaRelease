@@ -407,7 +407,7 @@ public class Board {
                 }
         }
     } // if Turn == 1
-        if(turn == 0){
+        else if(turn == 0){
             switch(p.pieceType.getID()) {
                 /** PAWN */
                 case (R.drawable.pawn):
