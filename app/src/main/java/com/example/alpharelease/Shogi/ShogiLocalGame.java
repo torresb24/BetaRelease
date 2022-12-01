@@ -42,6 +42,16 @@ public class ShogiLocalGame extends LocalGame {
         return null;
     }
 
+    /**
+     * Determine whether selected space is a valid move for selected piece
+     *
+     * @param action
+     *     the player interaction that selects the piece
+     * @return boolean
+     *     true - if the selected move is inside bounds/valid
+     *     false - if the selected movie is outside bounds/invalid
+     *
+     */
     @Override
     protected boolean makeMove(GameAction action) {
         ShogiGameState state = ((ShogiGameState)super.state);
@@ -132,10 +142,11 @@ public class ShogiLocalGame extends LocalGame {
                 board.promote(fromHere, state);
             }
         }
-        //TODO: MAKE OTHER ACTIONS
+        //TODO: Make other actions
         return false;
     }
 
+    //  Check and check conditions during/after check are not yet implemented.
     public boolean checkCheck() {
         return false;
     }

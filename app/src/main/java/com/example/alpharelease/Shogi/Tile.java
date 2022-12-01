@@ -29,7 +29,7 @@ public class Tile {
     private Piece piece;
 
     /**
-     * constructor for Tile class
+     * Constructor for Tile class
      */
     public Tile() {
         row = col = tileIndex = 0;
@@ -49,10 +49,11 @@ public class Tile {
     }
 
     /**
-     * draws rectangles on board to show board information
+     * Draws rectangles on board to show board information
      *      (whether piece is an enemy, possible, or neither)
      *
-     * @param c The canvas on which to draw the tiles
+     * @param c
+     *      the canvas on which to draw the tiles
      */
     public void drawTiles(Canvas c) {
         if (isPossible()) { //If you can move there color it this color
@@ -66,8 +67,6 @@ public class Tile {
         c.drawRect(this.xCoord, this.yCoord, this.xCoordEnd, this.yCoordEnd, tilePaint);
     }
 
-    /** vvv Various getters and setters vvv */
-
     public void setOccupied(boolean occupied) {
         this.isOccupied = occupied;
     }
@@ -76,6 +75,9 @@ public class Tile {
         return this.isOccupied;
     }
 
+    /**
+     * Setting coords for x and y directions (front and end for full cube)
+     */
     public void setCoords(int x, int y, int xEnd, int yEnd) {
         this.xCoord = x;
         this.yCoord = y;
@@ -131,6 +133,12 @@ public class Tile {
         return tileIndex;
     }
 
+    /**
+     * Checks if to-set piece can be set and sets if provided piece isn't null
+     *
+     * @param piece
+     *     the provided piece (selected)
+     */
     public void setPiece(Piece piece) {
         this.piece = piece;
         if (piece != null) {
@@ -146,5 +154,4 @@ public class Tile {
     public Piece getPiece() {
         return this.piece;
     }
-
 }

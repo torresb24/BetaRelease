@@ -73,7 +73,7 @@ public class ShogiGameState extends GameState {
     }
 
     /**
-     * creates an arraylist of pieces for each player
+     * Creates an arraylist of pieces for both players
      */
     private void assignPieces() {
         for (Piece.GAME_PIECES piece : Piece.GAME_PIECES.values()) {
@@ -97,7 +97,8 @@ public class ShogiGameState extends GameState {
      * Assigns rows and columns to each piece for initial setup for each player
      * Promotion pieces are unassigned due to them not existing on the board at that time
      *
-     * @param piece the arraylist belonging to a specific player containing all their pieces
+     * @param piece
+     *      the arraylist belonging to a specific player containing all their pieces
      */
     private void initPieces(ArrayList<Piece> piece) { //board is 9x9 tiles
         //front row is 9 pawns
@@ -190,17 +191,16 @@ public class ShogiGameState extends GameState {
     }
 
     /**
-     * randomly chooses a player to go first
+     * Randomly chooses a player to go first
      *
-     * @return 0 if player 1 goes first, 1 if player 2 goes first
+     * @return
+     *     0 if player 1 goes first, 1 if player 2 goes first
      */
     public int first() {
         Random rand = new Random();
         int i = rand.nextInt(11);
         return i % 2;
     }
-
-    /**     VARIOUS GETTERS AND SETTERS     */
 
     public void changeTurn(int playerID) {
         this.whoseTurn = playerID;
@@ -222,6 +222,12 @@ public class ShogiGameState extends GameState {
         return board;
     }
 
+    /**
+     * Retrieve list of pieces of a player
+     *
+     * @param id
+     *     the player pieces to retrieve
+     */
     public ArrayList<Piece> getPieceArray(int id) {
         if (id == 0) {
             return pieces1;

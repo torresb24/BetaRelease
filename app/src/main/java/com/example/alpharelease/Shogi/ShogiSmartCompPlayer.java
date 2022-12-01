@@ -5,16 +5,15 @@ import com.example.alpharelease.GameFramework.players.GameComputerPlayer;
 
 public class ShogiSmartCompPlayer extends GameComputerPlayer {
     /**
-     * constructor
+     * Constructor
      *
-     * @param name the player's name (e.g., "John")
+     * @param
+     *      name the player's name (e.g., "John")
      */
     public ShogiSmartCompPlayer(String name) {
         super(name);
     }
 
     @Override
-    protected void receiveInfo(GameInfo info) {
-
-    }
+    protected void receiveInfo(GameInfo info) { }
 }

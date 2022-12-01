@@ -53,7 +53,7 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 
         if (info instanceof IllegalMoveInfo || info instanceof NotYourTurnInfo) {
             // if the move was out of turn or otherwise illegal
-            Log.d("HUMAN_INFO_NOT_GS", "It's not your turn, idiot");
+            Log.d("HUMAN_INFO_NOT_GS", "It's not your turn.");
         }
         else if (!(info instanceof ShogiGameState))
             // if we do not have a ShogiGameState, ignore
@@ -62,15 +62,27 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
             //got an updated state, need to redraw (send the info to the surfaceView)
             state = (ShogiGameState) info;
             surfaceView.setGameState((ShogiGameState)info);
-            Logger.log("ShogiHumanPlayer", "receiving");
+            Logger.log("ShogiHumanPlayer", "Receiving");
             surfaceView.invalidate();
         }
     }
 
+    /**
+     * Set name of human player
+     *
+     * @param name
+     * 		the human player's name
+     */
     public ShogiHumanPlayer(String name) {
             super(name);
     }
 
+    /**
+     * The GUI satuses of the game
+     *
+     * @param activity
+     * 		the current game activity
+     */
     @Override
     public void setAsGui(GameMainActivity activity) {
         activity.setContentView(R.layout.activity_main);
@@ -91,7 +103,7 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
     }
 
     /**
-     * returns the GUI's top view
+     * Returns the GUI's top view
      *
      * @return
      * 		the GUI's top view
@@ -109,25 +121,45 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
         myActivity.setTitle("Battle of Wits!: " + allPlayerNames[0] + " vs. " + allPlayerNames[1]);
     }
 
+    /**
+     * Retrieve the game activity
+     *
+     * @return myActivity
+     * 		the current game activity (updated)
+     */
     @Override
     public GameMainActivity getActivity() {
         return myActivity;
     }
 
+    /**
+     * Click interaction with the board
+     *
+     * @param v
+     * 		the surface view that player clicks interacts with
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.newGameButton:
-                Log.i("HUMAN_SURRENDER", "HAHAHAHAHA loser");
-                this.sendInfo(new GameOverInfo("You kinda suck at this game. "));
+                Log.i("HUMAN_SURRENDER", "Lost!");
+                this.sendInfo(new GameOverInfo("You lost. "));
                 break;
             case R.id.promoButton:
-                Log.i("HUMAN_PROMOTION", "Wheeee human promotion");
+                Log.i("HUMAN_PROMOTION", "Human promotion!");
                 game.sendAction(new PromoteAction(this));
                 break;
         }
     }
 
+    /**
+     * Touch interaction with the board
+     *
+     * @param view
+     * 		the surface view that player touch interacts with
+     * @param e
+     *      the interaction type (motion)
+     */
     @Override
     public boolean onTouch(View view, MotionEvent e) {
 
@@ -168,7 +200,7 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
                         string = string.replace("GENERAL", "GEN").replace("GEN", "GENERAL");
                         whichPiece.setText(string);
 
-                        Log.d("HUMAN_SELECTED_PIECE", "Wheeee you chose " + fromThisTile.getTileIndex());
+                        Log.d("HUMAN_SELECTED_PIECE", "You chose " + fromThisTile.getTileIndex());
 
                         this.sendInfo(state);
                         surfaceView.invalidate();
@@ -189,7 +221,7 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
                         string = string.replace("_", " ");
                         whichPiece.setText(string);
 
-                        Log.d("HUMAN_SELECTED_PIECE", "Wheeee you chose (again) " + fromThisTile.getTileIndex());
+                        Log.d("HUMAN_SELECTED_PIECE", "You chose (again) " + fromThisTile.getTileIndex());
 
                         this.sendInfo(state);
 
@@ -216,7 +248,7 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
                             whichPlayer.setText(allPlayerNames[0] + "'s Turn");
                         }
 
-                        Log.d("HUMAN_MOVED_PLACE", "Wheeee you placed it at " + goToTile.getTileIndex());
+                        Log.d("HUMAN_MOVED_PLACE", "You placed it at " + goToTile.getTileIndex());
                         this.sendInfo(state);
                         surfaceView.invalidate();
                         return true;
