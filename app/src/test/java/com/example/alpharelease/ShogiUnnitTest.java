@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 import android.graphics.Point;
 
+import com.example.alpharelease.Shogi.Board;
 import com.example.alpharelease.Shogi.Piece;
 import com.example.alpharelease.Shogi.ShogiGameState;
 
@@ -49,17 +50,27 @@ public class ShogiUnnitTest {
     //Testing Implementations for Group Member Brent Torres
     @Test
     public void testMakeBoard() throws Exception{
-        ShogiGameState testObject = new ShogiGameState();
+        Board testObject = new Board();
+
 
 
     }
 
     @Test
     public void testAssignTile() throws Exception{
-        ShogiGameState testObject = new ShogiGameState();
+        //test that initial tile for human player king is row 0 col 4
+        Board testObject = new Board();
+
+        //initialize tile coordinates to false coordinates
+        int kingTileRow = -1;
+        int kingTileCol = -1;
+
+        //Get tile coords
+
+
 
     }
-    
+
     // Tests by Emma Kelly
     @Test
     public void testTurnPiecesDiffer() throws Exception {
