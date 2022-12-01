@@ -102,6 +102,8 @@
                 android:text="You lost. "
                 android:textColor="#FFFFFF"
                 android:textSize="30sp"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
                 android:layout_weight="4"/>
 
             <Button
@@ -161,6 +163,8 @@
                 android:gravity="center|top"
                 android:text="Player X"
                 android:textColor="#FFFFFF"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
                 android:textSize="20sp" />
 
             <TextView
@@ -181,6 +185,8 @@
                 android:gravity="center|top"
                 android:text="King"
                 android:textColor="#FFFFFF"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
                 android:textSize="20sp" />
 
             <Button
@@ -191,6 +197,7 @@
                 android:gravity="center"
                 android:text="Promote"
                 android:textSize="20sp"
+                android:enabled="false"
                 android:background="@drawable/rounded_corners"
                 app:rippleColor="@color/ripple" />
 

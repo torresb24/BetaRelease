@@ -107,6 +107,6 @@ public class ShogiDumbCompPlayer extends GameComputerPlayer {
             return;
         }
 
-        Log.d("WTF", "Uhhhh idk man " + info.getClass());
+        Log.d("Check", "Game Info Class returned: " + info.getClass());
     }
 }

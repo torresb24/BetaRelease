@@ -24,11 +24,12 @@ public class Graveyard {
     public Graveyard() {
         //ensure that every initializing call to the graveyard is an empty grave
         graveTiles = new ArrayList<>();
-
-
     }
 
     //drop (remove from grave board and add to game board)
+    /**
+     * Drop and remove from the grave board and add to the game board
+     */
     public void dropPiece() {
         //iterate through Array List by indexing pieces, use specified piece as key
         for(Piece piece: graveBoard){
@@ -46,7 +47,10 @@ public class Graveyard {
         }
     }
 
-    //Add piece to graveyard method (from capture remove from game board and put into grave board)
+    /**
+     * Add piece to graveyard method
+     * (from capture remove from game board and put into grave board)
+     */
     public void addPiece(){
         // (1) possibly call movePiece method to move the piece from the game board into the graveyard
         // (2) create separate function that is similar to capture piece but deals with transition between game board and grave yard (call that)
