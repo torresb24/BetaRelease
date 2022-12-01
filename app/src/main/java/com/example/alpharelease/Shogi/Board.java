@@ -4,7 +4,6 @@ import android.graphics.Canvas;
 
 import com.example.alpharelease.R;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -31,7 +30,6 @@ public class Board {
     private int offsetLeft, offsetVer;
     private int left, top, right, bottom, tileNum;
     private Tile temp;
-    private ArrayList<Tile> grave1,grave2;
 
     /**
      * Constructor for Board class
@@ -40,8 +38,8 @@ public class Board {
         tiles = new ArrayList<>();
         possibleTiles = new ArrayList<>();
         tileSize = imagesize / 9 - 3;
+
         makeBoard();
-        initGrave();
     }
 
     /**
@@ -94,50 +92,7 @@ public class Board {
         }
 
     } //End makeBoard
-    /**
-     * Initializes the tiles to create the initial grave setup
-     */
-    public void initGrave(){
-        left = top = right = bottom = 0;
-        tileNum = 0;
-        offsetVer = 0;
-        int graveTileSize = imagesize / 10;
 
-        grave1 = new ArrayList<>();
-        grave2 = new ArrayList<>();
-        for(int i = 0 ; i < 18; i++){
-            Tile newTile1 = new Tile();
-            newTile1.setCoords(boardRightEdge+(i*graveTileSize),(tileSize*5)+((i%3)*graveTileSize),boardRightEdge+(i*graveTileSize)+graveTileSize,(tileSize*5)+((i*graveTileSize)%3) + graveTileSize);
-            newTile1.setTileIndex(tileNum);
-            grave1.add(newTile1);
-            Tile newTile2 = new Tile();
-            newTile2.setCoords(boardLeftEdge-(i*graveTileSize) - graveTileSize,(tileSize*5)-((i%3)*graveTileSize)-graveTileSize,boardLeftEdge-(i*graveTileSize),(tileSize*5)-((i%3)*graveTileSize));
-            newTile2.setTileIndex(tileNum);
-            grave2.add(newTile2);
-
-            tileNum++;
-        }
-
-    }
-
-    public void addToGrave(Piece p){
-        if(p.pieceType.getPlayer() == 0) {
-            for (Tile t : grave1) {
-                if (t.getPiece() == null) {
-                    t.setPiece(p);
-                    break;
-                }
-            }
-        } // if 0
-        else if(p.pieceType.getPlayer() == 1) {
-            for (Tile t : grave2) {
-                if (t.getPiece() == null) {
-                    t.setPiece(p);
-                    break;
-                }
-            }
-        } // if 1
-    }
     /**
      * assigns pieces to tiles based on initial rows and columns
      *
@@ -242,13 +197,6 @@ public class Board {
      */
     public ArrayList<Tile> getTiles() {
         return tiles;
-    }
-
-    public ArrayList<Tile> getGrave1() {
-        return grave1;
-    }
-    public ArrayList<Tile> getGrave2() {
-        return grave2;
     }
 
     /**

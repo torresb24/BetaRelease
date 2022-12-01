@@ -46,7 +46,7 @@ public class Piece {
 
         private final int pieceID;
         private final int amount;
-        private int player;
+        private final int player;
 
         GAME_PIECES(int drawableID, int amount, int player) {
             this.pieceID = drawableID;
@@ -64,10 +64,6 @@ public class Piece {
 
         public int getAmount() {
             return this.amount;
-        }
-
-        public void setPlayer(int i){
-            this.player = i;
         }
     }
 
