@@ -18,10 +18,14 @@ public class Graveyard {
     private float graveLength;
     private float graveWidth;
     private final ArrayList<Piece> graveBoard = new ArrayList<Piece>();
+    private ArrayList<Tile> graveTiles;
 
     //Graveyard Constructor
     public Graveyard() {
         //ensure that every initializing call to the graveyard is an empty grave
+        graveTiles = new ArrayList<>();
+
+
     }
 
     //drop (remove from grave board and add to game board)

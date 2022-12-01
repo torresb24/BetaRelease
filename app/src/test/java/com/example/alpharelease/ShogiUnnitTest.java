@@ -26,6 +26,7 @@ public class ShogiUnnitTest {
     public void testMakeBoard() throws Exception{
         ShogiGameState testObject = new ShogiGameState();
 
+
     }
 
     @Test
@@ -33,5 +34,5 @@ public class ShogiUnnitTest {
         ShogiGameState testObject = new ShogiGameState();
 
     }
-    
+
 }
