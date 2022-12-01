@@ -32,7 +32,7 @@ public class Board {
     private Tile temp;
 
     /**
-     * constructor for Board class
+     * Constructor for Board class
      */
     public Board() {
         tiles = new ArrayList<>();
@@ -43,7 +43,7 @@ public class Board {
     }
 
     /**
-     * initializes the tiles to create the initial board setup
+     * Initializes the tiles to create the initial board setup
      */
     private void makeBoard() {
         tiles.clear();
@@ -112,6 +112,12 @@ public class Board {
         }
     }
 
+    /**
+     * Drawing tiles onto the board
+     *
+     * @param c the main canvas
+     *
+     */
     public void drawBoard(Canvas c) {
         for (Tile t : tiles) {
             t.drawTiles(c);
@@ -187,14 +193,14 @@ public class Board {
     }
 
     /**
-     * returns an arraylist of all tiles making up the board
+     * Returns an arraylist of all tiles making up the board
      */
     public ArrayList<Tile> getTiles() {
         return tiles;
     }
 
     /**
-     * resets which tiles are able to be moved to
+     * Resets which tiles are able to be moved to
      */
     public void impossAllTiles() {
         for (Tile t : tiles) {
@@ -203,7 +209,7 @@ public class Board {
     }
 
     /**
-     * checks to see which tiles the selected piece can move to
+     * Checks to see which tiles the selected piece can move to
      *
      * @param tile the tile that is currently selected
      *
