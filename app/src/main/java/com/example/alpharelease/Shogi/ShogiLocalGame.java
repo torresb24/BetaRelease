@@ -135,14 +135,16 @@ public class ShogiLocalGame extends LocalGame {
             state.setSelecting(false);
             return false; //Can't move because chosen place is invalid
         } //End of movepieceaction case
+
         if (action instanceof PromoteAction){
-            int tileIndex = ((SelectPieceAction)action).selected;
-            fromHere = board.getTile(tileIndex);
+            fromHere = board.getTile(((PromoteAction) action).destination);
             Piece piece = fromHere.getPiece();
 
             if(board.canPromote(fromHere)){
-                board.promote(fromHere, state);
+                board.promote(fromHere, state,state.getWhoseTurn());
             }
+
+            state.changeTurn(1 - fromHere.getPiece().pieceType.getPlayer()); //Change turn
         }
         //TODO: Make other actions (post-promotion, not yet implemented)
         return false;

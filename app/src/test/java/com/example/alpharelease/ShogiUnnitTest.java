@@ -25,7 +25,20 @@ public class ShogiUnnitTest {
             }
         }// for
         assertEquals(4,KingCol);
-        assertEquals(0,KingRow);
+        assertEquals(8,KingRow);
+
+        // test edge case
+        int LanceRow = -1;
+        int LanceCol = -1;
+        for(int i = 0; i < testState.getPieceArray(0).size(); i++){
+            if(testState.getPieceArray(0).get(i).pieceType.getID() == R.drawable.lance){
+                LanceCol = testState.getPieceArray(0).get(i).getCol();
+                LanceRow = testState.getPieceArray(0).get(i).getRow();
+                break;
+            }
+        }// for
+        assertEquals(0,LanceCol);
+        assertEquals(8,LanceRow);
     } /** Matt Tran */
 
     @Test

@@ -9,7 +9,9 @@ public class PromoteAction extends GameAction {
      *
      * @param player the player who created the action
      */
-    public PromoteAction(GamePlayer player) {
+    public int SelectedIndex;
+    public PromoteAction(GamePlayer player, selec) {
         super(player);
+        this.SelectedIndex = selectedIndex;
     }
 }

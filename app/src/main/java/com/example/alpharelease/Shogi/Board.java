@@ -352,20 +352,57 @@ public class Board {
     } //canPromote
 
 
-    public void promote(Tile t, ShogiGameState state) {
+    public void promote(Tile t, ShogiGameState state, int turn) {
        Piece p = t.getPiece();
+       if(turn == 1){
         switch(p.pieceType.getID()) {
+            /** PAWN */
             case (R.drawable.pawn):
-            // Unlink original from tile
-            // Find replacement
-            for (Piece p1 : state.pieces1) {
-                if(p1.pieceType.getID() == R.drawable.promoted_pawn && p1.getRow() == -1 && p1.getCol() == -1)
-                {
-                    // set replacement
-                    t.setPiece(p1);
-                    break;
+                // Unlink original from tile (done by linking another)
+                p.setOnBoard(false);
+                // Find replacement
+                for (Piece p1 : state.pieces1) {
+                    if (p1.pieceType.getID() == R.drawable.promoted_pawn && p1.getRow() == -1 && p1.getCol() == -1) {
+                        // set replacement
+                        p1.setCol(p.getCol());
+                        p1.setRow(p.getRow());
+                        p1.setOnBoard(true);
+                        t.setPiece(p1);
+                        break;
+                    }
                 }
-            }
-    }
+                /** LANCE */
+            case (R.drawable.lance):
+                // Unlink original from tile (done by linking another)
+                p.setOnBoard(false);
+                // Find replacement
+                for (Piece p1 : state.pieces1) {
+                    if (p1.pieceType.getID() == R.drawable.promoted_lance && p1.getRow() == -1 && p1.getCol() == -1) {
+                        // set replacement
+                        p1.setCol(p.getCol());
+                        p1.setRow(p.getRow());
+                        p1.setOnBoard(true);
+                        t.setPiece(p1);
+                        break;
+                    }
+                }
+
+                /** rook */
+            case (R.drawable.rook):
+                // Unlink original from tile (done by linking another)
+                p.setOnBoard(false);
+                // Find replacement
+                for (Piece p1 : state.pieces1) {
+                    if (p1.pieceType.getID() == R.drawable.promoted_rook && p1.getRow() == -1 && p1.getCol() == -1) {
+                        // set replacement
+                        p1.setCol(p.getCol());
+                        p1.setRow(p.getRow());
+                        p1.setOnBoard(true);
+                        t.setPiece(p1);
+                        break;
+                    }
+                }
+        }
+    } // if Turn == 1
     } // promote
 }
