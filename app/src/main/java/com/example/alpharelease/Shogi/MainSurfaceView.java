@@ -91,10 +91,11 @@ public class MainSurfaceView extends SurfaceView {
                 matrix.postRotate(180);
                 image = Bitmap.createBitmap(image, 0, 0, image.getWidth(), image.getHeight(), matrix, true);
             } // if player = 1
-            if(piece.isAlive()) {
-                canvas.drawBitmap(image, t.getxCoord(), t.getyCoord(), imgPaint);
-            }
+            
+            canvas.drawBitmap(image, t.getxCoord(), t.getyCoord(), imgPaint);
+
         }
+        /**
         for(Tile t : board.getGrave1()){
             piece = t.getPiece();
             if (piece == null) {
@@ -131,6 +132,7 @@ public class MainSurfaceView extends SurfaceView {
             }
 
         }
+         */
         board.drawBoard(canvas);
     }
 
