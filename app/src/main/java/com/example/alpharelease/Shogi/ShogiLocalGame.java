@@ -137,7 +137,7 @@ public class ShogiLocalGame extends LocalGame {
         } //End of movepieceaction case
 
         if (action instanceof PromoteAction){
-            fromHere = board.getTile(((PromoteAction) action).destination);
+            fromHere = board.getTile(((PromoteAction) action).SelectedIndex);
             Piece piece = fromHere.getPiece();
 
             if(board.canPromote(fromHere)){

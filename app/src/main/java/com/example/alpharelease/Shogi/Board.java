@@ -358,51 +358,115 @@ public class Board {
         switch(p.pieceType.getID()) {
             /** PAWN */
             case (R.drawable.pawn):
-                // Unlink original from tile (done by linking another)
-                p.setOnBoard(false);
-                // Find replacement
                 for (Piece p1 : state.pieces1) {
                     if (p1.pieceType.getID() == R.drawable.promoted_pawn && p1.getRow() == -1 && p1.getCol() == -1) {
                         // set replacement
-                        p1.setCol(p.getCol());
-                        p1.setRow(p.getRow());
-                        p1.setOnBoard(true);
-                        t.setPiece(p1);
+                        promotehelper(p,p1,t);
                         break;
                     }
                 }
                 /** LANCE */
             case (R.drawable.lance):
-                // Unlink original from tile (done by linking another)
-                p.setOnBoard(false);
-                // Find replacement
                 for (Piece p1 : state.pieces1) {
                     if (p1.pieceType.getID() == R.drawable.promoted_lance && p1.getRow() == -1 && p1.getCol() == -1) {
-                        // set replacement
-                        p1.setCol(p.getCol());
-                        p1.setRow(p.getRow());
-                        p1.setOnBoard(true);
-                        t.setPiece(p1);
+                        promotehelper(p,p1,t);
                         break;
                     }
                 }
-
-                /** rook */
+                /** Rook */
             case (R.drawable.rook):
-                // Unlink original from tile (done by linking another)
-                p.setOnBoard(false);
-                // Find replacement
                 for (Piece p1 : state.pieces1) {
                     if (p1.pieceType.getID() == R.drawable.promoted_rook && p1.getRow() == -1 && p1.getCol() == -1) {
-                        // set replacement
-                        p1.setCol(p.getCol());
-                        p1.setRow(p.getRow());
-                        p1.setOnBoard(true);
-                        t.setPiece(p1);
+                        promotehelper(p,p1,t);
+                        break;
+                    }
+                }
+                /** BISHOP */
+            case (R.drawable.bishop):
+                for (Piece p1 : state.pieces1) {
+                    if (p1.pieceType.getID() == R.drawable.promoted_bishop && p1.getRow() == -1 && p1.getCol() == -1) {
+                        promotehelper(p,p1,t);
+                        break;
+                    }
+                }
+                /** KNIGHT */
+            case (R.drawable.knight):
+                for (Piece p1 : state.pieces1) {
+                    if (p1.pieceType.getID() == R.drawable.promoted_knight && p1.getRow() == -1 && p1.getCol() == -1) {
+                        promotehelper(p,p1,t);
+                        break;
+                    }
+                }
+                /** LANCE */
+            case (R.drawable.silv_gen):
+                for (Piece p1 : state.pieces1) {
+                    if (p1.pieceType.getID() == R.drawable.promoted_silv_gen && p1.getRow() == -1 && p1.getCol() == -1) {
+                        promotehelper(p,p1,t);
                         break;
                     }
                 }
         }
     } // if Turn == 1
+        if(turn == 0){
+            switch(p.pieceType.getID()) {
+                /** PAWN */
+                case (R.drawable.pawn):
+                    for (Piece p1 : state.pieces2) {
+                        if (p1.pieceType.getID() == R.drawable.promoted_pawn && p1.getRow() == -1 && p1.getCol() == -1) {
+                            // set replacement
+                            promotehelper(p,p1,t);
+                            break;
+                        }
+                    }
+                    /** LANCE */
+                case (R.drawable.lance):
+                    for (Piece p1 : state.pieces2) {
+                        if (p1.pieceType.getID() == R.drawable.promoted_lance && p1.getRow() == -1 && p1.getCol() == -1) {
+                            promotehelper(p,p1,t);
+                            break;
+                        }
+                    }
+                    /** Rook */
+                case (R.drawable.rook):
+                    for (Piece p1 : state.pieces2) {
+                        if (p1.pieceType.getID() == R.drawable.promoted_rook && p1.getRow() == -1 && p1.getCol() == -1) {
+                            promotehelper(p,p1,t);
+                            break;
+                        }
+                    }
+                    /** BISHOP */
+                case (R.drawable.bishop):
+                    for (Piece p1 : state.pieces2) {
+                        if (p1.pieceType.getID() == R.drawable.promoted_bishop && p1.getRow() == -1 && p1.getCol() == -1) {
+                            promotehelper(p,p1,t);
+                            break;
+                        }
+                    }
+                    /** KNIGHT */
+                case (R.drawable.knight):
+                    for (Piece p1 : state.pieces2) {
+                        if (p1.pieceType.getID() == R.drawable.promoted_knight && p1.getRow() == -1 && p1.getCol() == -1) {
+                            promotehelper(p,p1,t);
+                            break;
+                        }
+                    }
+                    /** LANCE */
+                case (R.drawable.silv_gen):
+                    for (Piece p1 : state.pieces2) {
+                        if (p1.pieceType.getID() == R.drawable.promoted_silv_gen && p1.getRow() == -1 && p1.getCol() == -1) {
+                            promotehelper(p,p1,t);
+                            break;
+                        }
+                    }
+            }
+        } // if Turn == 0
     } // promote
+
+    private void promotehelper(Piece orig, Piece promo, Tile t){
+        orig.setOnBoard(false);
+        promo.setCol(orig.getCol());
+        promo.setRow(orig.getRow());
+        promo.setOnBoard(true);
+        t.setPiece(promo);
+    }// promote helper
 }

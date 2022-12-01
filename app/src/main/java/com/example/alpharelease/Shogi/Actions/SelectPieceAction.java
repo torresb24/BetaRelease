@@ -12,7 +12,7 @@ public class SelectPieceAction extends GameAction {
      *
      * @param player the player who created the action
      */
-    public SelectPieceAction(GamePlayer player) {
+    public SelectPieceAction(GamePlayer player, int selectedIndex) {
         super(player);
         this.selected = selectedIndex;
     }
