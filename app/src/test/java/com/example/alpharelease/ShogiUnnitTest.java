@@ -73,13 +73,24 @@ public class ShogiUnnitTest {
         assertEquals(t1, t3);
     }
 
-    @Test
+    @Test //Not yet implemented
     public void testInCheck() throws Exception {
         ShogiGameState testState = new ShogiGameState();
         testState.setInCheck(true);
         boolean t1 = testState.isInCheck();
         testState.setInCheck(false);
         boolean t2 = testState.isInCheck();
+        assertEquals(true,t1);
+        assertEquals(false,t2);
+    }
+
+    @Test //Not yet implemented
+    public void testInCheckmate() throws Exception {
+        ShogiGameState testState = new ShogiGameState();
+        testState.setInCheckmate(true);
+        boolean t1 = testState.isInCheckmate();
+        testState.setInCheckmate(false);
+        boolean t2 = testState.isInCheckmate();
         assertEquals(true,t1);
         assertEquals(false,t2);
     }
