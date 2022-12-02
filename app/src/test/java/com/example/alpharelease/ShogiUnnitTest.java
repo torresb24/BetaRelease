@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 import android.graphics.Point;
+import android.util.Log;
 
 import com.example.alpharelease.Shogi.Board;
 import com.example.alpharelease.Shogi.Piece;
@@ -63,7 +64,8 @@ public class ShogiUnnitTest {
 
     /**Testing Implementations for Brent Torres*/
 
-    @Test void testAssignPieces() throws Exception{
+    @Test
+    public void testAssignPieces() throws Exception{
         ShogiGameState testState = new ShogiGameState();
         Random rand = new Random();
         int randIndex = rand.nextInt(testState.pieces1.size());
@@ -190,3 +192,4 @@ public class ShogiUnnitTest {
         assertEquals(R.drawable.king, testBoard.getTile(4,8).getPiece().pieceType);
     }
 }
+
