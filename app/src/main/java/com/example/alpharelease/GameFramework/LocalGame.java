@@ -301,6 +301,9 @@ public abstract class LocalGame implements Game, Tickable {
             player.sendInfo(new IllegalMoveInfo());
             sendUpdatedStateTo(player);
             return;
+        } else {
+            //TODO: If this came from an attempt to promote
+            // then "refresh" turn so it's not wasted on failed promotion
         }
 
         //Logging the current game phase so we know what it is.

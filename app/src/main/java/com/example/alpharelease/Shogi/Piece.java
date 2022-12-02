@@ -99,7 +99,7 @@ public class Piece {
     }
 
     /**
-     * sets which pieces are on the board at initialization
+     * Sets which pieces are on the board at initialization
      */
     private void firstIsOnBoard() {
         switch (this.pieceType) {
@@ -116,7 +116,7 @@ public class Piece {
     }
 
     /**
-     * sets how far in each cardinal and ordinal direction a piece can move
+     * Sets how far in each cardinal and ordinal direction a piece can move
      */
     private void setMoveNum() { //TL = 0, T = 1, TR = 2, L = 3, R = 4, BL = 5, B = 6, BR = 7 for indexes
         Arrays.fill(moveNum, 0);
@@ -187,9 +187,7 @@ public class Piece {
         }
     }//End setMoveNum
 
-
-    /**     VARIOUS GETTERS AND SETTERS     */
-
+    // Various getters and setters
     public int[] getMoveNum() {
         return moveNum;
     }
