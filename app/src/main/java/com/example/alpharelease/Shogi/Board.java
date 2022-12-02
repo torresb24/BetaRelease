@@ -1,6 +1,7 @@
 package com.example.alpharelease.Shogi;
 
 import android.graphics.Canvas;
+import android.util.Log;
 
 import com.example.alpharelease.R;
 
@@ -224,20 +225,47 @@ public class Board {
         dir = tile.getPiece().directionMovement;
         possibleTiles.clear();
 
+        // if it's a knight,
         if (tile.getPiece().pieceType == Piece.GAME_PIECES.KNIGHT ||
                 tile.getPiece().pieceType == Piece.GAME_PIECES.OPP_KNIGHT) { //Knights have different moves
+            Log.i("knightMoveHere", "KNIGHT SELECTED");
+            // if it's the "computer"
             if (dir == Piece.DIRECTION.BACKWARD) {
+                // reverse location for flipped board of "computer"
                 rowMod = -rowMod;
             }
             for (int j = -1; j < 2; j = j + 2) {
+                //Log.i("knightMoveHere", "Tempy: " + (tile.getCol() + j) + " and " + (tile.getRow() + rowMod));
                 tempy = getTile(tile.getCol() + j, tile.getRow() + rowMod);
                 if (tempy == null || (tempy.isOccupied() && tempy.getPiece().directionMovement == dir)) {
-                    tempy.setPossible(false);
+                    Log.i("knightMoveHere", "FALSE" + " (x: " + (tile.getCol() + j) + ", y: " + (tile.getRow() + rowMod) + ")");
+                    if (tempy==null) {
+
+                    } else {
+                        tempy.setPossible(false);
+                    }
+
+                    //Log.i("knightMoveHere", "FALSE");
                     //Out of bounds or an ally is on that tile
                     continue;
                 }
-                tempy.setPossible(true);
+
+                if ((tile.getCol() + j) > 8 || (tile.getRow() + rowMod) > 8
+                        || (tile.getCol() + j) < 0 || (tile.getRow() + rowMod) < 0) {
+                    Log.i("knightMoveHere", "FALSE2" + " (x: " + (tile.getCol() + j) + ", y: " + (tile.getRow() + rowMod) + ")");
+                    if (tempy==null) {
+
+                    } else {
+                        tempy.setPossible(false);
+                    }
+                } else {
+                    Log.i("knightMoveHere", "TRUE3" + " (x: " + (tile.getCol() + j) + ", y: " + (tile.getRow() + rowMod) + ")");
+                    Log.i("knightMoveHere", "TRUE4");
+                    tempy.setPossible(true);
+                }
+
             }
+            Log.i("knightMoveHere", "We made it to end of knight thing");
             return getPossibleTiles();
         }
 
@@ -327,6 +355,8 @@ public class Board {
      * @return ArrayList of type Tile
      */
     public ArrayList<Tile> getPossibleTiles() {
+
+        Log.i("knightMoveHere", "We made it here");
         possibleTiles.clear();
 
         for (Tile t : tiles) {
