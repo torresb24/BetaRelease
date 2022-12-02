@@ -411,6 +411,14 @@ public class Board {
                     }
                 }
                 break;
+            case (R.drawable.gold_gen):
+                for (Piece p1 : state.pieces1) {
+                    if (p1.pieceType.getID() == R.drawable.promoted_gold_gen && p1.getRow() == -1 && p1.getCol() == -1) {
+                        promotehelper(p,p1,t);
+                        break;
+                    }
+                }
+                break;
         }
     } // if Turn == 0
         else if(turn == 1){
@@ -465,6 +473,14 @@ public class Board {
                 case (R.drawable.silv_gen):
                     for (Piece p1 : state.pieces2) {
                         if (p1.pieceType.getID() == R.drawable.promoted_silv_gen && p1.getRow() == -1 && p1.getCol() == -1) {
+                            promotehelper(p,p1,t);
+                            break;
+                        }
+                    }
+                    break;
+                case (R.drawable.gold_gen):
+                    for (Piece p1 : state.pieces2) {
+                        if (p1.pieceType.getID() == R.drawable.promoted_gold_gen && p1.getRow() == -1 && p1.getCol() == -1) {
                             promotehelper(p,p1,t);
                             break;
                         }

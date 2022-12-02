@@ -27,6 +27,7 @@ public class Piece {
 
     public enum GAME_PIECES {
         KING(R.drawable.king, 1, 0), GOLD_GENERAL(R.drawable.gold_gen, 2, 0),
+        PROMOTED_GOLD_GENERAL(R.drawable.promoted_gold_gen, 2, 0),
         SILVER_GENERAL(R.drawable.silv_gen, 2, 0),
         PROMOTED_SILVER_GENERAL(R.drawable.promoted_silv_gen, 2, 0),
         BISHOP(R.drawable.bishop, 1, 0), PROMOTED_BISHOP(R.drawable.promoted_bishop, 1, 0),
@@ -36,6 +37,7 @@ public class Piece {
         PAWN(R.drawable.pawn, 9, 0), PROMOTED_PAWN(R.drawable.promoted_pawn, 9, 0),
 
         OPP_KING(R.drawable.king, 1, 1), OPP_GOLD_GEN(R.drawable.gold_gen, 2, 1),
+        OPP_PROMOTED_GOLD_GEN(R.drawable.promoted_gold_gen, 2, 0),
         OPP_SILVER_GENERAL(R.drawable.silv_gen, 2, 1),
         OPP_PROMOTED_SILVER_GENERAL(R.drawable.promoted_silv_gen, 2, 1),
         OPP_BISHOP(R.drawable.bishop, 1, 1), OPP_PROMOTED_BISHOP(R.drawable.promoted_bishop, 1, 1),
@@ -103,9 +105,9 @@ public class Piece {
      */
     private void firstIsOnBoard() {
         switch (this.pieceType) {
-            case PROMOTED_PAWN: case PROMOTED_LANCE: case PROMOTED_ROOK:
+            case PROMOTED_PAWN: case PROMOTED_GOLD_GENERAL: case PROMOTED_LANCE: case PROMOTED_ROOK:
             case PROMOTED_BISHOP: case PROMOTED_KNIGHT: case PROMOTED_SILVER_GENERAL:
-            case OPP_PROMOTED_PAWN: case OPP_PROMOTED_LANCE: case OPP_PROMOTED_ROOK:
+            case OPP_PROMOTED_PAWN: case OPP_PROMOTED_GOLD_GEN: case OPP_PROMOTED_LANCE: case OPP_PROMOTED_ROOK:
             case OPP_PROMOTED_BISHOP: case OPP_PROMOTED_KNIGHT: case OPP_PROMOTED_SILVER_GENERAL:
                 this.isOnBoard = false;
                 break;
