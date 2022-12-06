@@ -20,8 +20,13 @@ To Do List
         Done
 
     Implement Smart Computer Player
+        Have a plan
+            If King in danger, move King.
+            If (after selecting random piece) piece can capture another piece, do so
+            Perhaps promote if possible?
 
     Implement Graveyards
+        Brent working on it
 
     Implement Network Play
 
@@ -29,6 +34,8 @@ To Do List
         Done
 
     Fix EditTexts to update w correct info
+        Fix player turn text (Player X currently)
+        Change initial chosen piece text to blank (King initially)
 
     Change onDraw to rotate depending on who you are (rotate player 1's if you're player 0, rotate player 0's if you're p1)
 
