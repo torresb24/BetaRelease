@@ -30,6 +30,7 @@ public class Board {
     private final int boardBottomEdge = 1063;
     private int offsetLeft, offsetVer;
     private int left, top, right, bottom, tileNum;
+    private boolean promoted;
     private Tile temp;
 
     /**
@@ -487,6 +488,7 @@ public class Board {
                     for (Piece p1 : state.pieces2) {
                         if (p1.pieceType.getID() == R.drawable.promoted_knight && p1.getRow() == -1 && p1.getCol() == -1) {
                             promotehelper(p,p1,t);
+
                             break;
                         }
                     }
@@ -513,10 +515,20 @@ public class Board {
     } // promote
 
     private void promotehelper(Piece orig, Piece promo, Tile t){
-        orig.setOnBoard(false);
-        promo.setCol(orig.getCol());
-        promo.setRow(orig.getRow());
-        promo.setOnBoard(true);
-        t.setPiece(promo);
+
+        if ((orig.getPromoted())) {
+            Log.i("promotioncheck", "This is already promoted... umm...");
+
+        } else {
+            Log.i("promotioncheck", "This is not yet promoted.");
+            orig.setOnBoard(false);
+            promo.setCol(orig.getCol());
+            promo.setRow(orig.getRow());
+            promo.setOnBoard(true);
+            t.setPiece(promo);
+        }
+
+
     }// promote helper
+
 }

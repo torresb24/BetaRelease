@@ -16,6 +16,8 @@ import java.util.Arrays;
  * */
 
 public class Piece {
+    private boolean isPromoted;
+
     /**
      External Citation
      Date: 18 November 2022
@@ -204,6 +206,14 @@ public class Piece {
         this.col = col;
     }
 
+    public void setPromoted(boolean p) {
+        this.isPromoted = p;
+    }
+
+    public boolean getPromoted() {
+        return isPromoted;
+    }
+
     public void setRow(int row) {
         this.row = row;
     }
@@ -235,6 +245,7 @@ public class Piece {
     }
 
     public void setSelected(boolean selected) {
+
         isSelected = selected;
     }
 }
