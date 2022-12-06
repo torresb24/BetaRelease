@@ -157,10 +157,8 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
     /**
      * Touch interaction with the board
      *
-     * @param view
-     * 		the surface view that player touch interacts with
-     * @param e
-     *      the interaction type (motion)
+     * @param view the surface view that player touch interacts with
+     * @param e the interaction type (motion)
      */
     @Override
     public boolean onTouch(View view, MotionEvent e) {

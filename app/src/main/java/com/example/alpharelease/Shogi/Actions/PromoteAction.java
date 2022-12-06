@@ -5,7 +5,7 @@ import com.example.alpharelease.GameFramework.players.GamePlayer;
 
 public class PromoteAction extends GameAction {
     /**
-     * constructor for GameAction
+     * Constructor for GameAction
      *
      * @param player the player who created the action
      */

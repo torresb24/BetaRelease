@@ -8,7 +8,7 @@ public class MovePieceAction extends GameAction {
     public int destination;
 
     /**
-     * constructor for GameAction
+     * Constructor for GameAction
      *
      * @param player the player who created the action
      */

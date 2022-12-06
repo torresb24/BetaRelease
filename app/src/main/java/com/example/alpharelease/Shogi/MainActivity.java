@@ -65,11 +65,9 @@ public class MainActivity extends GameMainActivity {
     }
 
     /**
-     * createLocalGame
+     * Creates a new game that runs on the server tablet
      *
-     * Creates a new game that runs on the server tablet,
-     * @param gameState
-     * 				the gameState for this game or null for a new game
+     * @param gameState the gameState for this game or null for a new game
      *
      * @return a new, game-specific instance of a sub-class of the LocalGame
      *         class.
@@ -82,7 +80,7 @@ public class MainActivity extends GameMainActivity {
     }
 
     /**
-     * saveGame, adds this games prepend to the filename
+     * Adds this games prepend to the filename
      *
      * @param gameName
      * 				Desired save name
@@ -94,7 +92,7 @@ public class MainActivity extends GameMainActivity {
     }
 
     /**
-     * loadGame, adds this games prepend to the desire file to open and creates the game specific state
+     * Adds this games prepend to the desire file to open and creates the game specific state
      * @param gameName
      * 				The file to open
      * @return The loaded GameState

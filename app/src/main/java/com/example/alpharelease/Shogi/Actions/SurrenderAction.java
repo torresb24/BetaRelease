@@ -5,7 +5,7 @@ import com.example.alpharelease.GameFramework.players.GamePlayer;
 
 public class SurrenderAction extends GameAction {
     /**
-     * constructor for GameAction
+     * Constructor for GameAction
      *
      * @param player the player who created the action
      */

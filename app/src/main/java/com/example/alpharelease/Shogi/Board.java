@@ -127,7 +127,7 @@ public class Board {
     }
 
     /**
-     * checks to see if the point given is within the confines of the board
+     * Checks to see if the point given is within the confines of the board
      *
      * @param xCoord the horizontal component of the coordinate
      * @param yCoord the vertical component of the coordinate
@@ -140,7 +140,7 @@ public class Board {
     }
 
     /**
-     * checks to see which tile was touched
+     * Checks to see which tile was touched
      *
      * CAVEAT: Due to how the tiles were created, there may be a single x or y value in some of
      *      the lines between some tiles that won't count towards a tile. This is accounted for
@@ -162,7 +162,7 @@ public class Board {
     }
 
     /**
-     * checks to see which tile the given row/col refers to
+     * Checks to see which tile the given row/col refers to
      *
      * @param col the column of the tile that is currently selected
      * @param row the row of the tile that is currently selected
@@ -179,11 +179,11 @@ public class Board {
     }
 
     /**
-     * checks to see which tile the given index refers to
+     * Checks to see which tile the given index refers to
      *
      * @param index the index of the tile that is currently selected
      *
-     * @return the selected Tile if found and null if not
+     * @return t the selected Tile if found and null if not
      */
     public Tile getTile(int index) {
         for (Tile t : tiles) { //Check the tiles indexes
@@ -196,6 +196,8 @@ public class Board {
 
     /**
      * Returns an arraylist of all tiles making up the board
+     *
+     * @return ArrayList of Tile object tiles
      */
     public ArrayList<Tile> getTiles() {
         return tiles;
@@ -345,7 +347,7 @@ public class Board {
      * Sends an arraylist of tiles a piece can move to based on which tiles
      *      are marked as possible during the checkMoves method
      *
-     * @return ArrayList of type Tile
+     * @return ArrayList of elements of type Tile object
      */
     public ArrayList<Tile> getPossibleTiles() {
 
@@ -379,7 +381,7 @@ public class Board {
        Piece p = t.getPiece();
        if(turn == 0){
         switch(p.pieceType.getID()) {
-            /** PAWN */
+            // Pawn promotion
             case (R.drawable.pawn):
                 for (Piece p1 : state.pieces1) {
                     if (p1.pieceType.getID() == R.drawable.promoted_pawn && p1.getRow() == -1 && p1.getCol() == -1) {
@@ -389,7 +391,7 @@ public class Board {
                     }
                 }
                 break;
-                /** LANCE */
+                // Lance promotion
             case (R.drawable.lance):
                 for (Piece p1 : state.pieces1) {
                     if (p1.pieceType.getID() == R.drawable.promoted_lance && p1.getRow() == -1 && p1.getCol() == -1) {
@@ -398,7 +400,7 @@ public class Board {
                     }
                 }
                 break;
-                /** Rook */
+                // Rook promotion
             case (R.drawable.rook):
                 for (Piece p1 : state.pieces1) {
                     if (p1.pieceType.getID() == R.drawable.promoted_rook && p1.getRow() == -1 && p1.getCol() == -1) {
@@ -407,7 +409,7 @@ public class Board {
                     }
                 }
                 break;
-                /** BISHOP */
+                // Bishop promotion
             case (R.drawable.bishop):
                 for (Piece p1 : state.pieces1) {
                     if (p1.pieceType.getID() == R.drawable.promoted_bishop && p1.getRow() == -1 && p1.getCol() == -1) {
@@ -416,7 +418,7 @@ public class Board {
                     }
                 }
                 break;
-                /** KNIGHT */
+                // Knight promotion
             case (R.drawable.knight):
                 for (Piece p1 : state.pieces1) {
                     if (p1.pieceType.getID() == R.drawable.promoted_knight && p1.getRow() == -1 && p1.getCol() == -1) {
@@ -425,7 +427,7 @@ public class Board {
                     }
                 }
                 break;
-                /** SILVER */
+                // Silver General promotion
             case (R.drawable.silv_gen):
                 for (Piece p1 : state.pieces1) {
                     if (p1.pieceType.getID() == R.drawable.promoted_silv_gen && p1.getRow() == -1 && p1.getCol() == -1) {
@@ -446,7 +448,7 @@ public class Board {
     } // if Turn == 0
         else if(turn == 1){
             switch(p.pieceType.getID()) {
-                /** PAWN */
+                // Pawn promotion
                 case (R.drawable.pawn):
                     for (Piece p1 : state.pieces2) {
                         if (p1.pieceType.getID() == R.drawable.promoted_pawn && p1.getRow() == -1 && p1.getCol() == -1) {
@@ -456,7 +458,7 @@ public class Board {
                         }
                     }
                     break;
-                    /** LANCE */
+                    // Lance promotion
                 case (R.drawable.lance):
                     for (Piece p1 : state.pieces2) {
                         if (p1.pieceType.getID() == R.drawable.promoted_lance && p1.getRow() == -1 && p1.getCol() == -1) {
@@ -465,7 +467,7 @@ public class Board {
                         }
                     }
                     break;
-                    /** Rook */
+                    // Rook promotion
                 case (R.drawable.rook):
                     for (Piece p1 : state.pieces2) {
                         if (p1.pieceType.getID() == R.drawable.promoted_rook && p1.getRow() == -1 && p1.getCol() == -1) {
@@ -474,7 +476,7 @@ public class Board {
                         }
                     }
                     break;
-                    /** BISHOP */
+                    // Bishop promotion
                 case (R.drawable.bishop):
                     for (Piece p1 : state.pieces2) {
                         if (p1.pieceType.getID() == R.drawable.promoted_bishop && p1.getRow() == -1 && p1.getCol() == -1) {
@@ -483,7 +485,7 @@ public class Board {
                         }
                     }
                     break;
-                    /** KNIGHT */
+                    // Knight promotion
                 case (R.drawable.knight):
                     for (Piece p1 : state.pieces2) {
                         if (p1.pieceType.getID() == R.drawable.promoted_knight && p1.getRow() == -1 && p1.getCol() == -1) {
@@ -493,7 +495,7 @@ public class Board {
                         }
                     }
                     break;
-                    /** SILVER */
+                    // Silver promotion
                 case (R.drawable.silv_gen):
                     for (Piece p1 : state.pieces2) {
                         if (p1.pieceType.getID() == R.drawable.promoted_silv_gen && p1.getRow() == -1 && p1.getCol() == -1) {
@@ -517,10 +519,10 @@ public class Board {
     private void promotehelper(Piece orig, Piece promo, Tile t){
 
         if ((orig.getPromoted())) {
-            Log.i("promotioncheck", "This is already promoted... umm...");
+            Log.i("promotionCheck", "This is already promoted.");
 
         } else {
-            Log.i("promotioncheck", "This is not yet promoted.");
+            Log.i("promotionCheck", "This is not yet promoted.");
             orig.setOnBoard(false);
             promo.setCol(orig.getCol());
             promo.setRow(orig.getRow());

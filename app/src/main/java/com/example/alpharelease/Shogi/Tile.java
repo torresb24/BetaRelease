@@ -71,6 +71,11 @@ public class Tile {
 
     /**
      * Setting coords for x and y directions (front and end for full cube)
+     *
+     * @param x the x coordinate (top)
+     * @param y the y coordinate (top)
+     * @param xEnd the x coordinate (end)
+     * @param yEnd the x coordinate (end)
      */
     public void setCoords(int x, int y, int xEnd, int yEnd) {
         this.xCoord = x;

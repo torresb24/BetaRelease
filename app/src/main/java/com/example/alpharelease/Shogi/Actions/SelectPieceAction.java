@@ -8,7 +8,7 @@ public class SelectPieceAction extends GameAction {
     public int selected;
 
     /**
-     * constructor for GameAction
+     * Constructor for GameAction
      *
      * @param player the player who created the action
      */

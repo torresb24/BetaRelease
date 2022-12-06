@@ -251,7 +251,7 @@ public class ShogiGameState extends GameState {
         isInCheckmate = inCheckmate;
     }
 
-    public void addPieceToGrave(int id, Piece p){
-
+    public void addPieceToGrave(int id, Piece p) {
+        
     }
 }
