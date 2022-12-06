@@ -99,7 +99,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="You lost. "
+                android:text="..."
                 android:textColor="#FFFFFF"
                 android:textSize="30sp"
                 android:focusable="false"
