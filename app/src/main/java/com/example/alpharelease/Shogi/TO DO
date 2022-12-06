@@ -14,8 +14,10 @@ To Do List
         Done bc Nathaniel helped debug
 
     Implement check and checkmate
+        Done
 
     Implement Promotion
+        Done
 
     Implement Smart Computer Player
 
@@ -24,16 +26,19 @@ To Do List
     Implement Network Play
 
     Make Unit Tests
+        Done
 
     Fix EditTexts to update w correct info
 
     Change onDraw to rotate depending on who you are (rotate player 1's if you're player 0, rotate player 0's if you're p1)
 
     Update formatting to make consistent
+        Done
 
-    Change case references to R.drawable. to references to PIECE_TYPE
+    Change case references to R.drawable.blahblahblah to references to PIECE_TYPE
 
     Add comments/headers!!!!
+        Done
 
     Cut down on if-else statements! They make it too easy to cause crashes!!!!
 
