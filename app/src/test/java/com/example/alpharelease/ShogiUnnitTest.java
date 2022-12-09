@@ -88,8 +88,8 @@ public class ShogiUnnitTest {
         //front & back
         assertEquals(0,testObject.getTile(0).getCol());
         assertEquals(0,testObject.getTile(0).getRow());
-        assertEquals(8,testObject.getTile(81).getCol());
-        assertEquals(8,testObject.getTile(81).getRow());
+        assertEquals(8,testObject.getTile(80).getCol());
+        assertEquals(8,testObject.getTile(80).getRow());
     }
 
     @Test
@@ -97,21 +97,25 @@ public class ShogiUnnitTest {
         //test that initial tile for human player king is row 0 col 4
         Board testObject = new Board();
 
-        //initialize tile coordinates to false coordinates
-        int kingTileRow = -1;
-        int kingTileCol = -1;
-
         //Get tile coords
-        for(int i = 0; i < testObject.getTiles().size(); i++){
-            if(testObject.getTiles().contains(R.drawable.king)){
-                kingTileCol =  testObject.getTile(i).getCol();
-                kingTileRow = testObject.getTile(i).getRow();
-            }
+        int tile0Row = testObject.getTile(0).getRow();
+        int tile0Col = testObject.getTile(0).getCol();
+
+        int tile1Row = testObject.getTile(7).getRow();
+        int tile1Col = testObject.getTile(7).getCol();
+
+        int tile2Row = testObject.getTile(80).getRow();
+        int tile2Col = testObject.getTile(80).getCol();
 
             //ensure that King is on tile col 4 row 0 through assert equals
-            assertEquals(4, kingTileCol);
-            assertEquals(0, kingTileRow);
-        }
+        assertEquals(0, tile0Row);
+        assertEquals(0, tile0Col);
+
+        assertEquals(0, tile1Row);
+        assertEquals(7, tile1Col);
+
+        assertEquals(8, tile2Row);
+        assertEquals(8, tile2Col);
     }
 
     // Tests by Emma Kelly
@@ -159,8 +163,8 @@ public class ShogiUnnitTest {
         assertEquals(3,testBoard.checkMoves(testBoard.getTile(4,8)).size());
         assertEquals(7,testBoard.checkMoves(testBoard.getTile(4,8)).get(0).getRow());
         //Edge Lance
-        assertEquals(1,testBoard.checkMoves(testBoard.getTile(0,0)).size());
-        assertEquals(7,testBoard.checkMoves(testBoard.getTile(0,8)).get(0).getRow());
+        assertEquals(4,testBoard.checkMoves(testBoard.getTile(0,0)).size());
+        assertEquals(1,testBoard.checkMoves(testBoard.getTile(0,8)).get(0).getRow());
     }
 
     @Test
