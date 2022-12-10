@@ -119,7 +119,7 @@ public class ShogiLocalGame extends LocalGame {
                 if (p != null) {
                     p.setAlive(false);
                     p.setOnBoard(false);
-                    state.addPieceToGrave(state.getWhoseTurn(), p);
+                    //state.addPieceToGrave(state.getWhoseTurn(), p);
                 }
 
                 state.changeTurn(1 - fromHere.getPiece().pieceType.getPlayer()); //Change turn

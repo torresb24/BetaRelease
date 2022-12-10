@@ -19,6 +19,8 @@ import java.util.ArrayList;
 public class Board {
 
     private final ArrayList<Tile> tiles, possibleTiles;
+    private ArrayList<Tile> g1Array;
+    private ArrayList<Tile> g0Array;
     private final int size = 9;
     private final int imagesize = 1030;
     private final int tileSize;
@@ -26,6 +28,16 @@ public class Board {
     private final int boardTopEdge = 24;
     private final int boardRightEdge = 1516;
     private final int boardBottomEdge = 1063;
+    // top grave
+    private final int Tgraveleftedge = 5;
+    private final int Tgraverightedge = boardLeftEdge - 29;
+    private final int Tgravebottomedge = 450;
+    private final int Tgravetopedge = 5;
+    // bottom grave
+    private final int Bgraveleftedge = boardRightEdge + 29;
+    private final int Bgraverightedge = 5;
+    private final int Bgravebottomedge = 5;
+    private final int Bgravetopedge = 450;
     private int offsetLeft, offsetVer;
     private int left, top, right, bottom, tileNum;
     private boolean promoted;
@@ -36,10 +48,13 @@ public class Board {
      */
     public Board() {
         tiles = new ArrayList<>();
+        g1Array = new ArrayList<>();
+        g0Array = new ArrayList<>();
         possibleTiles = new ArrayList<>();
         tileSize = imagesize / 9 - 3;
 
         makeBoard();
+        makeGraves();
     }
 
     /**
@@ -92,6 +107,94 @@ public class Board {
         }
 
     } //End makeBoard
+
+    private void makeGraves(){
+        g0Array.clear();
+        g1Array.clear();
+
+        left = top = right = bottom = 0;
+        tileNum = 0;
+        offsetVer = 0;
+
+        // g1 [3x6]
+        for(int i = 0; i < 6; i ++){
+            // vertical
+            offsetLeft = 0;
+            switch (i) {
+                case 1: case 4: case 5: case 6:
+                    offsetVer += 4;
+                    break;
+                case 2: case 3:
+                    offsetVer += 5;
+                    break;
+            }
+            top = Tgravetopedge + (i * tileSize) + offsetVer;
+            bottom = Tgravetopedge + ((i + 1) * tileSize) + offsetVer;
+
+            for (int j = 0; j < 3; j ++){
+                // horizontal
+                switch (j) {
+                    case 1: case 4: case 5: case 6: case 7: case 8:
+                        offsetLeft += 4;
+                        break;
+                    case 2: case 3:
+                        offsetLeft += 5;
+                        break;
+                }
+
+                left = Tgraveleftedge + (j * tileSize) + offsetLeft;
+                right = Tgraveleftedge + ((j + 1) * tileSize) + offsetLeft;
+
+                temp = new Tile();
+                temp.setOccupied(false);
+                temp.setRow(i);
+                temp.setCol(j);
+                temp.setCoords(left, top, right, bottom);
+                temp.setTileIndex(tileNum);
+                g1Array.add(temp);
+                tileNum++;
+            } // for j ! col
+        } // for i ! row
+        // g0 [3x6]
+        for(int i = 0; i < 6; i ++){
+            // vertical
+            offsetLeft = 0;
+            switch (i) {
+                case 1: case 4: case 5: case 6:
+                    offsetVer += 4;
+                    break;
+                case 2: case 3:
+                    offsetVer += 5;
+                    break;
+            }
+            bottom = Bgravebottomedge - (i * tileSize) - offsetVer;
+            top = Bgravebottomedge - ((i + 1) * tileSize) - offsetVer;
+
+            for (int j = 0; j < 3; j ++){
+                // horizontal
+                switch (j) {
+                    case 1: case 4: case 5: case 6: case 7: case 8:
+                        offsetLeft += 4;
+                        break;
+                    case 2: case 3:
+                        offsetLeft += 5;
+                        break;
+                }
+
+                left = Bgraveleftedge + (j * tileSize) + offsetLeft;
+                right = Bgraveleftedge + ((j + 1) * tileSize) + offsetLeft;
+
+                temp = new Tile();
+                temp.setOccupied(false);
+                temp.setRow(i);
+                temp.setCol(j);
+                temp.setCoords(left, top, right, bottom);
+                temp.setTileIndex(tileNum);
+                g0Array.add(temp);
+                tileNum++;
+            } // for j ! col
+        } // for i ! row
+    }
 
     /**
      * assigns pieces to tiles based on initial rows and columns
@@ -200,6 +303,14 @@ public class Board {
      */
     public ArrayList<Tile> getTiles() {
         return tiles;
+    }
+
+    public ArrayList<Tile> getGrave0() {
+        return g0Array;
+    }
+
+    public ArrayList<Tile> getGrave1() {
+        return g1Array;
     }
 
     /**
@@ -527,7 +638,6 @@ public class Board {
             promo.setOnBoard(true);
             t.setPiece(promo);
         }
-
 
     }// promote helper
 
