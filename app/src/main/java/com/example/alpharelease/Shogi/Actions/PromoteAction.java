@@ -4,6 +4,7 @@ import com.example.alpharelease.GameFramework.actionMessage.GameAction;
 import com.example.alpharelease.GameFramework.players.GamePlayer;
 
 public class PromoteAction extends GameAction {
+
     /**
      * Constructor for GameAction
      *

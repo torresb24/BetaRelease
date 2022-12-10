@@ -1,14 +1,13 @@
 package com.example.alpharelease.Shogi;
 
 import android.util.Log;
-
 import com.example.alpharelease.GameFramework.infoMessage.GameInfo;
 import com.example.alpharelease.GameFramework.infoMessage.IllegalMoveInfo;
 import com.example.alpharelease.GameFramework.infoMessage.NotYourTurnInfo;
 import com.example.alpharelease.GameFramework.players.GameComputerPlayer;
+import com.example.alpharelease.R;
 import com.example.alpharelease.Shogi.Actions.MovePieceAction;
 import com.example.alpharelease.Shogi.Actions.SelectPieceAction;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
@@ -44,7 +43,7 @@ public class ShogiDumbCompPlayer extends GameComputerPlayer {
             if (state.getWhoseTurn() != this.playerNum) {
                 Log.d("dumbComputer", "It's not the computer's turn.");
                 return;
-            } //Not compy's turn
+            } // Not Dumb Computer Player's turn
 
             if (state.getWhoseTurn() == this.playerNum) { //The computers turn
                 sleep(.5);

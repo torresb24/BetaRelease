@@ -1,12 +1,10 @@
 package com.example.alpharelease.Shogi;
 
-import android.graphics.Color;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-
 import com.example.alpharelease.GameFramework.GameMainActivity;
 import com.example.alpharelease.GameFramework.LocalGame;
 import com.example.alpharelease.GameFramework.infoMessage.GameInfo;
@@ -19,10 +17,7 @@ import com.example.alpharelease.R;
 import com.example.alpharelease.Shogi.Actions.MovePieceAction;
 import com.example.alpharelease.Shogi.Actions.PromoteAction;
 import com.example.alpharelease.Shogi.Actions.SelectPieceAction;
-
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Random;
 
 public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickListener, View.OnTouchListener {
 
@@ -43,8 +38,7 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
     /**
      * Callback method, called when player gets a message
      *
-     * @param info
-     * 		the message
+     * @param info the message
      */
     @Override
     public void receiveInfo(GameInfo info) {
@@ -59,19 +53,26 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
             // if we do not have a ShogiGameState, ignore
             return;
         else {
+
             //got an updated state, need to redraw (send the info to the surfaceView)
             state = (ShogiGameState) info;
             surfaceView.setGameState((ShogiGameState)info);
             Logger.log("ShogiHumanPlayer", "Receiving");
             surfaceView.invalidate();
         }
+
+
+        if (state.getWhoseTurn() == 0) {
+            whichPlayer.setText(allPlayerNames[1] + "'s Turn");
+        } else {
+            whichPlayer.setText(allPlayerNames[0] + "'s Turn");
+        }
     }
 
     /**
      * Set name of human player
      *
-     * @param name
-     * 		the human player's name
+     * @param name the human player's name
      */
     public ShogiHumanPlayer(String name) {
             super(name);
@@ -80,8 +81,7 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
     /**
      * The GUI satuses of the game
      *
-     * @param activity
-     * 		the current game activity
+     * @param activity the current game activity
      */
     @Override
     public void setAsGui(GameMainActivity activity) {
@@ -105,8 +105,7 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
     /**
      * Returns the GUI's top view
      *
-     * @return
-     * 		the GUI's top view
+     * @return the GUI's top view
      */
     @Override
     public View getTopView() {
@@ -124,8 +123,7 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
     /**
      * Retrieve the game activity
      *
-     * @return myActivity
-     * 		the current game activity (updated)
+     * @return myActivity the current game activity (updated)
      */
     @Override
     public GameMainActivity getActivity() {
@@ -163,6 +161,12 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
      */
     @Override
     public boolean onTouch(View view, MotionEvent e) {
+
+        if (state.getWhoseTurn() == 0) {
+            whichPlayer.setText(allPlayerNames[1] + "'s Turn");
+        } else {
+            whichPlayer.setText(allPlayerNames[0] + "'s Turn");
+        }
 
         state = surfaceView.getGameState();
 
@@ -243,15 +247,10 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
                         pieceIsSelected = false;
                         possibleTiles.clear();
 
-                        if (state.getWhoseTurn() == 0) {
-                            whichPlayer.setText(allPlayerNames[1] + "'s Turn");
-                        } else {
-                            whichPlayer.setText(allPlayerNames[0] + "'s Turn");
-                        }
-
                         Log.d("HUMAN_MOVED_PLACE", "You placed it at " + goToTile.getTileIndex());
                         this.sendInfo(state);
                         surfaceView.invalidate();
+
                         return true;
                     }
                 }
@@ -263,7 +262,7 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
         } else {
             whichPlayer.setText(allPlayerNames[0] + "'s Turn");
         }
-        
+
         surfaceView.invalidate();
         return false;
     }

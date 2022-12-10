@@ -183,7 +183,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center|top"
-                android:text="King"
+                android:text="No piece selected."
                 android:textColor="#FFFFFF"
                 android:focusable="false"
                 android:focusableInTouchMode="false"

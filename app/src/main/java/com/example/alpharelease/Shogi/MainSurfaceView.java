@@ -8,17 +8,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.view.MotionEvent;
 import android.view.SurfaceView;
-import android.view.View;
-
 import com.example.alpharelease.GameFramework.LocalGame;
-import com.example.alpharelease.GameFramework.utilities.FlashSurfaceView;
-import com.example.alpharelease.R;
-
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Random;
 
 /**
  *
@@ -43,7 +35,6 @@ public class MainSurfaceView extends SurfaceView {
 
     private final Paint imgPaint;
     private final Paint paint;
-
 
     private ShogiGameState state;
     private final ShogiLocalGame game;
@@ -93,6 +84,7 @@ public class MainSurfaceView extends SurfaceView {
             }
             canvas.drawBitmap(image, t.getxCoord(), t.getyCoord(), imgPaint);
         }
+
         board.drawBoard(canvas);
     }
 

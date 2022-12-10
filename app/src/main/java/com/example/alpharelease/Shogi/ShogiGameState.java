@@ -1,7 +1,6 @@
 package com.example.alpharelease.Shogi;
 
 import android.util.Log;
-
 import com.example.alpharelease.GameFramework.infoMessage.GameState;
 
 import java.util.ArrayList;
@@ -57,6 +56,7 @@ public class ShogiGameState extends GameState {
      * Current state of the game deep copy constructor
      */
     public ShogiGameState(ShogiGameState orig) {
+
         this.whoseTurn = orig.whoseTurn;
         this.board = orig.board;
         this.selecting = orig.selecting;
@@ -76,6 +76,7 @@ public class ShogiGameState extends GameState {
      * Creates an arraylist of pieces for both players
      */
     private void assignPieces() {
+
         for (Piece.GAME_PIECES piece : Piece.GAME_PIECES.values()) {
             for (int i = 0; i < piece.getAmount(); i++) {
                 switch (piece.getPlayer()) {

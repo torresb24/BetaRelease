@@ -1,7 +1,6 @@
 package com.example.alpharelease.Shogi;
 
 import com.example.alpharelease.R;
-
 import java.util.Arrays;
 
 /**
@@ -244,7 +243,6 @@ public class Piece {
     }
 
     public void setSelected(boolean selected) {
-
         isSelected = selected;
     }
 }

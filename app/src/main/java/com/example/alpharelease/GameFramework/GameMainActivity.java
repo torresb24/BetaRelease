@@ -50,6 +50,7 @@ import com.example.alpharelease.R;
  */
 public abstract class GameMainActivity extends Activity implements
         View.OnClickListener {
+
     //Tag for Logging
     private static final String TAG = "GameMainActivity";
     /*

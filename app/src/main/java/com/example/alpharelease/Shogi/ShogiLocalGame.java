@@ -1,7 +1,6 @@
 package com.example.alpharelease.Shogi;
 
 import android.util.Log;
-
 import com.example.alpharelease.GameFramework.LocalGame;
 import com.example.alpharelease.GameFramework.actionMessage.GameAction;
 import com.example.alpharelease.GameFramework.players.GamePlayer;
@@ -12,7 +11,6 @@ import com.example.alpharelease.Shogi.Actions.SelectPieceAction;
 import com.example.alpharelease.Shogi.Actions.SurrenderAction;
 import com.example.alpharelease.Shogi.Piece;
 import com.example.alpharelease.Shogi.ShogiGameState;
-
 import java.util.ArrayList;
 
 public class ShogiLocalGame extends LocalGame {
@@ -63,6 +61,7 @@ public class ShogiLocalGame extends LocalGame {
      */
     @Override
     protected boolean makeMove(GameAction action) {
+
         ShogiGameState state = ((ShogiGameState)super.state);
         Board board = state.getBoard();
         ArrayList<Tile> possibleTiles = new ArrayList<>();

@@ -2,9 +2,7 @@ package com.example.alpharelease.Shogi;
 
 import android.graphics.Canvas;
 import android.util.Log;
-
 import com.example.alpharelease.R;
-
 import java.util.ArrayList;
 
 /**
@@ -170,6 +168,7 @@ public class Board {
      * @return the selected Tile if found and null if not
      */
     public Tile getTile(int col, int row) {
+
         for (Tile t : tiles) { //Check the tiles rows/col
             if (t.getCol() == col && t.getRow() == row) {
                 return t;

@@ -1,17 +1,14 @@
 package com.example.alpharelease.Shogi;
 
 import android.view.View;
-
 import com.example.alpharelease.GameFramework.GameMainActivity;
 import com.example.alpharelease.GameFramework.LocalGame;
-
 import com.example.alpharelease.GameFramework.gameConfiguration.GameConfig;
 import com.example.alpharelease.GameFramework.gameConfiguration.GamePlayerType;
 import com.example.alpharelease.GameFramework.infoMessage.GameState;
 import com.example.alpharelease.GameFramework.players.GamePlayer;
 import com.example.alpharelease.GameFramework.utilities.Logger;
 import com.example.alpharelease.GameFramework.utilities.Saving;
-
 import java.util.ArrayList;
 
 /**
@@ -77,6 +74,7 @@ public class MainActivity extends GameMainActivity {
      */
     @Override
     public LocalGame createLocalGame(GameState gameState){
+
         if(gameState == null)
             return new ShogiLocalGame();
         return new ShogiLocalGame((ShogiGameState) gameState);
