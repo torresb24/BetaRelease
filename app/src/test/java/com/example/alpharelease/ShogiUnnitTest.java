@@ -182,18 +182,18 @@ public class ShogiUnnitTest {
 
         // promote pawn
         testBoard.promote(testBoard.getTile(0,6),testState,0);
-        assertEquals(R.drawable.promoted_pawn, testBoard.getTile(0,6).getPiece().pieceType);
+        assertEquals(R.drawable.promoted_pawn, testBoard.getTile(0,6).getPiece().pieceType.getID());
         // enemy pawn
-        testBoard.promote(testBoard.getTile(0,3),testState,1);
-        assertEquals(R.drawable.promoted_pawn, testBoard.getTile(0,3).getPiece().pieceType);
+        testBoard.promote(testBoard.getTile(0,2),testState,1);
+        assertEquals(R.drawable.promoted_pawn, testBoard.getTile(0,2).getPiece().pieceType.getID());
 
         // promote lance
         testBoard.promote(testBoard.getTile(0,8),testState,0);
-        assertEquals(R.drawable.promoted_lance, testBoard.getTile(0,8).getPiece().pieceType);
+        assertEquals(R.drawable.promoted_lance, testBoard.getTile(0,8).getPiece().pieceType.getID());
 
         // promote king [Can't promote]
         testBoard.promote(testBoard.getTile(4,8),testState,0);
-        assertEquals(R.drawable.king, testBoard.getTile(4,8).getPiece().pieceType);
+        assertEquals(R.drawable.king, testBoard.getTile(4,8).getPiece().pieceType.getID());
     }
 }
 

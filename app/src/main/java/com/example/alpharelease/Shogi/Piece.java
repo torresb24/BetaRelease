@@ -16,7 +16,6 @@ import java.util.Arrays;
  * */
 
 public class Piece {
-    private boolean isPromoted;
 
     /**
      External Citation
@@ -207,12 +206,12 @@ public class Piece {
     }
 
     public void setPromoted(boolean p) {
-        this.isPromoted = p;
+        //this.isPromoted = p;
     }
 
     public boolean getPromoted() {
-        return isPromoted;
-    }
+        return false;
+    } // return isPromoted
 
     public void setRow(int row) {
         this.row = row;
