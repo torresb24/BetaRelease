@@ -24,14 +24,14 @@ public class ShogiDumbCompPlayer extends GameComputerPlayer {
      */
 
     private ShogiGameState state;
-    private ArrayList<Tile> possibleTiles = new ArrayList<>();;
+    private ArrayList<Tile> possibleTiles = new ArrayList<>();
 
     public ShogiDumbCompPlayer(String name) {
         super(name);
     }
 
     /**
-     * receives information about the gamestate and then makes a random move based on that
+     * Receives information about the gamestate and then makes a random move based on that
      *
      * @param info the information typically containing the gamestate
      */
@@ -42,7 +42,7 @@ public class ShogiDumbCompPlayer extends GameComputerPlayer {
             state = new ShogiGameState((ShogiGameState) info);
 
             if (state.getWhoseTurn() != this.playerNum) {
-                Log.d("NOT YOUR TURN, COMPY", "It's not the computer's turn");
+                Log.d("dumbComputer", "It's not the computer's turn.");
                 return;
             } //Not compy's turn
 
@@ -69,7 +69,7 @@ public class ShogiDumbCompPlayer extends GameComputerPlayer {
                     possibleTiles.addAll(board.getPossibleTiles());
                     state.setSelecting(false);
 
-                    Log.d("COMP_SELECTED_PIECE", "Wheeee compy chose " + fromThisTile.getTileIndex());
+                    Log.d("dumbComputer", "Computer Player chose " + fromThisTile.getTileIndex());
 
                     Collections.shuffle(possibleTiles);
 
@@ -81,7 +81,7 @@ public class ShogiDumbCompPlayer extends GameComputerPlayer {
 
                     int index = board.getTiles().indexOf(goToTile);
                     //Log.d("computerTrack", "Computer sent a piece to: " + goToTile.getTileIndex());
-                    Log.d("COMP_SELECTED_PLACE", "Wheeee compy sent piece to " + goToTile.getTileIndex());
+                    Log.d("dumbComputer", "Computer Player sent piece to " + goToTile.getTileIndex());
 
                     game.sendAction(new MovePieceAction(this, index));
                     possibleTiles.clear();
@@ -91,21 +91,21 @@ public class ShogiDumbCompPlayer extends GameComputerPlayer {
             }
         } else if (info instanceof NotYourTurnInfo) {
             state.setSelecting(true);
-            Log.d("NOT COMPUTER TURN", "It was not computer's turn!");
+            Log.d("dumbComputer", "It's not the computer's turn.");
             this.sendInfo(state);
             return;
 
         } else if (info instanceof IllegalMoveInfo) {
             state.setSelecting(false);
-            Log.d("ILLEGAL COMPUTER MOVE", "Woah, hey that's illegal!");
+            Log.d("dumbComputer", "Computer Player attempted illegal move.");
             this.sendInfo(state);
             return;
 
         } else {
-            Log.d("COMPUTER IDK", "What the hell?");
+            Log.d("dumbComputer", "Computer Player unknown error.");
             return;
         }
 
-        Log.d("Check", "Game Info Class returned: " + info.getClass());
+        Log.d("dumbCheck", "Game Info Class returned: " + info.getClass());
     }
 }

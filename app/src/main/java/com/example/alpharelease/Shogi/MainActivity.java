@@ -31,32 +31,35 @@ public class MainActivity extends GameMainActivity {
 
     @Override
     public GameConfig createDefaultConfig() {
-        //ArrayList<GamePlayerType> playerTypes = new ArrayList<GamePlayerType>();
 
+        // List of types of players
         ArrayList<GamePlayerType> playerTypes = new ArrayList<GamePlayerType>();
 
+        // Create default human player
         playerTypes.add(new GamePlayerType("Local Human Player") {
             public GamePlayer createPlayer(String name) {
                 return new ShogiHumanPlayer(name);
             }
         });
 
+        // Create Dumb Computer Player
         playerTypes.add(new GamePlayerType("Computer Player (Dumb)") {
             public GamePlayer createPlayer(String name) {
                 return new ShogiDumbCompPlayer(name);
             }
         });
 
+        // Create Smart Computer Player
         playerTypes.add(new GamePlayerType("Computer Player (Less Dumb)") {
             public GamePlayer createPlayer(String name) { return new ShogiSmartCompPlayer(name); }
         });
 
-
         GameConfig defaultConfig = new GameConfig(playerTypes, 2,2, "Shogi", 2009);
 
-        defaultConfig.addPlayer("Humanity's Savior", 0); // first shogi human player
-        defaultConfig.addPlayer("Foolish Fool", 1); // first computer (dumb) player
-        defaultConfig.addPlayer("Less Foolish Fool", 2); // second computer (smart) player
+        // Set initial player names and indexes
+        defaultConfig.addPlayer("Humanity's Savior", 0); // Human Player
+        defaultConfig.addPlayer("Foolish Fool", 1); // First (Dumb) Computer Player
+        defaultConfig.addPlayer("Less Foolish Fool", 2); // Second (Smart) Computer Player
 
         // Initial info set
         defaultConfig.setRemoteData("Remote Player", "", 1);
@@ -82,10 +85,10 @@ public class MainActivity extends GameMainActivity {
     /**
      * Adds this games prepend to the filename
      *
-     * @param gameName
-     * 				Desired save name
+     * @param gameName desired save name
      * @return String representation of the save
      */
+
     @Override
     public GameState saveGame(String gameName) {
         return super.saveGame(getGameString(gameName));
@@ -93,8 +96,7 @@ public class MainActivity extends GameMainActivity {
 
     /**
      * Adds this games prepend to the desire file to open and creates the game specific state
-     * @param gameName
-     * 				The file to open
+     * @param gameName the file to open
      * @return The loaded GameState
      */
     @Override
@@ -108,6 +110,4 @@ public class MainActivity extends GameMainActivity {
     public void quit(View view) {
         finishAffinity();
     }
-
-
 }

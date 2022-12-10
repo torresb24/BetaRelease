@@ -351,7 +351,6 @@ public class Board {
      */
     public ArrayList<Tile> getPossibleTiles() {
 
-        Log.i("knightMoveHere", "We made it here");
         possibleTiles.clear();
 
         for (Tile t : tiles) {

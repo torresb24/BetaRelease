@@ -124,6 +124,7 @@ public class ShogiGameState extends GameState {
                 rookCol = 1;
                 break;
         }
+
         for (Piece p : piece) {
             switch (p.pieceType) { //What kind of piece is it
                 case PROMOTED_BISHOP: case PROMOTED_LANCE: case PROMOTED_KNIGHT:
@@ -187,8 +188,10 @@ public class ShogiGameState extends GameState {
                     p.setCol(4);
                     break;
             }
-        }//End direction switch
-        board.assignTile(piece); //Assign each piece to a tile
+        } //End direction switch
+
+        //Assign each piece to a tile
+        board.assignTile(piece);
     }
 
     /**
@@ -227,8 +230,7 @@ public class ShogiGameState extends GameState {
     /**
      * Retrieve list of pieces of a player
      *
-     * @param id
-     *     the player pieces to retrieve
+     * @param id the player pieces to retrieve
      */
     public ArrayList<Piece> getPieceArray(int id) {
         if (id == 0) {
@@ -252,6 +254,5 @@ public class ShogiGameState extends GameState {
     }
 
     public void addPieceToGrave(int id, Piece p) {
-        
     }
 }

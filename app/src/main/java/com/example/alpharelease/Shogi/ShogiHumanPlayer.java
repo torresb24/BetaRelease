@@ -140,6 +140,7 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
      */
     @Override
     public void onClick(View v) {
+
         switch (v.getId()) {
             case R.id.newGameButton:
                 Log.i("HUMAN_SURRENDER", "Lost!");
@@ -256,6 +257,13 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
                 }
             }
         }
+
+        if (state.getWhoseTurn() == 0) {
+            whichPlayer.setText(allPlayerNames[1] + "'s Turn");
+        } else {
+            whichPlayer.setText(allPlayerNames[0] + "'s Turn");
+        }
+        
         surfaceView.invalidate();
         return false;
     }
