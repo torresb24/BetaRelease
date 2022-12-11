@@ -264,7 +264,80 @@ public class Piece {
         return this.thePlayer;
     }
 
-    public void setGamePiece(GAME_PIECES gp){
+    public void setMoveNumAfterDrop(){
+        Arrays.fill(moveNum, 0);
 
+        switch (this.pieceType) {
+            case OPP_PAWN:
+                moveNum[1] = 1;
+                break;
+
+            case PAWN:
+                moveNum[6] = 1;
+                break;
+
+            case BISHOP: case OPP_BISHOP:
+                moveNum[0] = moveNum[2] = moveNum[5] = moveNum[7] = 8;
+                break;
+
+            case ROOK: case OPP_ROOK:
+                moveNum[1] = moveNum[3] = moveNum[4] = moveNum[6] = 8;
+                break;
+
+            case OPP_LANCE:
+                moveNum[1] = 8;
+                break;
+
+            case LANCE:
+                moveNum[6] = 8;
+                break;
+
+            case KNIGHT: case OPP_KNIGHT:
+                break;
+
+            case OPP_SILVER_GENERAL:
+                Arrays.fill(moveNum, 1);
+                moveNum[3] = moveNum[4] = moveNum[6] = 0;
+                break;
+
+            case SILVER_GENERAL:
+                Arrays.fill(moveNum, 1);
+                moveNum[1] = moveNum[3] = moveNum[4] = 0;
+                break;
+
+            case KING: case OPP_KING:
+                Arrays.fill(moveNum, 1);
+                break;
+
+            case PROMOTED_ROOK: case OPP_PROMOTED_ROOK:
+                Arrays.fill(moveNum, 1);
+                moveNum[1] = moveNum[3] = moveNum[4] = moveNum[6] = 8;
+                break;
+
+            case PROMOTED_BISHOP: case OPP_PROMOTED_BISHOP:
+                Arrays.fill(moveNum, 1);
+                moveNum[0] = moveNum[2] = moveNum[5] = moveNum[7] = 8;
+                break;
+
+            case PROMOTED_PAWN: case PROMOTED_LANCE: case PROMOTED_KNIGHT:
+            case PROMOTED_SILVER_GENERAL: case GOLD_GENERAL:
+                Arrays.fill(moveNum, 1);
+                moveNum[0] = moveNum[2] = 0;
+                break;
+
+            case OPP_PROMOTED_PAWN: case OPP_PROMOTED_LANCE: case OPP_PROMOTED_KNIGHT:
+            case OPP_PROMOTED_SILVER_GENERAL: case OPP_GOLD_GEN:
+                Arrays.fill(moveNum, 1);
+                moveNum[5] = moveNum[7] = 0;
+                break;
+        }
+    }
+    public void changeDirection(){
+        if(this.directionMovement == DIRECTION.FORWARD){
+            this.directionMovement = DIRECTION.BACKWARD;
+        }
+        else{
+            this.directionMovement = DIRECTION.BACKWARD;
+        }
     }
 }

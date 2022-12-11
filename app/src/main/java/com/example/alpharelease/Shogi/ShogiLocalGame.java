@@ -145,6 +145,9 @@ public class ShogiLocalGame extends LocalGame {
                 state.changeTurn(1 - fromHere.getPiece().getThePlayer()); //Change turn
                 if(!fromHere.getPiece().isAlive()){
                     fromHere.getPiece().setAlive(true);
+                    // change moveset since changed team
+                    fromHere.getPiece().setMoveNumAfterDrop();
+                    fromHere.getPiece().changeDirection();
                 }
                 if(!fromHere.getPiece().isOnBoard()){
                     fromHere.getPiece().setOnBoard(true);
