@@ -71,12 +71,7 @@ public class ShogiLocalGame extends LocalGame {
             int tileIndex = ((SelectPieceAction)action).selected;
             fromHere = board.getTile(tileIndex);
             Piece piece = fromHere.getPiece();
-            if(!piece.isAlive()){
-                System.out.println("!!! DEAD PIECE !!!");
-            }
-            else {
-                System.out.println("!!! ALIVE PIECE !!!");
-            }
+
             board.checkMoves(fromHere);
             possibleTiles.addAll(board.getPossibleTiles());
             piece.setSelected(possibleTiles.size() != 0); //False if this piece can't move.
@@ -97,6 +92,8 @@ public class ShogiLocalGame extends LocalGame {
 
         if (action instanceof MovePieceAction) {
             Tile goThere = board.getTile(((MovePieceAction) action).destination);
+
+            // Get orig tile
             for (Tile t : board.getTiles()) {
                 if (t.getPiece() != null) {
                     if (t.getPiece().isSelected()) {
@@ -105,6 +102,23 @@ public class ShogiLocalGame extends LocalGame {
                     }
                 }
             }
+            for (Tile t : board.getGrave0()) {
+                if (t.getPiece() != null) {
+                    if (t.getPiece().isSelected()) {
+                        fromHere = t;
+                        break;
+                    }
+                }
+            }
+            for (Tile t : board.getGrave1()) {
+                if (t.getPiece() != null) {
+                    if (t.getPiece().isSelected()) {
+                        fromHere = t;
+                        break;
+                    }
+                }
+            }
+            // [End] get orig tile
 
             if (fromHere == null || goThere == null) {
                 return false;
@@ -128,8 +142,13 @@ public class ShogiLocalGame extends LocalGame {
                     board.addToGrave(p,state.getWhoseTurn());
                 }
 
-                state.changeTurn(1 - fromHere.getPiece().pieceType.getPlayer()); //Change turn
-
+                state.changeTurn(1 - fromHere.getPiece().getThePlayer()); //Change turn
+                if(!fromHere.getPiece().isAlive()){
+                    fromHere.getPiece().setAlive(true);
+                }
+                if(!fromHere.getPiece().isOnBoard()){
+                    fromHere.getPiece().setOnBoard(true);
+                }
                 goThere.setPiece(fromHere.getPiece());
                 fromHere.getPiece().setSelected(false);
                 fromHere.setPiece(null);

@@ -76,6 +76,7 @@ public class ShogiDumbCompPlayer extends GameComputerPlayer {
                         state.setSelecting(true);
                         return;
                     }
+
                     goToTile = possibleTiles.get(0);
 
                     int index = board.getTiles().indexOf(goToTile);

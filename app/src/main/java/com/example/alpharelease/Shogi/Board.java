@@ -36,8 +36,8 @@ public class Board {
     // bottom grave
     private final int Bgraveleftedge = boardRightEdge + 29;
     private final int Bgraverightedge = Bgraveleftedge + 450;
-    private final int Bgravebottomedge = 5;
-    private final int Bgravetopedge = 450;
+    private final int Bgravebottomedge = boardBottomEdge-5;
+    private final int Bgravetopedge = Bgravebottomedge-450;
     private int offsetLeft, offsetVer;
     private int left, top, right, bottom, tileNum;
     private boolean promoted;
@@ -416,15 +416,15 @@ public class Board {
         possibleTiles.clear();
 
         /**For dropping from grave*/
-        if(tile.getPiece().isAlive() == false){
+        if(!tile.getPiece().isAlive()){
             // if pawn, check all tiles, if tile has pawn alr, notPossible is col
             // drop anywhere but isOccupied
             for (Tile t: tiles){
                 if(!t.isOccupied()){
-                    possibleTiles.add(t);
+                    t.setPossible(true);
                 } // if not occupied
             } // for t
-            return possibleTiles;
+            return getPossibleTiles();
         }
         /**END For dropping from grave*/
 

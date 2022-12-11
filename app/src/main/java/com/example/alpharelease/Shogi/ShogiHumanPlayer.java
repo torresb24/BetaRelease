@@ -171,17 +171,19 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
         state = surfaceView.getGameState();
 
         if (state.getWhoseTurn() == this.playerNum) { //Players turn
-
             if (e.getActionMasked() == MotionEvent.ACTION_DOWN) {
                 float x = e.getX();
                 float y = e.getY();
-
+                System.out.println("!!! COOOOOORD !!!");
+                System.out.println(x);
+                System.out.println(y);
                 board = state.getBoard();
 
-                if (!board.onBoard(x, y) || !board.onGraves(x,y)) { //If they didn't touch the board pretend it didn't happen
+                if (!board.onBoard(x, y) && !board.onGraves(x,y)) { //If they didn't touch the board pretend it didn't happen
+                    System.out.println("OUT");
                     return false;
-
                 } else { //All good to go, boss!
+                    System.out.println("IN");
                     chosenTile = board.getTileByCord(x, y);
                     while (chosenTile == null) {
                         x--;
@@ -190,7 +192,7 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
                     } //While it's null, try adjusting the coordinates slightly due to the tiny gaps in the board
 
                     if (!pieceIsSelected) { //Nothing is selected
-                        if (!chosenTile.isOccupied() || this.playerNum != chosenTile.getPiece().pieceType.getPlayer()) {
+                        if (!chosenTile.isOccupied() || this.playerNum != chosenTile.getPiece().getThePlayer()) {
                             //Chosen piece either isn't yours or is empty
                             return false;
                         }

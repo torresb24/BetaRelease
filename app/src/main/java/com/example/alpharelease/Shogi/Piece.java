@@ -263,4 +263,8 @@ public class Piece {
     public int getThePlayer(){
         return this.thePlayer;
     }
+
+    public void setGamePiece(GAME_PIECES gp){
+
+    }
 }
