@@ -5,6 +5,7 @@ import com.example.alpharelease.GameFramework.infoMessage.GameInfo;
 import com.example.alpharelease.GameFramework.infoMessage.IllegalMoveInfo;
 import com.example.alpharelease.GameFramework.infoMessage.NotYourTurnInfo;
 import com.example.alpharelease.GameFramework.players.GameComputerPlayer;
+import com.example.alpharelease.R;
 import com.example.alpharelease.Shogi.Actions.MovePieceAction;
 import com.example.alpharelease.Shogi.Actions.SelectPieceAction;
 import java.util.ArrayList;
@@ -12,19 +13,27 @@ import java.util.Collections;
 import java.util.Random;
 
 public class ShogiSmartCompPlayer extends GameComputerPlayer {
+    /**
+     External Citation
+     Date: 23 November 2022
+     Problem: Computer was incredibly buggy and would stall/crash at irregular intervals
+     Resource: Nathaniel Hopper
+     Solution: The computer was iterating an incredible number of times.
+     Made it shuffle through the possible tiles instead of the whole board.
+     */
 
     private ShogiGameState state;
     private ArrayList<Tile> possibleTiles = new ArrayList<>();
 
-    /**
-     * Constructor
-     *
-     * @param name the player's name (e.g., "John")
-     */
     public ShogiSmartCompPlayer(String name) {
         super(name);
     }
 
+    /**
+     * Receives information about the gamestate and then makes a random move based on that
+     *
+     * @param info the information typically containing the gamestate
+     */
     @Override
     protected void receiveInfo(GameInfo info) {
 
@@ -34,7 +43,7 @@ public class ShogiSmartCompPlayer extends GameComputerPlayer {
             if (state.getWhoseTurn() != this.playerNum) {
                 Log.d("smartComputer", "It's not the computer's turn.");
                 return;
-            } //Not Smart Computer Player's turn
+            } // Not Dumb Computer Player's turn
 
             if (state.getWhoseTurn() == this.playerNum) { //The computers turn
                 sleep(.5);
@@ -96,7 +105,6 @@ public class ShogiSmartCompPlayer extends GameComputerPlayer {
             return;
         }
 
-        Log.d("Check", "Game Info Class returned: " + info.getClass());
-
+        Log.d("smartCheck", "Game Info Class returned: " + info.getClass());
     }
 }
