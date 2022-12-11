@@ -76,8 +76,9 @@ public class Piece {
     public DIRECTION directionMovement;
 
     private int row, col;
-    private boolean isAlive, isOnBoard, isSelected, isRessurected;
+    private boolean isAlive, isOnBoard, isSelected;
     private final int[] moveNum; //TL = 0, T = 1, TR = 2, L = 3, R = 4, BL = 5, B = 6, BR = 7 for indexes
+    private int thePlayer;
     /**
      * constructor for Piece class
      *
@@ -92,9 +93,14 @@ public class Piece {
         isAlive = true;
         isSelected = false;
         moveNum = new int[8];
-        isRessurected = false;
         setMoveNum();
         firstIsOnBoard();
+        if(dir == DIRECTION.FORWARD) {
+            thePlayer = 0;
+        }
+        if(dir == DIRECTION.BACKWARD) {
+            thePlayer = 1;
+        }
     }
 
     /**
@@ -245,7 +251,16 @@ public class Piece {
         isSelected = selected;
     }
 
-    public void Ressurect(){
-        this.isRessurected = true;
+    public void changeTeams(){
+        if (this.thePlayer == 0){
+            this.thePlayer = 1;
+        }
+        else{
+            this.thePlayer = 0;
+        }
+    }
+
+    public int getThePlayer(){
+        return this.thePlayer;
     }
 }

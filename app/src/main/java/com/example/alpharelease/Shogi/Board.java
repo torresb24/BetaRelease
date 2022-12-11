@@ -35,7 +35,7 @@ public class Board {
     private final int Tgravetopedge = 5;
     // bottom grave
     private final int Bgraveleftedge = boardRightEdge + 29;
-    private final int Bgraverightedge = 5;
+    private final int Bgraverightedge = Bgraveleftedge + 450;
     private final int Bgravebottomedge = 5;
     private final int Bgravetopedge = 450;
     private int offsetLeft, offsetVer;
@@ -71,10 +71,16 @@ public class Board {
         for (int i = 0; i < size; i++) {
             offsetLeft = 0;
             switch (i) {
-                case 1: case 4: case 5: case 6:
+                case 1:
+                case 4:
+                case 5:
+                case 6:
                     offsetVer += 4;
                     break;
-                case 2: case 3: case 7: case 8:
+                case 2:
+                case 3:
+                case 7:
+                case 8:
                     offsetVer += 5;
                     break;
             }
@@ -84,10 +90,16 @@ public class Board {
 
             for (int j = 0; j < size; j++) {
                 switch (j) {
-                    case 1: case 4: case 5: case 6: case 7: case 8:
+                    case 1:
+                    case 4:
+                    case 5:
+                    case 6:
+                    case 7:
+                    case 8:
                         offsetLeft += 4;
                         break;
-                    case 2: case 3:
+                    case 2:
+                    case 3:
                         offsetLeft += 5;
                         break;
                 }
@@ -108,36 +120,46 @@ public class Board {
 
     } //End makeBoard
 
-    private void makeGraves(){
+    private void makeGraves() {
         g0Array.clear();
         g1Array.clear();
 
         left = top = right = bottom = 0;
-        tileNum = 0;
+        tileNum = 100;
         offsetVer = 0;
 
         // g1 [3x6]
-        for(int i = 0; i < 6; i ++){
+        for (int i = 0; i < 5; i++) {
             // vertical
             offsetLeft = 0;
             switch (i) {
-                case 1: case 4: case 5: case 6:
+                case 1:
+                case 4:
+                case 5:
+                case 6:
                     offsetVer += 4;
                     break;
-                case 2: case 3:
+                case 2:
+                case 3:
                     offsetVer += 5;
                     break;
             }
             top = Tgravetopedge + (i * tileSize) + offsetVer;
             bottom = Tgravetopedge + ((i + 1) * tileSize) + offsetVer;
 
-            for (int j = 0; j < 3; j ++){
+            for (int j = 0; j < 4; j++) {
                 // horizontal
                 switch (j) {
-                    case 1: case 4: case 5: case 6: case 7: case 8:
+                    case 1:
+                    case 4:
+                    case 5:
+                    case 6:
+                    case 7:
+                    case 8:
                         offsetLeft += 4;
                         break;
-                    case 2: case 3:
+                    case 2:
+                    case 3:
                         offsetLeft += 5;
                         break;
                 }
@@ -155,28 +177,39 @@ public class Board {
                 tileNum++;
             } // for j ! col
         } // for i ! row
+        tileNum = 200;
         // g0 [3x6]
-        for(int i = 0; i < 6; i ++){
+        for (int i = 0; i < 5; i++) {
             // vertical
             offsetLeft = 0;
             switch (i) {
-                case 1: case 4: case 5: case 6:
+                case 1:
+                case 4:
+                case 5:
+                case 6:
                     offsetVer += 4;
                     break;
-                case 2: case 3:
+                case 2:
+                case 3:
                     offsetVer += 5;
                     break;
             }
-            bottom = Bgravebottomedge - (i * tileSize) - offsetVer;
-            top = Bgravebottomedge - ((i + 1) * tileSize) - offsetVer;
+            bottom = Bgravebottomedge + (i * tileSize) + offsetVer;
+            top = Bgravebottomedge + ((i + 1) * tileSize) + offsetVer;
 
-            for (int j = 0; j < 3; j ++){
+            for (int j = 0; j < 4; j++) {
                 // horizontal
                 switch (j) {
-                    case 1: case 4: case 5: case 6: case 7: case 8:
+                    case 1:
+                    case 4:
+                    case 5:
+                    case 6:
+                    case 7:
+                    case 8:
                         offsetLeft += 4;
                         break;
-                    case 2: case 3:
+                    case 2:
+                    case 3:
                         offsetLeft += 5;
                         break;
                 }
@@ -219,7 +252,6 @@ public class Board {
      * Drawing tiles onto the board
      *
      * @param c the main canvas
-     *
      */
     public void drawBoard(Canvas c) {
         for (Tile t : tiles) {
@@ -232,28 +264,45 @@ public class Board {
      *
      * @param xCoord the horizontal component of the coordinate
      * @param yCoord the vertical component of the coordinate
-     *
      * @return false if the given coords are NOT within the bounds of the board, else true
      */
     public boolean onBoard(float xCoord, float yCoord) {
         return ((boardLeftEdge <= xCoord || xCoord <= boardRightEdge)
                 && (boardTopEdge <= yCoord || yCoord <= boardBottomEdge));
     }
+    public boolean onGraves(float xCoord, float yCoord) {
+        boolean topGrave = ((Tgraveleftedge <= xCoord || xCoord <= Tgraverightedge)
+                && (Tgravetopedge <= yCoord || yCoord <= Tgravebottomedge));
+        boolean botGrave =  ((Bgraveleftedge <= xCoord || xCoord <= Bgraverightedge)
+                && (Bgravetopedge <= yCoord || yCoord <= Bgravebottomedge));
+        return (topGrave || botGrave);
+    }
 
     /**
      * Checks to see which tile was touched
-     *
+     * <p>
      * CAVEAT: Due to how the tiles were created, there may be a single x or y value in some of
-     *      the lines between some tiles that won't count towards a tile. This is accounted for
-     *      where the method is called
+     * the lines between some tiles that won't count towards a tile. This is accounted for
+     * where the method is called
      *
      * @param xCoord the horizontal component of the coordinate
      * @param yCoord the vertical component of the coordinate
-     *
      * @return the selected tile if found and null if not
      */
     public Tile getTileByCord(float xCoord, float yCoord) {
         for (Tile t : tiles) { //Check the tiles coordinates (with slight leeway bc of the lines btwn)
+            if ((t.getxCoord() - 2 <= xCoord && xCoord <= t.getxCoordEnd() + 2)
+                    && (t.getyCoord() - 2 <= yCoord && yCoord <= t.getyCoordEnd() + 2)) {
+                return t;
+            }
+        }
+        for (Tile t : g0Array) { //Check the tiles coordinates (with slight leeway bc of the lines btwn)
+            if ((t.getxCoord() - 2 <= xCoord && xCoord <= t.getxCoordEnd() + 2)
+                    && (t.getyCoord() - 2 <= yCoord && yCoord <= t.getyCoordEnd() + 2)) {
+                return t;
+            }
+        }
+        for (Tile t : g1Array) { //Check the tiles coordinates (with slight leeway bc of the lines btwn)
             if ((t.getxCoord() - 2 <= xCoord && xCoord <= t.getxCoordEnd() + 2)
                     && (t.getyCoord() - 2 <= yCoord && yCoord <= t.getyCoordEnd() + 2)) {
                 return t;
@@ -267,7 +316,6 @@ public class Board {
      *
      * @param col the column of the tile that is currently selected
      * @param row the row of the tile that is currently selected
-     *
      * @return the selected Tile if found and null if not
      */
     public Tile getTile(int col, int row) {
@@ -284,11 +332,20 @@ public class Board {
      * Checks to see which tile the given index refers to
      *
      * @param index the index of the tile that is currently selected
-     *
      * @return t the selected Tile if found and null if not
      */
     public Tile getTile(int index) {
         for (Tile t : tiles) { //Check the tiles indexes
+            if (t.getTileIndex() == index) {
+                return t;
+            }
+        }
+        for (Tile t : g0Array) { //Check the tiles indexes
+            if (t.getTileIndex() == index) {
+                return t;
+            }
+        }
+        for (Tile t : g1Array) { //Check the tiles indexes
             if (t.getTileIndex() == index) {
                 return t;
             }
@@ -312,6 +369,26 @@ public class Board {
     public ArrayList<Tile> getGrave1() {
         return g1Array;
     }
+
+    // When killed, place in first empty tile, when dropped, tile is emotied [not occupied]
+    public void addToGrave(Piece p, int turn) {
+        if (turn == 0) {
+            for (Tile t : g0Array) {
+                if (!t.isOccupied()) {
+                    t.setPiece(p);
+                    return;
+                }
+            } // for t
+        } // if turn == 0
+        else{
+            for (Tile t : g1Array) {
+                if (!t.isOccupied()) {
+                    t.setPiece(p);
+                    return;
+                }
+            } // for t
+        } // else
+}
 
     /**
      * Resets which tiles are able to be moved to
@@ -337,6 +414,19 @@ public class Board {
         nums = tile.getPiece().getMoveNum();
         dir = tile.getPiece().directionMovement;
         possibleTiles.clear();
+
+        /**For dropping from grave*/
+        if(tile.getPiece().isAlive() == false){
+            // if pawn, check all tiles, if tile has pawn alr, notPossible is col
+            // drop anywhere but isOccupied
+            for (Tile t: tiles){
+                if(!t.isOccupied()){
+                    possibleTiles.add(t);
+                } // if not occupied
+            } // for t
+            return possibleTiles;
+        }
+        /**END For dropping from grave*/
 
         // if it's a knight,
         if (tile.getPiece().pieceType == Piece.GAME_PIECES.KNIGHT ||

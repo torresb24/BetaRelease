@@ -71,7 +71,12 @@ public class ShogiLocalGame extends LocalGame {
             int tileIndex = ((SelectPieceAction)action).selected;
             fromHere = board.getTile(tileIndex);
             Piece piece = fromHere.getPiece();
-
+            if(!piece.isAlive()){
+                System.out.println("!!! DEAD PIECE !!!");
+            }
+            else {
+                System.out.println("!!! ALIVE PIECE !!!");
+            }
             board.checkMoves(fromHere);
             possibleTiles.addAll(board.getPossibleTiles());
             piece.setSelected(possibleTiles.size() != 0); //False if this piece can't move.
@@ -119,7 +124,8 @@ public class ShogiLocalGame extends LocalGame {
                 if (p != null) {
                     p.setAlive(false);
                     p.setOnBoard(false);
-                    //state.addPieceToGrave(state.getWhoseTurn(), p);
+                    p.changeTeams();
+                    board.addToGrave(p,state.getWhoseTurn());
                 }
 
                 state.changeTurn(1 - fromHere.getPiece().pieceType.getPlayer()); //Change turn

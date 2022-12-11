@@ -178,7 +178,7 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 
                 board = state.getBoard();
 
-                if (!board.onBoard(x, y)) { //If they didn't touch the board pretend it didn't happen
+                if (!board.onBoard(x, y) || !board.onGraves(x,y)) { //If they didn't touch the board pretend it didn't happen
                     return false;
 
                 } else { //All good to go, boss!
