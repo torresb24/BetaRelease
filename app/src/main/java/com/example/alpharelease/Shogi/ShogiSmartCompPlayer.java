@@ -78,6 +78,16 @@ public class ShogiSmartCompPlayer extends GameComputerPlayer {
                     }
                     goToTile = possibleTiles.get(0);
 
+
+                    //Smart AI implementation: if piece is able to capture another piece, capture it
+                    for(int i = 0; i < possibleTiles.size(); i++){
+                        if(possibleTiles.get(i).isOccupied() == true) {
+                            goToTile = possibleTiles.get(i);
+                            break;
+                        }
+                    }
+
+
                     int index = board.getTiles().indexOf(goToTile);
                     //Log.d("computerTrack", "Computer sent a piece to: " + goToTile.getTileIndex());
                     Log.d("smartComputer", "Computer Player sent piece to " + goToTile.getTileIndex());
