@@ -19,6 +19,8 @@ import java.util.ArrayList;
 public class Board {
 
     private final ArrayList<Tile> tiles, possibleTiles;
+    private ArrayList<Tile> g1Array;
+    private ArrayList<Tile> g0Array;
     private final int size = 9;
     private final int imagesize = 1030;
     private final int tileSize;
@@ -26,6 +28,16 @@ public class Board {
     private final int boardTopEdge = 24;
     private final int boardRightEdge = 1516;
     private final int boardBottomEdge = 1063;
+    // top grave
+    private final int Tgraveleftedge = 5;
+    private final int Tgraverightedge = boardLeftEdge - 29;
+    private final int Tgravebottomedge = 450;
+    private final int Tgravetopedge = 5;
+    // bottom grave
+    private final int Bgraveleftedge = boardRightEdge + 29;
+    private final int Bgraverightedge = Bgraveleftedge + 450;
+    private final int Bgravebottomedge = boardBottomEdge+25;
+    private final int Bgravetopedge = Bgravebottomedge-450;
     private int offsetLeft, offsetVer;
     private int left, top, right, bottom, tileNum;
     private boolean promoted;
@@ -36,10 +48,13 @@ public class Board {
      */
     public Board() {
         tiles = new ArrayList<>();
+        g1Array = new ArrayList<>();
+        g0Array = new ArrayList<>();
         possibleTiles = new ArrayList<>();
         tileSize = imagesize / 9 - 3;
 
         makeBoard();
+        makeGraves();
     }
 
     /**
@@ -56,10 +71,16 @@ public class Board {
         for (int i = 0; i < size; i++) {
             offsetLeft = 0;
             switch (i) {
-                case 1: case 4: case 5: case 6:
+                case 1:
+                case 4:
+                case 5:
+                case 6:
                     offsetVer += 4;
                     break;
-                case 2: case 3: case 7: case 8:
+                case 2:
+                case 3:
+                case 7:
+                case 8:
                     offsetVer += 5;
                     break;
             }
@@ -69,10 +90,16 @@ public class Board {
 
             for (int j = 0; j < size; j++) {
                 switch (j) {
-                    case 1: case 4: case 5: case 6: case 7: case 8:
+                    case 1:
+                    case 4:
+                    case 5:
+                    case 6:
+                    case 7:
+                    case 8:
                         offsetLeft += 4;
                         break;
-                    case 2: case 3:
+                    case 2:
+                    case 3:
                         offsetLeft += 5;
                         break;
                 }
@@ -92,6 +119,115 @@ public class Board {
         }
 
     } //End makeBoard
+
+    private void makeGraves() {
+        g0Array.clear();
+        g1Array.clear();
+
+        left = top = right = bottom = 0;
+        tileNum = 100;
+        offsetVer = 0;
+
+        // g1 [3x6]
+        for (int i = 0; i < 5; i++) {
+            // vertical
+            offsetLeft = 0;
+            switch (i) {
+                case 1:
+                case 4:
+                case 5:
+                case 6:
+                    offsetVer += 4;
+                    break;
+                case 2:
+                case 3:
+                    offsetVer += 5;
+                    break;
+            }
+            top = Tgravetopedge + (i * tileSize) + offsetVer;
+            bottom = Tgravetopedge + ((i + 1) * tileSize) + offsetVer;
+
+            for (int j = 0; j < 4; j++) {
+                // horizontal
+                switch (j) {
+                    case 1:
+                    case 4:
+                    case 5:
+                    case 6:
+                    case 7:
+                    case 8:
+                        offsetLeft += 4;
+                        break;
+                    case 2:
+                    case 3:
+                        offsetLeft += 5;
+                        break;
+                }
+
+                left = Tgraveleftedge + (j * tileSize) + offsetLeft;
+                right = Tgraveleftedge + ((j + 1) * tileSize) + offsetLeft;
+
+                temp = new Tile();
+                temp.setOccupied(false);
+                temp.setRow(i);
+                temp.setCol(j);
+                temp.setCoords(left, top, right, bottom);
+                temp.setTileIndex(tileNum);
+                g1Array.add(temp);
+                tileNum++;
+            } // for j ! col
+        } // for i ! row
+        tileNum = 200;
+        // g0 [3x6]
+        for (int i = 0; i < 5; i++) {
+            // vertical
+            offsetLeft = 0;
+            switch (i) {
+                case 1:
+                case 4:
+                case 5:
+                case 6:
+                    offsetVer += 4;
+                    break;
+                case 2:
+                case 3:
+                    offsetVer += 5;
+                    break;
+            }
+            bottom = Bgravebottomedge - (i * tileSize) - offsetVer;
+            top = Bgravebottomedge - ((i + 1) * tileSize) - offsetVer;
+
+            for (int j = 0; j < 4; j++) {
+                // horizontal
+                switch (j) {
+                    case 1:
+                    case 4:
+                    case 5:
+                    case 6:
+                    case 7:
+                    case 8:
+                        offsetLeft += 4;
+                        break;
+                    case 2:
+                    case 3:
+                        offsetLeft += 5;
+                        break;
+                }
+
+                left = Bgraveleftedge + (j * tileSize) + offsetLeft;
+                right = Bgraveleftedge + ((j + 1) * tileSize) + offsetLeft;
+
+                temp = new Tile();
+                temp.setOccupied(false);
+                temp.setRow(i);
+                temp.setCol(j);
+                temp.setCoords(left, top, right, bottom);
+                temp.setTileIndex(tileNum);
+                g0Array.add(temp);
+                tileNum++;
+            } // for j ! col
+        } // for i ! row
+    }
 
     /**
      * assigns pieces to tiles based on initial rows and columns
@@ -116,7 +252,6 @@ public class Board {
      * Drawing tiles onto the board
      *
      * @param c the main canvas
-     *
      */
     public void drawBoard(Canvas c) {
         for (Tile t : tiles) {
@@ -129,28 +264,45 @@ public class Board {
      *
      * @param xCoord the horizontal component of the coordinate
      * @param yCoord the vertical component of the coordinate
-     *
      * @return false if the given coords are NOT within the bounds of the board, else true
      */
     public boolean onBoard(float xCoord, float yCoord) {
         return ((boardLeftEdge <= xCoord || xCoord <= boardRightEdge)
                 && (boardTopEdge <= yCoord || yCoord <= boardBottomEdge));
     }
+    public boolean onGraves(float xCoord, float yCoord) {
+        boolean topGrave = ((Tgraveleftedge <= xCoord || xCoord <= Tgraverightedge)
+                && (Tgravetopedge <= yCoord || yCoord <= Tgravebottomedge));
+        boolean botGrave =  ((Bgraveleftedge <= xCoord || xCoord <= Bgraverightedge)
+                && (Bgravetopedge <= yCoord || yCoord <= Bgravebottomedge));
+        return (topGrave || botGrave);
+    }
 
     /**
      * Checks to see which tile was touched
-     *
+     * <p>
      * CAVEAT: Due to how the tiles were created, there may be a single x or y value in some of
-     *      the lines between some tiles that won't count towards a tile. This is accounted for
-     *      where the method is called
+     * the lines between some tiles that won't count towards a tile. This is accounted for
+     * where the method is called
      *
      * @param xCoord the horizontal component of the coordinate
      * @param yCoord the vertical component of the coordinate
-     *
      * @return the selected tile if found and null if not
      */
     public Tile getTileByCord(float xCoord, float yCoord) {
         for (Tile t : tiles) { //Check the tiles coordinates (with slight leeway bc of the lines btwn)
+            if ((t.getxCoord() - 2 <= xCoord && xCoord <= t.getxCoordEnd() + 2)
+                    && (t.getyCoord() - 2 <= yCoord && yCoord <= t.getyCoordEnd() + 2)) {
+                return t;
+            }
+        }
+        for (Tile t : g0Array) { //Check the tiles coordinates (with slight leeway bc of the lines btwn)
+            if ((t.getxCoord() - 2 <= xCoord && xCoord <= t.getxCoordEnd() + 2)
+                    && (t.getyCoord() - 2 <= yCoord && yCoord <= t.getyCoordEnd() + 2)) {
+                return t;
+            }
+        }
+        for (Tile t : g1Array) { //Check the tiles coordinates (with slight leeway bc of the lines btwn)
             if ((t.getxCoord() - 2 <= xCoord && xCoord <= t.getxCoordEnd() + 2)
                     && (t.getyCoord() - 2 <= yCoord && yCoord <= t.getyCoordEnd() + 2)) {
                 return t;
@@ -164,7 +316,6 @@ public class Board {
      *
      * @param col the column of the tile that is currently selected
      * @param row the row of the tile that is currently selected
-     *
      * @return the selected Tile if found and null if not
      */
     public Tile getTile(int col, int row) {
@@ -181,11 +332,20 @@ public class Board {
      * Checks to see which tile the given index refers to
      *
      * @param index the index of the tile that is currently selected
-     *
      * @return t the selected Tile if found and null if not
      */
     public Tile getTile(int index) {
         for (Tile t : tiles) { //Check the tiles indexes
+            if (t.getTileIndex() == index) {
+                return t;
+            }
+        }
+        for (Tile t : g0Array) { //Check the tiles indexes
+            if (t.getTileIndex() == index) {
+                return t;
+            }
+        }
+        for (Tile t : g1Array) { //Check the tiles indexes
             if (t.getTileIndex() == index) {
                 return t;
             }
@@ -201,6 +361,34 @@ public class Board {
     public ArrayList<Tile> getTiles() {
         return tiles;
     }
+
+    public ArrayList<Tile> getGrave0() {
+        return g0Array;
+    }
+
+    public ArrayList<Tile> getGrave1() {
+        return g1Array;
+    }
+
+    // When killed, place in first empty tile, when dropped, tile is emotied [not occupied]
+    public void addToGrave(Piece p, int turn) {
+        if (turn == 0) {
+            for (Tile t : g0Array) {
+                if (!t.isOccupied()) {
+                    t.setPiece(p);
+                    return;
+                }
+            } // for t
+        } // if turn == 0
+        else{
+            for (Tile t : g1Array) {
+                if (!t.isOccupied()) {
+                    t.setPiece(p);
+                    return;
+                }
+            } // for t
+        } // else
+}
 
     /**
      * Resets which tiles are able to be moved to
@@ -226,6 +414,34 @@ public class Board {
         nums = tile.getPiece().getMoveNum();
         dir = tile.getPiece().directionMovement;
         possibleTiles.clear();
+
+        /**For dropping from grave*/
+        if(!tile.getPiece().isAlive()) {
+            // if pawn, check all tiles, if tile has pawn alr, notPossible is col
+            ArrayList<Integer> holdPawnCols = new ArrayList<>();
+            if(tile.getPiece().pieceType.getID() == R.drawable.pawn){
+                for (Tile t : tiles) {
+                    if (t.isOccupied()) {
+                        // if pawn and  same team.
+                        if (t.getPiece().pieceType.getID() == R.drawable.pawn && t.getPiece().getThePlayer() == tile.getPiece().getThePlayer()) {
+                            holdPawnCols.add(t.getCol());
+                        }
+                    } // if occupied
+                } // for t
+            }
+            // [End] if pawn, check all tiles, if tile has pawn alr, notPossible is col
+            // find empty spaces
+            for (Tile t: tiles){
+                if(!t.isOccupied()){
+                    if(!holdPawnCols.contains(t.getCol())){
+                        t.setPossible(true);
+                    }
+                } // if not occupied
+            } // for t
+            // [End] find empty spaces
+            return getPossibleTiles();
+        }
+        /**END For dropping from grave*/
 
         // if it's a knight,
         if (tile.getPiece().pieceType == Piece.GAME_PIECES.KNIGHT ||
@@ -513,7 +729,131 @@ public class Board {
             }
         } // if Turn == 1
     } // promote
+    /**
+     * Check the opposite team's pieces
+     * */
+    public void depromote(Tile t, ShogiGameState state, int turn) {
+        Piece p = t.getPiece();
+        if (t.getPiece().getThePlayer() == 1) {
+            switch (p.pieceType.getID()) {
+                // Pawn promotion
+                case (R.drawable.promoted_pawn):
+                    for (Piece p1 : state.pieces1) {
+                        if (p1.pieceType.getID() == R.drawable.pawn && p1.getRow() == -1 && p1.getCol() == -1) {
+                            // set replacement
+                            promotehelper(p, p1, t);
+                            break;
+                        }
+                    }
+                    break;
+                // Lance promotion
+                case (R.drawable.promoted_lance):
+                    for (Piece p1 : state.pieces1) {
+                        if (p1.pieceType.getID() == R.drawable.lance && p1.getRow() == -1 && p1.getCol() == -1) {
+                            promotehelper(p, p1, t);
+                            break;
+                        }
+                    }
+                    break;
+                // Rook promotion
+                case (R.drawable.promoted_rook):
+                    for (Piece p1 : state.pieces1) {
+                        if (p1.pieceType.getID() == R.drawable.rook && p1.getRow() == -1 && p1.getCol() == -1) {
+                            promotehelper(p, p1, t);
+                            break;
+                        }
+                    }
+                    break;
+                // Bishop promotion
+                case (R.drawable.promoted_bishop):
+                    for (Piece p1 : state.pieces1) {
+                        if (p1.pieceType.getID() == R.drawable.bishop && p1.getRow() == -1 && p1.getCol() == -1) {
+                            promotehelper(p, p1, t);
+                            break;
+                        }
+                    }
+                    break;
+                // Knight promotion
+                case (R.drawable.promoted_knight):
+                    for (Piece p1 : state.pieces1) {
+                        if (p1.pieceType.getID() == R.drawable.knight && p1.getRow() == -1 && p1.getCol() == -1) {
+                            promotehelper(p, p1, t);
+                            break;
+                        }
+                    }
+                    break;
+                // Silver General promotion
+                case (R.drawable.promoted_silv_gen):
+                    for (Piece p1 : state.pieces1) {
+                        if (p1.pieceType.getID() == R.drawable.silv_gen && p1.getRow() == -1 && p1.getCol() == -1) {
+                            promotehelper(p, p1, t);
+                            break;
+                        }
+                    }
+                    break;
+            }
+        } // if turn == 1
+        else if(t.getPiece().getThePlayer() == 0){
+            switch(p.pieceType.getID()) {
+                // Pawn promotion
+                case (R.drawable.promoted_pawn):
+                    for (Piece p1 : state.pieces2) {
+                        if (p1.pieceType.getID() == R.drawable.pawn && p1.getRow() == -1 && p1.getCol() == -1) {
+                            // set replacement
+                            promotehelper(p,p1,t);
+                            break;
+                        }
+                    }
+                    break;
+                // Lance promotion
+                case (R.drawable.promoted_lance):
+                    for (Piece p1 : state.pieces2) {
+                        if (p1.pieceType.getID() == R.drawable.lance && p1.getRow() == -1 && p1.getCol() == -1) {
+                            promotehelper(p,p1,t);
+                            break;
+                        }
+                    }
+                    break;
+                // Rook promotion
+                case (R.drawable.promoted_rook):
+                    for (Piece p1 : state.pieces2) {
+                        if (p1.pieceType.getID() == R.drawable.rook && p1.getRow() == -1 && p1.getCol() == -1) {
+                            promotehelper(p,p1,t);
+                            break;
+                        }
+                    }
+                    break;
+                // Bishop promotion
+                case (R.drawable.promoted_bishop):
+                    for (Piece p1 : state.pieces2) {
+                        if (p1.pieceType.getID() == R.drawable.bishop && p1.getRow() == -1 && p1.getCol() == -1) {
+                            promotehelper(p,p1,t);
+                            break;
+                        }
+                    }
+                    break;
+                // Knight promotion
+                case (R.drawable.promoted_knight):
+                    for (Piece p1 : state.pieces2) {
+                        if (p1.pieceType.getID() == R.drawable.knight && p1.getRow() == -1 && p1.getCol() == -1) {
+                            promotehelper(p,p1,t);
 
+                            break;
+                        }
+                    }
+                    break;
+                // Silver promotion
+                case (R.drawable.promoted_silv_gen):
+                    for (Piece p1 : state.pieces2) {
+                        if (p1.pieceType.getID() == R.drawable.silv_gen && p1.getRow() == -1 && p1.getCol() == -1) {
+                            promotehelper(p,p1,t);
+                            break;
+                        }
+                    }
+                    break;
+            }
+        } // if Turn == 0
+    }
     private void promotehelper(Piece orig, Piece promo, Tile t){
 
         if ((orig.getPromoted())) {
@@ -524,10 +864,11 @@ public class Board {
             orig.setOnBoard(false);
             promo.setCol(orig.getCol());
             promo.setRow(orig.getRow());
+            orig.setRow(-1);
+            orig.setCol(-1);
             promo.setOnBoard(true);
             t.setPiece(promo);
         }
-
 
     }// promote helper
 
