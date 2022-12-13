@@ -92,32 +92,41 @@ public class ShogiLocalGame extends LocalGame {
 
         if (action instanceof MovePieceAction) {
             Tile goThere = board.getTile(((MovePieceAction) action).destination);
-
+            int check = 0;
             // Get orig tile
-            for (Tile t : board.getTiles()) {
-                if (t.getPiece() != null) {
-                    if (t.getPiece().isSelected()) {
-                        fromHere = t;
-                        break;
+            if (check == 0) {
+                for (Tile t : board.getTiles()) {
+                    if (t.getPiece() != null) {
+                        if (t.getPiece().isSelected()) {
+                            fromHere = t;
+                            check = 1;
+                            break;
+                        }
                     }
                 }
-            }
-            for (Tile t : board.getGrave0()) {
-                if (t.getPiece() != null) {
-                    if (t.getPiece().isSelected()) {
-                        fromHere = t;
-                        break;
+            } //chck
+            if (check == 0) {
+                for (Tile t : board.getGrave0()) {
+                    if (t.getPiece() != null) {
+                        if (t.getPiece().isSelected()) {
+                            fromHere = t;
+                            check = 1;
+                            break;
+                        }
                     }
                 }
-            }
-            for (Tile t : board.getGrave1()) {
-                if (t.getPiece() != null) {
-                    if (t.getPiece().isSelected()) {
-                        fromHere = t;
-                        break;
+            } //chck
+            if (check == 0) {
+                for (Tile t : board.getGrave1()) {
+                    if (t.getPiece() != null) {
+                        if (t.getPiece().isSelected()) {
+                            fromHere = t;
+                            check = 1;
+                            break;
+                        }
                     }
                 }
-            }
+            } // chck
             // [End] get orig tile
 
             if (fromHere == null || goThere == null) {
@@ -140,6 +149,7 @@ public class ShogiLocalGame extends LocalGame {
                     p.setOnBoard(false);
                     p.changeTeams();
                     board.addToGrave(p,state.getWhoseTurn());
+                  //  board.depromote(goThere,state,state.getWhoseTurn());
                 }
 
                 state.changeTurn(1 - fromHere.getPiece().getThePlayer()); //Change turn

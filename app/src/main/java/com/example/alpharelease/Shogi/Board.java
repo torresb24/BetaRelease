@@ -416,14 +416,29 @@ public class Board {
         possibleTiles.clear();
 
         /**For dropping from grave*/
-        if(!tile.getPiece().isAlive()){
+        if(!tile.getPiece().isAlive()) {
             // if pawn, check all tiles, if tile has pawn alr, notPossible is col
-            // drop anywhere but isOccupied
+            ArrayList<Integer> holdPawnCols = new ArrayList<>();
+            if(tile.getPiece().pieceType.getID() == R.drawable.pawn){
+                for (Tile t : tiles) {
+                    if (t.isOccupied()) {
+                        // if pawn and  same team.
+                        if (t.getPiece().pieceType.getID() == R.drawable.pawn && t.getPiece().getThePlayer() == tile.getPiece().getThePlayer()) {
+                            holdPawnCols.add(t.getCol());
+                        }
+                    } // if occupied
+                } // for t
+            }
+            // [End] if pawn, check all tiles, if tile has pawn alr, notPossible is col
+            // find empty spaces
             for (Tile t: tiles){
                 if(!t.isOccupied()){
-                    t.setPossible(true);
+                    if(!holdPawnCols.contains(t.getCol())){
+                        t.setPossible(true);
+                    }
                 } // if not occupied
             } // for t
+            // [End] find empty spaces
             return getPossibleTiles();
         }
         /**END For dropping from grave*/
@@ -714,7 +729,131 @@ public class Board {
             }
         } // if Turn == 1
     } // promote
+    /**
+     * Check the opposite team's pieces
+     * */
+    public void depromote(Tile t, ShogiGameState state, int turn) {
+        Piece p = t.getPiece();
+        if (t.getPiece().getThePlayer() == 1) {
+            switch (p.pieceType.getID()) {
+                // Pawn promotion
+                case (R.drawable.promoted_pawn):
+                    for (Piece p1 : state.pieces1) {
+                        if (p1.pieceType.getID() == R.drawable.pawn && p1.getRow() == -1 && p1.getCol() == -1) {
+                            // set replacement
+                            promotehelper(p, p1, t);
+                            break;
+                        }
+                    }
+                    break;
+                // Lance promotion
+                case (R.drawable.promoted_lance):
+                    for (Piece p1 : state.pieces1) {
+                        if (p1.pieceType.getID() == R.drawable.lance && p1.getRow() == -1 && p1.getCol() == -1) {
+                            promotehelper(p, p1, t);
+                            break;
+                        }
+                    }
+                    break;
+                // Rook promotion
+                case (R.drawable.promoted_rook):
+                    for (Piece p1 : state.pieces1) {
+                        if (p1.pieceType.getID() == R.drawable.rook && p1.getRow() == -1 && p1.getCol() == -1) {
+                            promotehelper(p, p1, t);
+                            break;
+                        }
+                    }
+                    break;
+                // Bishop promotion
+                case (R.drawable.promoted_bishop):
+                    for (Piece p1 : state.pieces1) {
+                        if (p1.pieceType.getID() == R.drawable.bishop && p1.getRow() == -1 && p1.getCol() == -1) {
+                            promotehelper(p, p1, t);
+                            break;
+                        }
+                    }
+                    break;
+                // Knight promotion
+                case (R.drawable.promoted_knight):
+                    for (Piece p1 : state.pieces1) {
+                        if (p1.pieceType.getID() == R.drawable.knight && p1.getRow() == -1 && p1.getCol() == -1) {
+                            promotehelper(p, p1, t);
+                            break;
+                        }
+                    }
+                    break;
+                // Silver General promotion
+                case (R.drawable.promoted_silv_gen):
+                    for (Piece p1 : state.pieces1) {
+                        if (p1.pieceType.getID() == R.drawable.silv_gen && p1.getRow() == -1 && p1.getCol() == -1) {
+                            promotehelper(p, p1, t);
+                            break;
+                        }
+                    }
+                    break;
+            }
+        } // if turn == 1
+        else if(t.getPiece().getThePlayer() == 0){
+            switch(p.pieceType.getID()) {
+                // Pawn promotion
+                case (R.drawable.promoted_pawn):
+                    for (Piece p1 : state.pieces2) {
+                        if (p1.pieceType.getID() == R.drawable.pawn && p1.getRow() == -1 && p1.getCol() == -1) {
+                            // set replacement
+                            promotehelper(p,p1,t);
+                            break;
+                        }
+                    }
+                    break;
+                // Lance promotion
+                case (R.drawable.promoted_lance):
+                    for (Piece p1 : state.pieces2) {
+                        if (p1.pieceType.getID() == R.drawable.lance && p1.getRow() == -1 && p1.getCol() == -1) {
+                            promotehelper(p,p1,t);
+                            break;
+                        }
+                    }
+                    break;
+                // Rook promotion
+                case (R.drawable.promoted_rook):
+                    for (Piece p1 : state.pieces2) {
+                        if (p1.pieceType.getID() == R.drawable.rook && p1.getRow() == -1 && p1.getCol() == -1) {
+                            promotehelper(p,p1,t);
+                            break;
+                        }
+                    }
+                    break;
+                // Bishop promotion
+                case (R.drawable.promoted_bishop):
+                    for (Piece p1 : state.pieces2) {
+                        if (p1.pieceType.getID() == R.drawable.bishop && p1.getRow() == -1 && p1.getCol() == -1) {
+                            promotehelper(p,p1,t);
+                            break;
+                        }
+                    }
+                    break;
+                // Knight promotion
+                case (R.drawable.promoted_knight):
+                    for (Piece p1 : state.pieces2) {
+                        if (p1.pieceType.getID() == R.drawable.knight && p1.getRow() == -1 && p1.getCol() == -1) {
+                            promotehelper(p,p1,t);
 
+                            break;
+                        }
+                    }
+                    break;
+                // Silver promotion
+                case (R.drawable.promoted_silv_gen):
+                    for (Piece p1 : state.pieces2) {
+                        if (p1.pieceType.getID() == R.drawable.silv_gen && p1.getRow() == -1 && p1.getCol() == -1) {
+                            promotehelper(p,p1,t);
+                            break;
+                        }
+                    }
+                    break;
+            }
+        } // if Turn == 0
+    }
     private void promotehelper(Piece orig, Piece promo, Tile t){
 
         if ((orig.getPromoted())) {
@@ -725,6 +864,8 @@ public class Board {
             orig.setOnBoard(false);
             promo.setCol(orig.getCol());
             promo.setRow(orig.getRow());
+            orig.setRow(-1);
+            orig.setCol(-1);
             promo.setOnBoard(true);
             t.setPiece(promo);
         }
