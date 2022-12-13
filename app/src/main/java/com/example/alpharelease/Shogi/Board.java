@@ -212,12 +212,6 @@ public class Board implements Serializable {
         for (Tile t : tiles) {
             t.drawTiles(c);
         }
-        for (Tile t : g0Array) {
-            t.drawTiles(c);
-        }
-        for (Tile t : g1Array) {
-            t.drawTiles(c);
-        }
     }
 
     /**
@@ -341,7 +335,7 @@ public class Board implements Serializable {
                 }
             } // for t
         } // if turn == 0
-        else{
+        else {
             for (Tile t : g1Array) {
                 if (!t.isOccupied()) {
                     t.setPiece(p);
@@ -377,10 +371,10 @@ public class Board implements Serializable {
         possibleTiles.clear();
 
         /**For dropping from grave*/
-        if(!tile.getPiece().isAlive()) {
+        if (!tile.getPiece().isAlive()) {
             // if pawn, check all tiles, if tile has pawn alr, notPossible is col
             ArrayList<Integer> holdPawnCols = new ArrayList<>();
-            if(tile.getPiece().pieceType.getID() == R.drawable.pawn){
+            if (tile.getPiece().pieceType.getID() == R.drawable.pawn) {
                 for (Tile t : tiles) {
                     if (t.isOccupied()) {
                         // if pawn and  same team.
@@ -393,9 +387,9 @@ public class Board implements Serializable {
             }
             // [End] if pawn, check all tiles, if tile has pawn alr, notPossible is col
             // find empty spaces
-            for (Tile t: tiles){
-                if(!t.isOccupied()){
-                    if(!holdPawnCols.contains(t.getCol())){
+            for (Tile t: tiles) {
+                if (!t.isOccupied()) {
+                    if (!holdPawnCols.contains(t.getCol())) {
                         t.setPossible(true);
                     }
                 } // if not occupied
@@ -428,11 +422,7 @@ public class Board implements Serializable {
 
                 if ((tile.getCol() + j) > 8 || (tile.getRow() + rowMod) > 8
                         || (tile.getCol() + j) < 0 || (tile.getRow() + rowMod) < 0) {
-                    if (tempy==null) {
-
-                    } else {
-                        tempy.setPossible(false);
-                    }
+                    tempy.setPossible(false);
                 } else {
                     tempy.setPossible(true);
                 }
@@ -560,7 +550,8 @@ public class Board implements Serializable {
             // Pawn promotion
             case (R.drawable.pawn):
                 for (Piece p1 : state.pieces1) {
-                    if (p1.pieceType.getID() == R.drawable.promoted_pawn && p1.getRow() == -1 && p1.getCol() == -1) {
+                    if (p1.pieceType.getID() == R.drawable.promoted_pawn && p1.getRow() == -1 &&
+                            p1.getCol() == -1) {
                         // set replacement
                         promotehelper(p,p1,t);
                         break;
@@ -570,7 +561,8 @@ public class Board implements Serializable {
                 // Lance promotion
             case (R.drawable.lance):
                 for (Piece p1 : state.pieces1) {
-                    if (p1.pieceType.getID() == R.drawable.promoted_lance && p1.getRow() == -1 && p1.getCol() == -1) {
+                    if (p1.pieceType.getID() == R.drawable.promoted_lance && p1.getRow() == -1 &&
+                            p1.getCol() == -1) {
                         promotehelper(p,p1,t);
                         break;
                     }
@@ -579,7 +571,8 @@ public class Board implements Serializable {
                 // Rook promotion
             case (R.drawable.rook):
                 for (Piece p1 : state.pieces1) {
-                    if (p1.pieceType.getID() == R.drawable.promoted_rook && p1.getRow() == -1 && p1.getCol() == -1) {
+                    if (p1.pieceType.getID() == R.drawable.promoted_rook && p1.getRow() == -1 &&
+                            p1.getCol() == -1) {
                         promotehelper(p,p1,t);
                         break;
                     }
@@ -588,7 +581,8 @@ public class Board implements Serializable {
                 // Bishop promotion
             case (R.drawable.bishop):
                 for (Piece p1 : state.pieces1) {
-                    if (p1.pieceType.getID() == R.drawable.promoted_bishop && p1.getRow() == -1 && p1.getCol() == -1) {
+                    if (p1.pieceType.getID() == R.drawable.promoted_bishop && p1.getRow() == -1 &&
+                            p1.getCol() == -1) {
                         promotehelper(p,p1,t);
                         break;
                     }
@@ -607,14 +601,6 @@ public class Board implements Serializable {
             case (R.drawable.silv_gen):
                 for (Piece p1 : state.pieces1) {
                     if (p1.pieceType.getID() == R.drawable.promoted_silv_gen && p1.getRow() == -1 && p1.getCol() == -1) {
-                        promotehelper(p,p1,t);
-                        break;
-                    }
-                }
-                break;
-            case (R.drawable.gold_gen):
-                for (Piece p1 : state.pieces1) {
-                    if (p1.pieceType.getID() == R.drawable.promoted_gold_gen && p1.getRow() == -1 && p1.getCol() == -1) {
                         promotehelper(p,p1,t);
                         break;
                     }
@@ -675,14 +661,6 @@ public class Board implements Serializable {
                 case (R.drawable.silv_gen):
                     for (Piece p1 : state.pieces2) {
                         if (p1.pieceType.getID() == R.drawable.promoted_silv_gen && p1.getRow() == -1 && p1.getCol() == -1) {
-                            promotehelper(p,p1,t);
-                            break;
-                        }
-                    }
-                    break;
-                case (R.drawable.gold_gen):
-                    for (Piece p1 : state.pieces2) {
-                        if (p1.pieceType.getID() == R.drawable.promoted_gold_gen && p1.getRow() == -1 && p1.getCol() == -1) {
                             promotehelper(p,p1,t);
                             break;
                         }
