@@ -3,6 +3,8 @@ package com.example.alpharelease.Shogi;
 import android.graphics.Canvas;
 import android.util.Log;
 import com.example.alpharelease.R;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
