@@ -35,7 +35,6 @@ public class MainSurfaceView extends SurfaceView {
 
     private final Paint imgPaint;
     private final Paint paint;
-    private final Paint test;
 
     private ShogiGameState state;
     private final ShogiLocalGame game;
@@ -59,8 +58,6 @@ public class MainSurfaceView extends SurfaceView {
         paint.setARGB(255/2, 100, 155, 160);
         imgPaint = new Paint();
         imgPaint.setColor(Color.BLACK);
-        test = new Paint();
-        test.setARGB(255, 0, 0, 160);
     }
 
     // 4 tell the view what to draw/how to draw
@@ -92,7 +89,6 @@ public class MainSurfaceView extends SurfaceView {
             canvas.drawBitmap(image, t.getxCoord(), t.getyCoord(), imgPaint);
         }
         for (Tile t : Grave0){
-            canvas.drawRect(t.getxCoord(),t.getyCoord(),t.getxCoord()+100,t.getyCoord()+100,test);
             piece = t.getPiece();
             if (piece == null) { // Idk why it would be alive and in grave, but just being safe
                 continue;
@@ -109,7 +105,6 @@ public class MainSurfaceView extends SurfaceView {
 
         }
         for (Tile t : Grave1){
-            canvas.drawRect(t.getxCoord(),t.getyCoord(),t.getxCoord()+50,t.getyCoord()+50,test);
             piece = t.getPiece();
             if (piece == null || piece.isAlive() == true) { // Idk why it would be alive and in grave, but just being safe
                 continue;

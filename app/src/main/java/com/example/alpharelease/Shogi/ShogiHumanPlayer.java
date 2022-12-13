@@ -174,16 +174,11 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
             if (e.getActionMasked() == MotionEvent.ACTION_DOWN) {
                 float x = e.getX();
                 float y = e.getY();
-                System.out.println("!!! COOOOOORD !!!");
-                System.out.println(x);
-                System.out.println(y);
                 board = state.getBoard();
 
                 if (!board.onBoard(x, y) && !board.onGraves(x,y)) { //If they didn't touch the board pretend it didn't happen
-                    System.out.println("OUT");
                     return false;
                 } else { //All good to go, boss!
-                    System.out.println("IN");
                     chosenTile = board.getTileByCord(x, y);
                     while (chosenTile == null) {
                         x--;

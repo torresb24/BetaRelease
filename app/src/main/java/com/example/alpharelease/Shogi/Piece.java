@@ -337,7 +337,7 @@ public class Piece {
             this.directionMovement = DIRECTION.BACKWARD;
         }
         else{
-            this.directionMovement = DIRECTION.BACKWARD;
+            this.directionMovement = DIRECTION.FORWARD;
         }
     }
 }

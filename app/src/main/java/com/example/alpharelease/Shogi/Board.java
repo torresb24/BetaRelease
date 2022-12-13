@@ -36,7 +36,7 @@ public class Board {
     // bottom grave
     private final int Bgraveleftedge = boardRightEdge + 29;
     private final int Bgraverightedge = Bgraveleftedge + 450;
-    private final int Bgravebottomedge = boardBottomEdge-5;
+    private final int Bgravebottomedge = boardBottomEdge+25;
     private final int Bgravetopedge = Bgravebottomedge-450;
     private int offsetLeft, offsetVer;
     private int left, top, right, bottom, tileNum;
@@ -194,8 +194,8 @@ public class Board {
                     offsetVer += 5;
                     break;
             }
-            bottom = Bgravebottomedge + (i * tileSize) + offsetVer;
-            top = Bgravebottomedge + ((i + 1) * tileSize) + offsetVer;
+            bottom = Bgravebottomedge - (i * tileSize) - offsetVer;
+            top = Bgravebottomedge - ((i + 1) * tileSize) - offsetVer;
 
             for (int j = 0; j < 4; j++) {
                 // horizontal
