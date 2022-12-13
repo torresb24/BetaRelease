@@ -30,8 +30,6 @@ public class ShogiGameState extends GameState {
     private boolean isInCheck, isInCheckmate, selecting;
     private final Board board;
     private int whoseTurn;
-    private Graveyard grave_1;
-    private Graveyard grave_2;
     public ArrayList<Piece> pieces1;
     public ArrayList<Piece> pieces2;
     public ArrayList<Tile> tileArray;
@@ -41,8 +39,6 @@ public class ShogiGameState extends GameState {
     public ShogiGameState() { //Cntr
         whoseTurn = first();
         board = new Board();
-        grave_1 = new Graveyard();
-        grave_2 = new Graveyard();
         pieces1 = new ArrayList<>();
         pieces2 = new ArrayList<>();
         tileArray = new ArrayList<>();
@@ -59,8 +55,6 @@ public class ShogiGameState extends GameState {
         this.whoseTurn = orig.whoseTurn;
         this.board = orig.board;
         this.selecting = orig.selecting;
-        this.grave_1 = orig.grave_1;
-        this.grave_2 = orig.grave_2;
         this.pieces1 = new ArrayList<>();
         this.pieces2 = new ArrayList<>();
         this.tileArray = new ArrayList<>();
