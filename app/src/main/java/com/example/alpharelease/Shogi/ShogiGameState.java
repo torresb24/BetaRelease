@@ -248,7 +248,4 @@ public class ShogiGameState extends GameState implements Serializable {
     public void setInCheckmate(boolean inCheckmate) {
         isInCheckmate = inCheckmate;
     }
-
-    public void addPieceToGrave(int id, Piece p) {
-    }
 }

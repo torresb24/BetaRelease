@@ -15,12 +15,12 @@ import java.util.Random;
 
 public class ShogiUnnitTest {
     @Test
-    public void TestInitPieces() throws Exception{
+    public void TestInitPieces() throws Exception {
         ShogiGameState testState = new ShogiGameState();
         int KingRow = -1;
         int KingCol = -1;
-        for(int i = 0; i < testState.getPieceArray(0).size(); i++){
-            if(testState.getPieceArray(0).get(i).pieceType.getID() == R.drawable.king){
+        for(int i = 0; i < testState.getPieceArray(0).size(); i++) {
+            if(testState.getPieceArray(0).get(i).pieceType.getID() == R.drawable.king) {
                 KingCol = testState.getPieceArray(0).get(i).getCol();
                 KingRow = testState.getPieceArray(0).get(i).getRow();
                 break;
@@ -32,8 +32,8 @@ public class ShogiUnnitTest {
         // test edge case
         int LanceRow = -1;
         int LanceCol = -1;
-        for(int i = 0; i < testState.getPieceArray(0).size(); i++){
-            if(testState.getPieceArray(0).get(i).pieceType.getID() == R.drawable.lance){
+        for(int i = 0; i < testState.getPieceArray(0).size(); i++) {
+            if(testState.getPieceArray(0).get(i).pieceType.getID() == R.drawable.lance) {
                 LanceCol = testState.getPieceArray(0).get(i).getCol();
                 LanceRow = testState.getPieceArray(0).get(i).getRow();
                 break;
@@ -65,7 +65,7 @@ public class ShogiUnnitTest {
     /**Testing Implementations for Brent Torres*/
 
     @Test
-    public void testAssignPieces() throws Exception{
+    public void testAssignPieces() throws Exception {
         ShogiGameState testState = new ShogiGameState();
         Random rand = new Random();
         int randIndex = rand.nextInt(testState.pieces1.size());
@@ -76,7 +76,7 @@ public class ShogiUnnitTest {
     }
 
     @Test
-    public void testMakeBoard() throws Exception{
+    public void testMakeBoard() throws Exception {
         Board testObject = new Board();
 
         //test size
@@ -93,7 +93,7 @@ public class ShogiUnnitTest {
     }
 
     @Test
-    public void testAssignTile() throws Exception{
+    public void testAssignTile() throws Exception {
         //test that initial tile for human player king is row 0 col 4
         Board testObject = new Board();
 
@@ -143,7 +143,7 @@ public class ShogiUnnitTest {
         assertEquals(false,t2);
     }
 
-    @Test //Not yet implemented
+    @Test
     public void testInCheckmate() throws Exception {
         ShogiGameState testState = new ShogiGameState();
         testState.setInCheckmate(true);
@@ -156,7 +156,7 @@ public class ShogiUnnitTest {
 
     // Kathryn's Tests
     @Test
-    public void testCheckMoves()throws Exception{
+    public void testCheckMoves() throws Exception {
         ShogiGameState testState = new ShogiGameState();
         Board testBoard = testState.getBoard();
         //King
@@ -168,15 +168,15 @@ public class ShogiUnnitTest {
     }
 
     @Test
-    public void testFirstToGo()throws Exception{
+    public void testFirstToGo() throws Exception {
         ShogiGameState testState = new ShogiGameState();
-        int t1 = testState.first();
+        int first = testState.first();
         // 1 or 0 only
-        assertTrue(t1<2 && t1 >= 0);
+        assertTrue(first == 1 || first == 0);
     }
 
     @Test
-    public void testPromote() throws Exception{
+    public void testPromote() throws Exception {
         ShogiGameState testState = new ShogiGameState();
         Board testBoard = testState.getBoard();
 

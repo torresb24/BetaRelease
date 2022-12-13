@@ -12,7 +12,7 @@ import java.util.Arrays;
  * @author Brent Torres
  * @author Matthew Tran
  *
- * @version 11/22/2022
+ * @version 12/13/2022
  *
  * */
 
@@ -81,6 +81,7 @@ public class Piece implements Serializable {
     private boolean isAlive, isOnBoard, isSelected, isPromoted;
     private final int[] moveNum; //TL = 0, T = 1, TR = 2, L = 3, R = 4, BL = 5, B = 6, BR = 7 for indexes
     private int thePlayer;
+
     /**
      * constructor for Piece class
      *
@@ -267,6 +268,9 @@ public class Piece implements Serializable {
         return this.thePlayer;
     }
 
+    /**
+     * Changes how many moves can be made by a piece after it's been dropped
+     */
     public void setMoveNumAfterDrop() {
         Arrays.fill(moveNum, 0);
 
@@ -335,6 +339,7 @@ public class Piece implements Serializable {
                 break;
         }
     }
+
     public void changeDirection() {
         if (this.directionMovement == DIRECTION.FORWARD) {
             this.directionMovement = DIRECTION.BACKWARD;

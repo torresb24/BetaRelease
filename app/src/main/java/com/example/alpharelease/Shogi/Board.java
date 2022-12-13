@@ -513,6 +513,15 @@ public class Board implements Serializable {
         return possibleTiles;
     }
 
+    /**
+     * Checks to see whether a piece can be promoted or not
+     *
+     * @param t the tile holding the piece being checked
+     *
+     * @return true if the piece is not a king or golden general and is
+     *              within the last three rows opposite to them
+     *         false otherwise
+     * */
     public boolean canPromote(Tile t) {
         switch (t.getPiece().pieceType) {
             case KING: case OPP_KING: case GOLD_GENERAL: case OPP_GOLD_GEN:
@@ -528,6 +537,13 @@ public class Board implements Serializable {
     } //canPromote
 
 
+    /**
+     * Promotes the given piece
+     *
+     * @param t the tile holding the piece that's being promoted
+     * @param state current gamestate
+     * @param turn the player's turn
+     * */
     public void promote(Tile t, ShogiGameState state, int turn) {
        Piece p = t.getPiece();
        if (turn == 0) {
@@ -656,6 +672,10 @@ public class Board implements Serializable {
 
     /**
      * Check the opposite team's pieces
+     *
+     * @param orig the piece prior to promotion (i.e. KNIGHT)
+     * @param promo the piece post promotion (i.e. PROMO_KNIGHT)
+     * @param t the tile holding the piece being checked
      * */
     private void promoteHelper(Piece orig, Piece promo, Tile t) {
 

@@ -79,9 +79,6 @@ public class MainSurfaceView extends SurfaceView {
             }
 
             image = BitmapFactory.decodeResource(getResources(), piece.pieceType.getID());
-
-            // TODO: change this to rotate depending on who you are (rotate player 1's if you're player 0,
-            //  rotate player 0's if you're p1)
             if (piece.getThePlayer() == 1) {
                 Matrix matrix = new Matrix();
                 matrix.postRotate(180);
@@ -96,7 +93,6 @@ public class MainSurfaceView extends SurfaceView {
             }
 
             image = BitmapFactory.decodeResource(getResources(), piece.pieceType.getID());
-            //  TODO remove, always p0
             if (piece.getThePlayer() == 1) {
                 Matrix matrix = new Matrix();
                 matrix.postRotate(180);
