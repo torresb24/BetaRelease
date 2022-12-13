@@ -36,10 +36,10 @@ public class Board {
     private final int tgBottomEdge = tgLeftEdge + graveSide;
 
     // bottom grave
-    private final int Bgraveleftedge = boardRightEdge + 29;
-    private final int Bgraverightedge = Bgraveleftedge + 450;
-    private final int Bgravebottomedge = boardBottomEdge + 25;
-    private final int Bgravetopedge = Bgravebottomedge - 450;
+    private final int bgLeftEdge = boardRightEdge + 40;
+    private final int bgBottomEdge = boardBottomEdge + 6;
+    private final int bgRightEdge = bgLeftEdge + graveSide - 2;
+    private final int bgTopEdge = bgBottomEdge - graveSide + 1;
     private int offsetLeft, offsetVer;
     private int left, top, right, bottom, tileNum;
     private boolean promoted;
@@ -130,7 +130,7 @@ public class Board {
         tileNum = 100;
         offsetVer = 0;
 
-        // g1 [3x6]
+        // Top Grave (5x4)
         for (int i = 0; i < 5; i++) {
             // vertical
             top = tgTopEdge + (i * (graveSide/5));
@@ -138,25 +138,8 @@ public class Board {
 
             for (int j = 0; j < 4; j++) {
                 // horizontal
-                switch (j) {
-                    case 1:
-                    case 4:
-                    case 5:
-                    case 6:
-                    case 7:
-                    case 8:
-                        offsetLeft += 4;
-                        break;
-                    case 2:
-                    case 3:
-                        offsetLeft += 5;
-                        break;
-                }
-
                 left = tgLeftEdge + (j * (graveSide/4));
                 right = tgLeftEdge + ((j + 1) * (graveSide/4));
-                //left = tgLeftEdge;
-                //right = tgRightEdge;
 
                 temp = new Tile();
                 temp.setOccupied(false);
@@ -166,47 +149,26 @@ public class Board {
                 temp.setTileIndex(tileNum);
                 g1Array.add(temp);
                 tileNum++;
+
             } // for j ! col
         } // for i ! row
+
         tileNum = 200;
-        // g0 [3x6]
+        // Bottom Grave (5x4)
         for (int i = 0; i < 5; i++) {
-            // vertical
-            offsetLeft = 0;
-            switch (i) {
-                case 1:
-                case 4:
-                case 5:
-                case 6:
-                    offsetVer += 4;
-                    break;
-                case 2:
-                case 3:
-                    offsetVer += 5;
-                    break;
-            }
-            bottom = Bgravebottomedge - (i * tileSize) - offsetVer;
-            top = Bgravebottomedge - ((i + 1) * tileSize) - offsetVer;
+
+            bottom = bgBottomEdge - (i * (graveSide/5));
+            top = bgBottomEdge - ((i + 1) * (graveSide/5));
+
+            //bottom = bgBottomEdge;
+            //top = bgTopEdge;
 
             for (int j = 0; j < 4; j++) {
                 // horizontal
-                switch (j) {
-                    case 1:
-                    case 4:
-                    case 5:
-                    case 6:
-                    case 7:
-                    case 8:
-                        offsetLeft += 4;
-                        break;
-                    case 2:
-                    case 3:
-                        offsetLeft += 5;
-                        break;
-                }
-
-                left = Bgraveleftedge + (j * tileSize) + offsetLeft;
-                right = Bgraveleftedge + ((j + 1) * tileSize) + offsetLeft;
+                //left = bgLeftEdge;
+                //right = bgRightEdge;
+                left = bgLeftEdge + (j * (graveSide/4));
+                right = bgLeftEdge + ((j + 1) * (graveSide/4));
 
                 temp = new Tile();
                 temp.setOccupied(false);
@@ -270,8 +232,8 @@ public class Board {
     public boolean onGraves(float xCoord, float yCoord) {
         boolean topGrave = ((tgLeftEdge <= xCoord || xCoord <= tgRightEdge)
                 && (tgTopEdge <= yCoord || yCoord <= tgBottomEdge));
-        boolean botGrave =  ((Bgraveleftedge <= xCoord || xCoord <= Bgraverightedge)
-                && (Bgravetopedge <= yCoord || yCoord <= Bgravebottomedge));
+        boolean botGrave =  ((bgLeftEdge <= xCoord || xCoord <= bgRightEdge)
+                && (bgTopEdge <= yCoord || yCoord <= bgBottomEdge));
         return (topGrave || botGrave);
     }
 

@@ -101,7 +101,7 @@ public class MainSurfaceView extends SurfaceView {
                 matrix.postRotate(180);
                 image = Bitmap.createBitmap(image, 0, 0, image.getWidth(), image.getHeight(), matrix, true);
             }
-            canvas.drawBitmap(image, t.getxCoord(), t.getyCoord() - 15, imgPaint);
+            canvas.drawBitmap(image, t.getxCoord(), t.getyCoord() - 14, imgPaint);
 
         }
         for (Tile t : Grave1){
@@ -115,7 +115,7 @@ public class MainSurfaceView extends SurfaceView {
             matrix.postRotate(180);
             image = Bitmap.createBitmap(image, 0, 0, image.getWidth(), image.getHeight(), matrix, true);
 
-            canvas.drawBitmap(image, t.getxCoord(), t.getyCoord() - 15, imgPaint);
+            canvas.drawBitmap(image, t.getxCoord(), t.getyCoord() - 14, imgPaint);
 
         }
         board.drawBoard(canvas);
