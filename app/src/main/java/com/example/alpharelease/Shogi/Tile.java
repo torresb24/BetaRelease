@@ -55,9 +55,16 @@ public class Tile implements Serializable {
      *      the canvas on which to draw the tiles
      */
     public void drawTiles(Canvas c) {
-        if (tilePaint == null) tilePaint = new Paint();
-        if (possPaint == null) possPaint = new Paint();
-        if (emptyPaint == null) emptyPaint = new Paint();
+        if (tilePaint == null) {tilePaint = new Paint();}
+        if (possPaint == null) {
+            possPaint = new Paint();
+            possPaint.setARGB(255/2, 100, 155, 100);
+        }
+        if (emptyPaint == null) {
+            emptyPaint = new Paint();
+            emptyPaint.setColor(Color.TRANSPARENT);
+        }
+
 
         if (isPossible()) { //If you can move there color it this color
             this.tilePaint.setColor(possPaint.getColor());
