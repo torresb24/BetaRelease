@@ -19,25 +19,27 @@ import java.util.ArrayList;
 public class Board {
 
     private final ArrayList<Tile> tiles, possibleTiles;
-    private ArrayList<Tile> g1Array;
-    private ArrayList<Tile> g0Array;
+    private ArrayList<Tile> g1Array, g0Array;
     private final int size = 9;
     private final int imagesize = 1030;
     private final int tileSize;
+    private final int graveSide = 426;
     private final int boardLeftEdge = 479;
     private final int boardTopEdge = 24;
     private final int boardRightEdge = 1516;
     private final int boardBottomEdge = 1063;
+
     // top grave
-    private final int Tgraveleftedge = 5;
-    private final int Tgraverightedge = boardLeftEdge - 29;
-    private final int Tgravebottomedge = 450;
-    private final int Tgravetopedge = 5;
+    private final int tgLeftEdge = 12;
+    private final int tgTopEdge = 12;
+    private final int tgRightEdge = tgTopEdge + graveSide;
+    private final int tgBottomEdge = tgLeftEdge + graveSide;
+
     // bottom grave
     private final int Bgraveleftedge = boardRightEdge + 29;
     private final int Bgraverightedge = Bgraveleftedge + 450;
-    private final int Bgravebottomedge = boardBottomEdge+25;
-    private final int Bgravetopedge = Bgravebottomedge-450;
+    private final int Bgravebottomedge = boardBottomEdge + 25;
+    private final int Bgravetopedge = Bgravebottomedge - 450;
     private int offsetLeft, offsetVer;
     private int left, top, right, bottom, tileNum;
     private boolean promoted;
@@ -131,21 +133,8 @@ public class Board {
         // g1 [3x6]
         for (int i = 0; i < 5; i++) {
             // vertical
-            offsetLeft = 0;
-            switch (i) {
-                case 1:
-                case 4:
-                case 5:
-                case 6:
-                    offsetVer += 4;
-                    break;
-                case 2:
-                case 3:
-                    offsetVer += 5;
-                    break;
-            }
-            top = Tgravetopedge + (i * tileSize) + offsetVer;
-            bottom = Tgravetopedge + ((i + 1) * tileSize) + offsetVer;
+            top = tgTopEdge + (i * (graveSide/5));
+            bottom = tgTopEdge + ((i + 1) * (graveSide/5));
 
             for (int j = 0; j < 4; j++) {
                 // horizontal
@@ -164,8 +153,10 @@ public class Board {
                         break;
                 }
 
-                left = Tgraveleftedge + (j * tileSize) + offsetLeft;
-                right = Tgraveleftedge + ((j + 1) * tileSize) + offsetLeft;
+                left = tgLeftEdge + (j * (graveSide/4));
+                right = tgLeftEdge + ((j + 1) * (graveSide/4));
+                //left = tgLeftEdge;
+                //right = tgRightEdge;
 
                 temp = new Tile();
                 temp.setOccupied(false);
@@ -257,6 +248,12 @@ public class Board {
         for (Tile t : tiles) {
             t.drawTiles(c);
         }
+        for (Tile t : g0Array) {
+            t.drawTiles(c);
+        }
+        for (Tile t : g1Array) {
+            t.drawTiles(c);
+        }
     }
 
     /**
@@ -271,8 +268,8 @@ public class Board {
                 && (boardTopEdge <= yCoord || yCoord <= boardBottomEdge));
     }
     public boolean onGraves(float xCoord, float yCoord) {
-        boolean topGrave = ((Tgraveleftedge <= xCoord || xCoord <= Tgraverightedge)
-                && (Tgravetopedge <= yCoord || yCoord <= Tgravebottomedge));
+        boolean topGrave = ((tgLeftEdge <= xCoord || xCoord <= tgRightEdge)
+                && (tgTopEdge <= yCoord || yCoord <= tgBottomEdge));
         boolean botGrave =  ((Bgraveleftedge <= xCoord || xCoord <= Bgraverightedge)
                 && (Bgravetopedge <= yCoord || yCoord <= Bgravebottomedge));
         return (topGrave || botGrave);
@@ -423,7 +420,8 @@ public class Board {
                 for (Tile t : tiles) {
                     if (t.isOccupied()) {
                         // if pawn and  same team.
-                        if (t.getPiece().pieceType.getID() == R.drawable.pawn && t.getPiece().getThePlayer() == tile.getPiece().getThePlayer()) {
+                        if (t.getPiece().pieceType.getID() == R.drawable.pawn &&
+                                t.getPiece().getThePlayer() == tile.getPiece().getThePlayer()) {
                             holdPawnCols.add(t.getCol());
                         }
                     } // if occupied
@@ -593,7 +591,7 @@ public class Board {
 
     public void promote(Tile t, ShogiGameState state, int turn) {
        Piece p = t.getPiece();
-       if(turn == 0){
+       if (turn == 0) {
         switch(p.pieceType.getID()) {
             // Pawn promotion
             case (R.drawable.pawn):
@@ -729,6 +727,7 @@ public class Board {
             }
         } // if Turn == 1
     } // promote
+
     /**
      * Check the opposite team's pieces
      * */

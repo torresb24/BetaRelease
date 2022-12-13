@@ -88,7 +88,7 @@ public class MainSurfaceView extends SurfaceView {
             }
             canvas.drawBitmap(image, t.getxCoord(), t.getyCoord(), imgPaint);
         }
-        for (Tile t : Grave0){
+        for (Tile t : Grave0) {
             piece = t.getPiece();
             if (piece == null) { // Idk why it would be alive and in grave, but just being safe
                 continue;

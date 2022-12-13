@@ -38,7 +38,8 @@ public class Tile {
 
         tilePaint = new Paint();
         emptyPaint = new Paint();
-        emptyPaint.setColor(Color.TRANSPARENT);
+        //emptyPaint.setColor(Color.TRANSPARENT);
+        emptyPaint.setARGB(255/5, 155, 100, 155);
         possPaint = new Paint();
         possPaint.setARGB(255/2, 100, 155, 100);
 
