@@ -12,7 +12,16 @@ import com.example.alpharelease.Shogi.Actions.SurrenderAction;
 import com.example.alpharelease.Shogi.Piece;
 import com.example.alpharelease.Shogi.ShogiGameState;
 import java.util.ArrayList;
-
+/**
+ *
+ * @author Kathryn Weidman
+ * @author Emma Kelly
+ * @author Brent Torres
+ * @author Matthew Tran
+ *
+ * @version 12/13/2022
+ *
+ * */
 public class ShogiLocalGame extends LocalGame {
 
     public ShogiLocalGame() {

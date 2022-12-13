@@ -512,7 +512,9 @@ public class Board implements Serializable {
         }
         return possibleTiles;
     }
-
+    /**
+     * Check if piece can promote (if it on the opposite 3 rows)
+     * */
     public boolean canPromote(Tile t) {
         if (t.getPiece().directionMovement == Piece.DIRECTION.FORWARD) {
             return t.getRow() < 3;
@@ -523,7 +525,9 @@ public class Board implements Serializable {
         return false;
     } //canPromote
 
-
+    /**
+     * Filter for piecce ID and call promote helper on piece, to replace piece with its promoted counterpart
+     * */
     public void promote(Tile t, ShogiGameState state, int turn) {
        Piece p = t.getPiece();
        if (turn == 0) {
