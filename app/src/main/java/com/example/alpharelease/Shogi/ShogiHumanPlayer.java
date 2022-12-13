@@ -62,7 +62,7 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
         }
 
 
-        if (state.getWhoseTurn() == 0) {
+        if (state.getWhoseTurn() == 1) {
             whichPlayer.setText(allPlayerNames[1] + "'s Turn");
         } else {
             whichPlayer.setText(allPlayerNames[0] + "'s Turn");
@@ -79,7 +79,7 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
     }
 
     /**
-     * The GUI satuses of the game
+     * The GUI statuses of the game
      *
      * @param activity the current game activity
      */
@@ -96,7 +96,6 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
         newGame = activity.findViewById(R.id.newGameButton);
         whichPlayer = activity.findViewById(R.id.turnWhoTextView);
         whichPiece = activity.findViewById(R.id.pieceTextView);
-        //results = activity.findViewById(R.id.endStatus);
 
         promo.setOnClickListener(this);
         newGame.setOnClickListener(this);
@@ -142,7 +141,7 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
         switch (v.getId()) {
             case R.id.newGameButton:
                 Log.i("HUMAN_SURRENDER", "Lost!");
-                this.sendInfo(new GameOverInfo("You lost. "));
+                this.sendInfo(new GameOverInfo("You lost. Try getting better. "));
                 break;
             case R.id.promoButton:
                 if(pieceIsSelected && fromThisTile != null) {
@@ -162,13 +161,11 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
     @Override
     public boolean onTouch(View view, MotionEvent e) {
 
-        if (state.getWhoseTurn() == 0) {
-            whichPlayer.setText(allPlayerNames[1] + "'s Turn");
-        } else {
-            whichPlayer.setText(allPlayerNames[0] + "'s Turn");
-        }
-
         state = surfaceView.getGameState();
+
+        if (state.getWhoseTurn() != this.playerNum) {
+            return false;
+        }
 
         if (state.getWhoseTurn() == this.playerNum) { //Players turn
             if (e.getActionMasked() == MotionEvent.ACTION_DOWN) {
@@ -226,9 +223,7 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
                         Log.d("HUMAN_SELECTED_PIECE", "You chose (again) " + fromThisTile.getTileIndex());
 
                         this.sendInfo(state);
-
                         surfaceView.invalidate();
-
                         return true; //You selected a new piece! Congrats!
 
                     } else { //Unoccupied or is occupied by an enemy. Sally forth!
@@ -247,7 +242,6 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
                         Log.d("HUMAN_MOVED_PLACE", "You placed it at " + goToTile.getTileIndex());
                         this.sendInfo(state);
                         surfaceView.invalidate();
-
                         return true;
                     }
                 }

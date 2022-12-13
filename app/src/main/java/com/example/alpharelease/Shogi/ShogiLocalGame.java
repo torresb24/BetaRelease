@@ -196,12 +196,6 @@ public class ShogiLocalGame extends LocalGame {
             board.impossAllTiles();
             return true;
         }
-        //TODO: Make other actions (post-promotion, not yet implemented)
-        return false;
-    }
-
-    //  Check and check conditions during/after check are not yet implemented.
-    public boolean checkCheck() {
         return false;
     }
 }
