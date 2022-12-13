@@ -8,6 +8,17 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import com.example.alpharelease.R;
 
+/**
+ *
+ * @author Kathryn Weidman
+ *
+ * This plays music in the game, but I couldn't get it to change which song it was playing
+ *      or stop the music before we had to turn in tablets
+ *
+ * @version 12/13/22
+ *
+ * */
+
 public class BackgroundMusic extends Service {
     MediaPlayer mediaPlayer;
     private int songID = R.raw.elise;
