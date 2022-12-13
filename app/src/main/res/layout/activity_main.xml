@@ -90,47 +90,42 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="match_parent"
             android:gravity="bottom|center|center_vertical"
             android:orientation="vertical">
 
-            <Button
-                android:id="@+id/promoButton"
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:layout_marginBottom="20dp"
-                android:layout_weight="1"
-                android:width="200dp"
-                android:background="@drawable/rounded_corners"
+            <EditText
+                android:id="@+id/endStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Promote"
+                android:text="..."
+                android:textColor="#FFFFFF"
                 android:textSize="30sp"
-                app:rippleColor="@color/ripple" />
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:layout_weight="4"/>
 
             <Button
                 android:id="@+id/newGameButton"
                 android:layout_width="wrap_content"
-                android:layout_height="10dp"
-                android:layout_marginBottom="20dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:width="200dp"
-                android:background="@drawable/rounded_corners"
                 android:text="Surrender"
                 android:textSize="20sp"
-                app:rippleColor="@color/ripple" />
+                android:background="@drawable/rounded_corners"
+                android:layout_marginBottom="20dp"/>
 
             <Button
                 android:id="@+id/quitButton"
                 android:layout_width="wrap_content"
-                android:layout_height="10dp"
-                android:layout_marginBottom="20dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:width="200dp"
-                android:background="@drawable/rounded_corners"
-                android:onClick="quit"
                 android:text="Quit"
+                android:onClick="quit"
                 android:textSize="20sp"
-                app:rippleColor="@color/ripple" />
+                android:background="@drawable/rounded_corners"
+                android:layout_marginBottom="20dp"/>
 
         </LinearLayout>
     </RelativeLayout>
@@ -145,12 +140,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignParentTop="false"
-            android:baselineAligned="false"
-            android:gravity="center"
             android:orientation="vertical"
-            android:paddingTop="50dp"
-            android:textAlignment="center">
+            android:gravity="center">
 
             <TextView
                 android:id="@+id/pTurnTextView"
@@ -167,11 +158,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:focusable="false"
-                android:focusableInTouchMode="false"
                 android:gravity="center|top"
                 android:text="Selecting player..."
                 android:textColor="#FFFFFF"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
                 android:textSize="20sp" />
 
             <TextView
@@ -189,24 +180,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:focusable="false"
-                android:focusableInTouchMode="false"
                 android:gravity="center|top"
                 android:text="No piece selected."
                 android:textColor="#FFFFFF"
-                android:textSize="20sp" />
-
-            <EditText
-                android:id="@+id/endStatus"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
                 android:focusable="false"
                 android:focusableInTouchMode="false"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/promoButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:gravity="center"
-                android:text=""
-                android:textColor="#FFFFFF"
-                android:textSize="30sp" />
+                android:text="Promote"
+                android:textSize="20sp"
+                android:background="@drawable/rounded_corners"/>
 
         </LinearLayout>
     </RelativeLayout>
