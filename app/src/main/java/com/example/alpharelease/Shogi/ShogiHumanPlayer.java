@@ -96,7 +96,7 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
         newGame = activity.findViewById(R.id.newGameButton);
         whichPlayer = activity.findViewById(R.id.turnWhoTextView);
         whichPiece = activity.findViewById(R.id.pieceTextView);
-        results = activity.findViewById(R.id.endStatus);
+        //results = activity.findViewById(R.id.endStatus);
 
         promo.setOnClickListener(this);
         newGame.setOnClickListener(this);

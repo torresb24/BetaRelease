@@ -36,6 +36,7 @@ public class MainSurfaceView extends SurfaceView {
     private final Paint imgPaint;
     private final Paint paint;
 
+
     private ShogiGameState state;
     private final ShogiLocalGame game;
     private LocalGame lg;
