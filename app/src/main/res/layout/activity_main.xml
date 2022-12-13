@@ -91,41 +91,46 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center|center_vertical"
-            android:orientation="vertical"
-            android:layout_marginHorizontal="45dp">
+            android:gravity="bottom|center|center_vertical"
+            android:orientation="vertical">
 
             <Button
-                android:id="@+id/promoButton"
+                android:onClick="PlayBackgroundSound"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="Promote"
-                android:textSize="20sp"
-                android:background="@drawable/rounded_corners"
-                android:layout_marginBottom="30dp"/>
+                android:text="Run background Sound"/>
+
+            <TextView
+                android:layout_marginTop="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:text="Playing Music in Background"/>
 
             <Button
                 android:id="@+id/newGameButton"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Surrender"
                 android:textSize="20sp"
                 android:background="@drawable/rounded_corners"
-                android:layout_marginBottom="30dp"/>
+                app:rippleColor="@color/ripple"
+                android:layout_marginBottom="20dp"/>
 
             <Button
                 android:id="@+id/quitButton"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Quit"
                 android:onClick="quit"
                 android:textSize="20sp"
                 android:background="@drawable/rounded_corners"
-                android:layout_marginBottom="30dp"/>
+                app:rippleColor="@color/ripple"
+                android:layout_marginBottom="20dp"/>
+
         </LinearLayout>
     </RelativeLayout>
 
@@ -185,6 +190,17 @@
                 android:focusable="false"
                 android:focusableInTouchMode="false"
                 android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/promoButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Promote"
+                android:textSize="20sp"
+                android:background="@drawable/rounded_corners"
+                app:rippleColor="@color/ripple" />
 
         </LinearLayout>
     </RelativeLayout>

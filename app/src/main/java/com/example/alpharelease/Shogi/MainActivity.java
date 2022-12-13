@@ -1,5 +1,6 @@
 package com.example.alpharelease.Shogi;
 
+import android.content.Intent;
 import android.view.View;
 import com.example.alpharelease.GameFramework.GameMainActivity;
 import com.example.alpharelease.GameFramework.LocalGame;
@@ -103,6 +104,12 @@ public class MainActivity extends GameMainActivity {
         super.loadGame(appName);
         Logger.log(TAG, "Loading: " + gameName);
         return (GameState) new ShogiGameState((ShogiGameState) Saving.readFromFile(appName, this.getApplicationContext()));
+    }
+
+
+    public void PlayBackgroundSound(View view) {
+        Intent intent = new Intent(MainActivity.this, BackgroundSoundService.class);
+        startService(intent);
     }
 
     public void quit(View view) {
