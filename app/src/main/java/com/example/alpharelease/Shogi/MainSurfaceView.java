@@ -42,6 +42,8 @@ public class MainSurfaceView extends SurfaceView {
     private Board board;
 
     private ArrayList<Tile> tiles;
+    private ArrayList<Tile> Grave0;
+    private ArrayList<Tile> Grave1;
 
     public MainSurfaceView(Context context, AttributeSet attrs) {
         super(context, attrs); // Call parent constructor
@@ -66,10 +68,12 @@ public class MainSurfaceView extends SurfaceView {
 
         board = state.getBoard();
         tiles = board.getTiles();
+        Grave0 = board.getGrave0();
+        Grave1 = board.getGrave1();
 
         for (Tile t : tiles) {
             piece = t.getPiece();
-            if (piece == null) {
+            if (piece == null || piece.isAlive() == false) {
                 continue;
             }
 
@@ -77,14 +81,43 @@ public class MainSurfaceView extends SurfaceView {
 
             // TODO: change this to rotate depending on who you are (rotate player 1's if you're player 0,
             //  rotate player 0's if you're p1)
-            if (piece.pieceType.getPlayer() == 1) {
+            if (piece.getThePlayer() == 1) {
                 Matrix matrix = new Matrix();
                 matrix.postRotate(180);
                 image = Bitmap.createBitmap(image, 0, 0, image.getWidth(), image.getHeight(), matrix, true);
             }
             canvas.drawBitmap(image, t.getxCoord(), t.getyCoord(), imgPaint);
         }
+        for (Tile t : Grave0){
+            piece = t.getPiece();
+            if (piece == null) { // Idk why it would be alive and in grave, but just being safe
+                continue;
+            }
 
+            image = BitmapFactory.decodeResource(getResources(), piece.pieceType.getID());
+            //  TODO remove, always p0
+            if (piece.getThePlayer() == 1) {
+                Matrix matrix = new Matrix();
+                matrix.postRotate(180);
+                image = Bitmap.createBitmap(image, 0, 0, image.getWidth(), image.getHeight(), matrix, true);
+            }
+            canvas.drawBitmap(image, t.getxCoord(), t.getyCoord(), imgPaint);
+
+        }
+        for (Tile t : Grave1){
+            piece = t.getPiece();
+            if (piece == null || piece.isAlive() == true) { // Idk why it would be alive and in grave, but just being safe
+                continue;
+            }
+            image = BitmapFactory.decodeResource(getResources(), piece.pieceType.getID());
+
+            Matrix matrix = new Matrix();
+            matrix.postRotate(180);
+            image = Bitmap.createBitmap(image, 0, 0, image.getWidth(), image.getHeight(), matrix, true);
+
+            canvas.drawBitmap(image, t.getxCoord(), t.getyCoord(), imgPaint);
+
+        }
         board.drawBoard(canvas);
     }
 

@@ -92,14 +92,42 @@ public class ShogiLocalGame extends LocalGame {
 
         if (action instanceof MovePieceAction) {
             Tile goThere = board.getTile(((MovePieceAction) action).destination);
-            for (Tile t : board.getTiles()) {
-                if (t.getPiece() != null) {
-                    if (t.getPiece().isSelected()) {
-                        fromHere = t;
-                        break;
+            int check = 0;
+            // Get orig tile
+            if (check == 0) {
+                for (Tile t : board.getTiles()) {
+                    if (t.getPiece() != null) {
+                        if (t.getPiece().isSelected()) {
+                            fromHere = t;
+                            check = 1;
+                            break;
+                        }
                     }
                 }
-            }
+            } //chck
+            if (check == 0) {
+                for (Tile t : board.getGrave0()) {
+                    if (t.getPiece() != null) {
+                        if (t.getPiece().isSelected()) {
+                            fromHere = t;
+                            check = 1;
+                            break;
+                        }
+                    }
+                }
+            } //chck
+            if (check == 0) {
+                for (Tile t : board.getGrave1()) {
+                    if (t.getPiece() != null) {
+                        if (t.getPiece().isSelected()) {
+                            fromHere = t;
+                            check = 1;
+                            break;
+                        }
+                    }
+                }
+            } // chck
+            // [End] get orig tile
 
             if (fromHere == null || goThere == null) {
                 return false;
@@ -119,11 +147,21 @@ public class ShogiLocalGame extends LocalGame {
                 if (p != null) {
                     p.setAlive(false);
                     p.setOnBoard(false);
-                    state.addPieceToGrave(state.getWhoseTurn(), p);
+                    p.changeTeams();
+                    board.addToGrave(p,state.getWhoseTurn());
+                  //  board.depromote(goThere,state,state.getWhoseTurn());
                 }
 
-                state.changeTurn(1 - fromHere.getPiece().pieceType.getPlayer()); //Change turn
-
+                state.changeTurn(1 - fromHere.getPiece().getThePlayer()); //Change turn
+                if(!fromHere.getPiece().isAlive()){
+                    fromHere.getPiece().setAlive(true);
+                    // change moveset since changed team
+                    fromHere.getPiece().setMoveNumAfterDrop();
+                    fromHere.getPiece().changeDirection();
+                }
+                if(!fromHere.getPiece().isOnBoard()){
+                    fromHere.getPiece().setOnBoard(true);
+                }
                 goThere.setPiece(fromHere.getPiece());
                 fromHere.getPiece().setSelected(false);
                 fromHere.setPiece(null);

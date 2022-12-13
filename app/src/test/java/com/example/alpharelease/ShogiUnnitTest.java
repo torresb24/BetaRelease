@@ -196,4 +196,3 @@ public class ShogiUnnitTest {
         assertEquals(R.drawable.king, testBoard.getTile(4,8).getPiece().pieceType.getID());
     }
 }
-

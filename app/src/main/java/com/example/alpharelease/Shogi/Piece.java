@@ -78,7 +78,7 @@ public class Piece {
     private int row, col;
     private boolean isAlive, isOnBoard, isSelected;
     private final int[] moveNum; //TL = 0, T = 1, TR = 2, L = 3, R = 4, BL = 5, B = 6, BR = 7 for indexes
-
+    private int thePlayer;
     /**
      * constructor for Piece class
      *
@@ -93,9 +93,14 @@ public class Piece {
         isAlive = true;
         isSelected = false;
         moveNum = new int[8];
-
         setMoveNum();
         firstIsOnBoard();
+        if(dir == DIRECTION.FORWARD) {
+            thePlayer = 0;
+        }
+        if(dir == DIRECTION.BACKWARD) {
+            thePlayer = 1;
+        }
     }
 
     /**
@@ -244,5 +249,95 @@ public class Piece {
 
     public void setSelected(boolean selected) {
         isSelected = selected;
+    }
+
+    public void changeTeams(){
+        if (this.thePlayer == 0){
+            this.thePlayer = 1;
+        }
+        else{
+            this.thePlayer = 0;
+        }
+    }
+
+    public int getThePlayer(){
+        return this.thePlayer;
+    }
+
+    public void setMoveNumAfterDrop(){
+        Arrays.fill(moveNum, 0);
+
+        switch (this.pieceType) {
+            case OPP_PAWN:
+                moveNum[1] = 1;
+                break;
+
+            case PAWN:
+                moveNum[6] = 1;
+                break;
+
+            case BISHOP: case OPP_BISHOP:
+                moveNum[0] = moveNum[2] = moveNum[5] = moveNum[7] = 8;
+                break;
+
+            case ROOK: case OPP_ROOK:
+                moveNum[1] = moveNum[3] = moveNum[4] = moveNum[6] = 8;
+                break;
+
+            case OPP_LANCE:
+                moveNum[1] = 8;
+                break;
+
+            case LANCE:
+                moveNum[6] = 8;
+                break;
+
+            case KNIGHT: case OPP_KNIGHT:
+                break;
+
+            case OPP_SILVER_GENERAL:
+                Arrays.fill(moveNum, 1);
+                moveNum[3] = moveNum[4] = moveNum[6] = 0;
+                break;
+
+            case SILVER_GENERAL:
+                Arrays.fill(moveNum, 1);
+                moveNum[1] = moveNum[3] = moveNum[4] = 0;
+                break;
+
+            case KING: case OPP_KING:
+                Arrays.fill(moveNum, 1);
+                break;
+
+            case PROMOTED_ROOK: case OPP_PROMOTED_ROOK:
+                Arrays.fill(moveNum, 1);
+                moveNum[1] = moveNum[3] = moveNum[4] = moveNum[6] = 8;
+                break;
+
+            case PROMOTED_BISHOP: case OPP_PROMOTED_BISHOP:
+                Arrays.fill(moveNum, 1);
+                moveNum[0] = moveNum[2] = moveNum[5] = moveNum[7] = 8;
+                break;
+
+            case PROMOTED_PAWN: case PROMOTED_LANCE: case PROMOTED_KNIGHT:
+            case PROMOTED_SILVER_GENERAL: case GOLD_GENERAL:
+                Arrays.fill(moveNum, 1);
+                moveNum[0] = moveNum[2] = 0;
+                break;
+
+            case OPP_PROMOTED_PAWN: case OPP_PROMOTED_LANCE: case OPP_PROMOTED_KNIGHT:
+            case OPP_PROMOTED_SILVER_GENERAL: case OPP_GOLD_GEN:
+                Arrays.fill(moveNum, 1);
+                moveNum[5] = moveNum[7] = 0;
+                break;
+        }
+    }
+    public void changeDirection(){
+        if(this.directionMovement == DIRECTION.FORWARD){
+            this.directionMovement = DIRECTION.BACKWARD;
+        }
+        else{
+            this.directionMovement = DIRECTION.FORWARD;
+        }
     }
 }
