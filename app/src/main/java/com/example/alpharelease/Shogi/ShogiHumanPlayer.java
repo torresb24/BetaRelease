@@ -144,7 +144,7 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
                 this.sendInfo(new GameOverInfo("You lost. Try getting better. "));
                 break;
             case R.id.promoButton:
-                if(pieceIsSelected && fromThisTile != null) {
+                if (pieceIsSelected && fromThisTile != null) {
                     Log.i("HUMAN_PROMOTION", "Human promotion!");
                     game.sendAction(new PromoteAction(this, fromThisTile.getTileIndex()));
                 }

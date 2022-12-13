@@ -78,7 +78,7 @@ public class Piece implements Serializable {
     public DIRECTION directionMovement;
 
     private int row, col;
-    private boolean isAlive, isOnBoard, isSelected;
+    private boolean isAlive, isOnBoard, isSelected, isPromoted;
     private final int[] moveNum; //TL = 0, T = 1, TR = 2, L = 3, R = 4, BL = 5, B = 6, BR = 7 for indexes
     private int thePlayer;
     /**
@@ -114,9 +114,11 @@ public class Piece implements Serializable {
             case PROMOTED_BISHOP: case PROMOTED_KNIGHT: case PROMOTED_SILVER_GENERAL:
             case OPP_PROMOTED_PAWN: case OPP_PROMOTED_LANCE: case OPP_PROMOTED_ROOK:
             case OPP_PROMOTED_BISHOP: case OPP_PROMOTED_KNIGHT: case OPP_PROMOTED_SILVER_GENERAL:
+                this.isPromoted = true;
                 this.isOnBoard = false;
                 break;
             default:
+                this.isPromoted = false;
                 this.isOnBoard = true;
                 break;
         }
@@ -212,12 +214,12 @@ public class Piece implements Serializable {
     }
 
     public void setPromoted(boolean p) {
-        //this.isPromoted = p;
+        this.isPromoted = p;
     }
 
     public boolean getPromoted() {
-        return false;
-    } // return isPromoted
+        return isPromoted;
+    }
 
     public void setRow(int row) {
         this.row = row;

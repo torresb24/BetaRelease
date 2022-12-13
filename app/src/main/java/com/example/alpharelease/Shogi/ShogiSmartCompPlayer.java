@@ -7,6 +7,7 @@ import com.example.alpharelease.GameFramework.infoMessage.NotYourTurnInfo;
 import com.example.alpharelease.GameFramework.players.GameComputerPlayer;
 import com.example.alpharelease.R;
 import com.example.alpharelease.Shogi.Actions.MovePieceAction;
+import com.example.alpharelease.Shogi.Actions.PromoteAction;
 import com.example.alpharelease.Shogi.Actions.SelectPieceAction;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -70,29 +71,30 @@ public class ShogiSmartCompPlayer extends GameComputerPlayer {
 
                     Log.d("smartComputer", "Computer Player chose " + fromThisTile.getTileIndex());
 
-                    Collections.shuffle(possibleTiles);
+                    if (!fromThisTile.getPiece().getPromoted() && board.canPromote(fromThisTile)) {
+                        game.sendAction(new PromoteAction(this, fromThisTile.getTileIndex()));
 
-                    if (possibleTiles.size() == 0) {
-                        state.setSelecting(true);
-                        return;
-                    }
-                    goToTile = possibleTiles.get(0);
-
-
-                    //Smart AI implementation: if piece is able to capture another piece, capture it
-                    for(int i = 0; i < possibleTiles.size(); i++){
-                        if(possibleTiles.get(i).isOccupied() == true) {
-                            goToTile = possibleTiles.get(i);
-                            break;
+                    } else {
+                        Collections.shuffle(possibleTiles);
+                        if (possibleTiles.size() == 0) {
+                            state.setSelecting(true);
+                            return;
                         }
+                        goToTile = possibleTiles.get(0);
+
+                        //Smart AI implementation: if piece is able to capture another piece, capture it
+                        for (int i = 0; i < possibleTiles.size(); i++) {
+                            if (possibleTiles.get(i).isOccupied() == true) {
+                                goToTile = possibleTiles.get(i);
+                                break;
+                            }
+                        }
+                        int index = board.getTiles().indexOf(goToTile);
+                        //Log.d("computerTrack", "Computer sent a piece to: " + goToTile.getTileIndex());
+                        Log.d("smartComputer", "Computer Player sent piece to " + goToTile.getTileIndex());
+
+                        game.sendAction(new MovePieceAction(this, index));
                     }
-
-
-                    int index = board.getTiles().indexOf(goToTile);
-                    //Log.d("computerTrack", "Computer sent a piece to: " + goToTile.getTileIndex());
-                    Log.d("smartComputer", "Computer Player sent piece to " + goToTile.getTileIndex());
-
-                    game.sendAction(new MovePieceAction(this, index));
                     possibleTiles.clear();
 
                     sendInfo(state);

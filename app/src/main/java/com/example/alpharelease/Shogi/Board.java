@@ -514,11 +514,15 @@ public class Board implements Serializable {
     }
 
     public boolean canPromote(Tile t) {
+        switch (t.getPiece().pieceType) {
+            case KING: case OPP_KING: case GOLD_GENERAL: case OPP_GOLD_GEN:
+            return false;
+        }
         if (t.getPiece().directionMovement == Piece.DIRECTION.FORWARD) {
-            return t.getRow() < 3;
+            return t.getRow() < 3 && !t.getPiece().getPromoted();
         }
         else if (t.getPiece().directionMovement == Piece.DIRECTION.BACKWARD) {
-            return t.getRow() > 5;
+            return t.getRow() > 5 && !t.getPiece().getPromoted();
         }
         return false;
     } //canPromote
@@ -663,6 +667,8 @@ public class Board implements Serializable {
             orig.setOnBoard(false);
             promo.setCol(orig.getCol());
             promo.setRow(orig.getRow());
+            promo.setPromoted(true);
+            orig.setPromoted(false);
             orig.setRow(-1);
             orig.setCol(-1);
             promo.setOnBoard(true);

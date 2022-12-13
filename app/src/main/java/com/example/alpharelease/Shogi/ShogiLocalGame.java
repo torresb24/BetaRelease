@@ -152,13 +152,13 @@ public class ShogiLocalGame extends LocalGame {
                 }
 
                 state.changeTurn(1 - fromHere.getPiece().getThePlayer()); //Change turn
-                if(!fromHere.getPiece().isAlive()){
+                if (!fromHere.getPiece().isAlive()) {
                     fromHere.getPiece().setAlive(true);
                     // change moveset since changed team
                     fromHere.getPiece().setMoveNumAfterDrop();
                     fromHere.getPiece().changeDirection();
                 }
-                if(!fromHere.getPiece().isOnBoard()){
+                if (!fromHere.getPiece().isOnBoard()) {
                     fromHere.getPiece().setOnBoard(true);
                 }
                 goThere.setPiece(fromHere.getPiece());
@@ -184,13 +184,14 @@ public class ShogiLocalGame extends LocalGame {
         if (action instanceof PromoteAction){
             fromHere = board.getTile(((PromoteAction) action).SelectedIndex);
 
-            if(!board.canPromote(fromHere)){
+            if (!board.canPromote(fromHere)) {
                 return false;
             }
 
             board.promote(fromHere, state,state.getWhoseTurn());
             state.changeTurn(1 - fromHere.getPiece().pieceType.getPlayer()); //Change turn
             fromHere.getPiece().setSelected(false);
+            fromHere.getPiece().setPromoted(true);
             fromHere = null;
             state.setSelecting(true);
             board.impossAllTiles();
