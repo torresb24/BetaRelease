@@ -7,9 +7,6 @@ To-Do List:
             If (after selecting random piece) piece can capture another piece, do so
             Perhaps promote if possible?
 
-    • Implement Graveyards
-        Brent working on it
-
     • Implement Network Play
 
     • Fix EditTexts to update w correct info
@@ -26,6 +23,9 @@ To-Do List:
 
     [✓] Completed tasks:
         ✓ Make Unit Tests
+            Done
+
+        ✓ Implement Graveyards
             Done
 
         ✓ Update formatting to make consistent
