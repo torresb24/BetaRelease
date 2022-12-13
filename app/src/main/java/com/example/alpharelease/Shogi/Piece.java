@@ -97,10 +97,10 @@ public class Piece implements Serializable {
         moveNum = new int[8];
         setMoveNum();
         firstIsOnBoard();
-        if(dir == DIRECTION.FORWARD) {
+        if (dir == DIRECTION.FORWARD) {
             thePlayer = 0;
         }
-        if(dir == DIRECTION.BACKWARD) {
+        if (dir == DIRECTION.BACKWARD) {
             thePlayer = 1;
         }
     }
@@ -253,11 +253,10 @@ public class Piece implements Serializable {
         isSelected = selected;
     }
 
-    public void changeTeams(){
-        if (this.thePlayer == 0){
+    public void changeTeams() {
+        if (this.thePlayer == 0) {
             this.thePlayer = 1;
-        }
-        else{
+        } else {
             this.thePlayer = 0;
         }
     }
@@ -266,7 +265,7 @@ public class Piece implements Serializable {
         return this.thePlayer;
     }
 
-    public void setMoveNumAfterDrop(){
+    public void setMoveNumAfterDrop() {
         Arrays.fill(moveNum, 0);
 
         switch (this.pieceType) {
@@ -334,11 +333,10 @@ public class Piece implements Serializable {
                 break;
         }
     }
-    public void changeDirection(){
-        if(this.directionMovement == DIRECTION.FORWARD){
+    public void changeDirection() {
+        if (this.directionMovement == DIRECTION.FORWARD) {
             this.directionMovement = DIRECTION.BACKWARD;
-        }
-        else{
+        } else {
             this.directionMovement = DIRECTION.FORWARD;
         }
     }

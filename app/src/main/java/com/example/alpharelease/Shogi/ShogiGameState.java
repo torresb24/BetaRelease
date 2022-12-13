@@ -3,6 +3,7 @@ package com.example.alpharelease.Shogi;
 import android.util.Log;
 import com.example.alpharelease.GameFramework.infoMessage.GameState;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -17,7 +18,7 @@ import java.util.Random;
  *
  * */
 
-public class ShogiGameState extends GameState {
+public class ShogiGameState extends GameState implements Serializable {
     /**
      External Citation
      Date: 18 November 2022

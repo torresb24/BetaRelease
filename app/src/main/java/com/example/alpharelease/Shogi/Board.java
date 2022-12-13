@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * @author Brent Torres
  * @author Matthew Tran
  *
- * @version 11/29/2022
+ * @version 12/13/2022
  *
  * */
 
@@ -75,16 +75,10 @@ public class Board implements Serializable {
         for (int i = 0; i < size; i++) {
             offsetLeft = 0;
             switch (i) {
-                case 1:
-                case 4:
-                case 5:
-                case 6:
+                case 1:case 4:case 5:case 6:
                     offsetVer += 4;
                     break;
-                case 2:
-                case 3:
-                case 7:
-                case 8:
+                case 2:case 3:case 7:case 8:
                     offsetVer += 5;
                     break;
             }
@@ -94,16 +88,10 @@ public class Board implements Serializable {
 
             for (int j = 0; j < size; j++) {
                 switch (j) {
-                    case 1:
-                    case 4:
-                    case 5:
-                    case 6:
-                    case 7:
-                    case 8:
+                    case 1:case 4:case 5:case 6:case 7: case 8:
                         offsetLeft += 4;
                         break;
-                    case 2:
-                    case 3:
+                    case 2:case 3:
                         offsetLeft += 5;
                         break;
                 }
@@ -274,7 +262,6 @@ public class Board implements Serializable {
      * @return the selected Tile if found and null if not
      */
     public Tile getTile(int col, int row) {
-
         for (Tile t : tiles) { //Check the tiles rows/col
             if (t.getCol() == col && t.getRow() == row) {
                 return t;
@@ -325,7 +312,7 @@ public class Board implements Serializable {
         return g1Array;
     }
 
-    // When killed, place in first empty tile, when dropped, tile is emotied [not occupied]
+    // When killed, place in first empty tile, when dropped, tile is emptied [not occupied]
     public void addToGrave(Piece p, int turn) {
         if (turn == 0) {
             for (Tile t : g0Array) {
@@ -370,7 +357,7 @@ public class Board implements Serializable {
         dir = tile.getPiece().directionMovement;
         possibleTiles.clear();
 
-        /**For dropping from grave*/
+        //For dropping from grave
         if (!tile.getPiece().isAlive()) {
             // if pawn, check all tiles, if tile has pawn alr, notPossible is col
             ArrayList<Integer> holdPawnCols = new ArrayList<>();
@@ -411,9 +398,7 @@ public class Board implements Serializable {
                 //Log.i("knightMoveHere", "Tempy: " + (tile.getCol() + j) + " and " + (tile.getRow() + rowMod));
                 tempy = getTile(tile.getCol() + j, tile.getRow() + rowMod);
                 if (tempy == null || (tempy.isOccupied() && tempy.getPiece().directionMovement == dir)) {
-                    if (tempy == null) {
-
-                    } else {
+                    if (tempy != null) {
                         tempy.setPossible(false);
                     }
                     //Out of bounds or an ally is on that tile
@@ -528,16 +513,12 @@ public class Board implements Serializable {
         return possibleTiles;
     }
 
-    public boolean canPromote(Tile t){
-        if(t.getPiece().directionMovement == Piece.DIRECTION.FORWARD) {
-            if (t.getRow() < 3) {
-                return true;
-            }
+    public boolean canPromote(Tile t) {
+        if (t.getPiece().directionMovement == Piece.DIRECTION.FORWARD) {
+            return t.getRow() < 3;
         }
         else if (t.getPiece().directionMovement == Piece.DIRECTION.BACKWARD) {
-            if (t.getRow() > 5) {
-                return true;
-            }
+            return t.getRow() > 5;
         }
         return false;
     } //canPromote
@@ -546,14 +527,14 @@ public class Board implements Serializable {
     public void promote(Tile t, ShogiGameState state, int turn) {
        Piece p = t.getPiece();
        if (turn == 0) {
-        switch(p.pieceType.getID()) {
+        switch (p.pieceType.getID()) {
             // Pawn promotion
             case (R.drawable.pawn):
                 for (Piece p1 : state.pieces1) {
                     if (p1.pieceType.getID() == R.drawable.promoted_pawn && p1.getRow() == -1 &&
                             p1.getCol() == -1) {
                         // set replacement
-                        promotehelper(p,p1,t);
+                        promoteHelper(p,p1,t);
                         break;
                     }
                 }
@@ -563,7 +544,7 @@ public class Board implements Serializable {
                 for (Piece p1 : state.pieces1) {
                     if (p1.pieceType.getID() == R.drawable.promoted_lance && p1.getRow() == -1 &&
                             p1.getCol() == -1) {
-                        promotehelper(p,p1,t);
+                        promoteHelper(p,p1,t);
                         break;
                     }
                 }
@@ -573,7 +554,7 @@ public class Board implements Serializable {
                 for (Piece p1 : state.pieces1) {
                     if (p1.pieceType.getID() == R.drawable.promoted_rook && p1.getRow() == -1 &&
                             p1.getCol() == -1) {
-                        promotehelper(p,p1,t);
+                        promoteHelper(p,p1,t);
                         break;
                     }
                 }
@@ -583,7 +564,7 @@ public class Board implements Serializable {
                 for (Piece p1 : state.pieces1) {
                     if (p1.pieceType.getID() == R.drawable.promoted_bishop && p1.getRow() == -1 &&
                             p1.getCol() == -1) {
-                        promotehelper(p,p1,t);
+                        promoteHelper(p,p1,t);
                         break;
                     }
                 }
@@ -592,7 +573,7 @@ public class Board implements Serializable {
             case (R.drawable.knight):
                 for (Piece p1 : state.pieces1) {
                     if (p1.pieceType.getID() == R.drawable.promoted_knight && p1.getRow() == -1 && p1.getCol() == -1) {
-                        promotehelper(p,p1,t);
+                        promoteHelper(p,p1,t);
                         break;
                     }
                 }
@@ -601,21 +582,21 @@ public class Board implements Serializable {
             case (R.drawable.silv_gen):
                 for (Piece p1 : state.pieces1) {
                     if (p1.pieceType.getID() == R.drawable.promoted_silv_gen && p1.getRow() == -1 && p1.getCol() == -1) {
-                        promotehelper(p,p1,t);
+                        promoteHelper(p,p1,t);
                         break;
                     }
                 }
                 break;
         }
     } // if Turn == 0
-        else if(turn == 1){
-            switch(p.pieceType.getID()) {
+        else if (turn == 1) {
+            switch (p.pieceType.getID()) {
                 // Pawn promotion
                 case (R.drawable.pawn):
                     for (Piece p1 : state.pieces2) {
                         if (p1.pieceType.getID() == R.drawable.promoted_pawn && p1.getRow() == -1 && p1.getCol() == -1) {
                             // set replacement
-                            promotehelper(p,p1,t);
+                            promoteHelper(p,p1,t);
                             break;
                         }
                     }
@@ -624,7 +605,7 @@ public class Board implements Serializable {
                 case (R.drawable.lance):
                     for (Piece p1 : state.pieces2) {
                         if (p1.pieceType.getID() == R.drawable.promoted_lance && p1.getRow() == -1 && p1.getCol() == -1) {
-                            promotehelper(p,p1,t);
+                            promoteHelper(p,p1,t);
                             break;
                         }
                     }
@@ -633,7 +614,7 @@ public class Board implements Serializable {
                 case (R.drawable.rook):
                     for (Piece p1 : state.pieces2) {
                         if (p1.pieceType.getID() == R.drawable.promoted_rook && p1.getRow() == -1 && p1.getCol() == -1) {
-                            promotehelper(p,p1,t);
+                            promoteHelper(p,p1,t);
                             break;
                         }
                     }
@@ -642,7 +623,7 @@ public class Board implements Serializable {
                 case (R.drawable.bishop):
                     for (Piece p1 : state.pieces2) {
                         if (p1.pieceType.getID() == R.drawable.promoted_bishop && p1.getRow() == -1 && p1.getCol() == -1) {
-                            promotehelper(p,p1,t);
+                            promoteHelper(p,p1,t);
                             break;
                         }
                     }
@@ -651,8 +632,7 @@ public class Board implements Serializable {
                 case (R.drawable.knight):
                     for (Piece p1 : state.pieces2) {
                         if (p1.pieceType.getID() == R.drawable.promoted_knight && p1.getRow() == -1 && p1.getCol() == -1) {
-                            promotehelper(p,p1,t);
-
+                            promoteHelper(p,p1,t);
                             break;
                         }
                     }
@@ -661,7 +641,7 @@ public class Board implements Serializable {
                 case (R.drawable.silv_gen):
                     for (Piece p1 : state.pieces2) {
                         if (p1.pieceType.getID() == R.drawable.promoted_silv_gen && p1.getRow() == -1 && p1.getCol() == -1) {
-                            promotehelper(p,p1,t);
+                            promoteHelper(p,p1,t);
                             break;
                         }
                     }
@@ -673,7 +653,7 @@ public class Board implements Serializable {
     /**
      * Check the opposite team's pieces
      * */
-    private void promotehelper(Piece orig, Piece promo, Tile t){
+    private void promoteHelper(Piece orig, Piece promo, Tile t) {
 
         if ((orig.getPromoted())) {
             Log.i("promotionCheck", "This is already promoted.");
