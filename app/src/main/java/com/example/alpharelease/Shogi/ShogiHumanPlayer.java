@@ -29,11 +29,11 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
     private Button newGame;
     private EditText whichPlayer;
     private EditText whichPiece;
-    private EditText results;
 
     boolean pieceIsSelected = false;
     private Tile chosenTile = null, fromThisTile = null, goToTile = null;
     private ArrayList<Tile> possibleTiles = new ArrayList<>();
+
 
     /**
      * Callback method, called when player gets a message

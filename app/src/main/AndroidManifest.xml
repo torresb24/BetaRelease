@@ -21,6 +21,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service android:name=".BackgroundSoundService" />
+        <service android:name=".Shogi.BackgroundMusic" />
     </application>
 </manifest>

@@ -108,7 +108,7 @@ public class MainActivity extends GameMainActivity {
 
 
     public void PlayBackgroundSound(View view) {
-        Intent intent = new Intent(MainActivity.this, BackgroundSoundService.class);
+        Intent intent = new Intent(MainActivity.this, BackgroundMusic.class);
         startService(intent);
     }
 
