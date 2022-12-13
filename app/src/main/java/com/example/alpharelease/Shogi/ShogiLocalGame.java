@@ -149,7 +149,6 @@ public class ShogiLocalGame extends LocalGame {
                     p.setOnBoard(false);
                     p.changeTeams();
                     board.addToGrave(p,state.getWhoseTurn());
-                  //  board.depromote(goThere,state,state.getWhoseTurn());
                 }
 
                 state.changeTurn(1 - fromHere.getPiece().getThePlayer()); //Change turn
