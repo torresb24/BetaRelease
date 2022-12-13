@@ -19,7 +19,7 @@ public class BackgroundSoundService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        mediaPlayer = MediaPlayer.create(this, R.raw.sound);
+        mediaPlayer = MediaPlayer.create(this, R.raw.elise);
         mediaPlayer.setLooping(true); // Set looping
         mediaPlayer.setVolume(100, 100);
     }
