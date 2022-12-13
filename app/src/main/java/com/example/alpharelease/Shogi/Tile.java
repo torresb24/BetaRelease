@@ -4,6 +4,8 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Kathryn Weidman
@@ -15,16 +17,16 @@ import android.graphics.Paint;
  *
  */
 
-public class Tile {
+public class Tile implements Serializable {
     private int row, col, tileIndex;
     private float xCoord; // left
     private float yCoord; // top
     private float xCoordEnd; // right
     private float yCoordEnd; // bottom
     private boolean isOccupied, possible;
-    private final Paint tilePaint;
-    private final Paint emptyPaint;
-    private final Paint possPaint;
+    private final transient Paint tilePaint;
+    private final transient Paint emptyPaint;
+    private final transient Paint possPaint;
     private Piece piece;
 
     /**

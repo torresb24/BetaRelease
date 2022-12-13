@@ -1,6 +1,8 @@
 package com.example.alpharelease.Shogi;
 
 import com.example.alpharelease.R;
+
+import java.io.Serializable;
 import java.util.Arrays;
 
 /**
@@ -14,7 +16,7 @@ import java.util.Arrays;
  *
  * */
 
-public class Piece {
+public class Piece implements Serializable {
 
     /**
      External Citation

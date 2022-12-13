@@ -59,7 +59,7 @@ public class MainActivity extends GameMainActivity {
         defaultConfig.addPlayer("Less Foolish Fool", 2); // Second (Smart) Computer Player
 
         // Initial info set
-        defaultConfig.setRemoteData("Remote Player", "", 1);
+        defaultConfig.setRemoteData("Harbinger of Doom", "", 1);
 
         return defaultConfig;
     }

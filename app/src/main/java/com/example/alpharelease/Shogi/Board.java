@@ -18,7 +18,7 @@ import java.util.ArrayList;
  *
  * */
 
-public class Board {
+public class Board implements Serializable {
 
     private final ArrayList<Tile> tiles, possibleTiles;
     private ArrayList<Tile> g1Array, g0Array;
