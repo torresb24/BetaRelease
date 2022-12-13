@@ -24,9 +24,9 @@ public class Tile implements Serializable {
     private float xCoordEnd; // right
     private float yCoordEnd; // bottom
     private boolean isOccupied, possible;
-    private final transient Paint tilePaint;
-    private final transient Paint emptyPaint;
-    private final transient Paint possPaint;
+    private transient Paint tilePaint;
+    private transient Paint emptyPaint;
+    private transient Paint possPaint;
     private Piece piece;
 
     /**
@@ -55,6 +55,10 @@ public class Tile implements Serializable {
      *      the canvas on which to draw the tiles
      */
     public void drawTiles(Canvas c) {
+        if (tilePaint == null) tilePaint = new Paint();
+        if (possPaint == null) possPaint = new Paint();
+        if (emptyPaint == null) emptyPaint = new Paint();
+
         if (isPossible()) { //If you can move there color it this color
             this.tilePaint.setColor(possPaint.getColor());
         } else {

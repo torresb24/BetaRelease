@@ -34,6 +34,7 @@ public class ShogiGameState extends GameState implements Serializable {
     public ArrayList<Piece> pieces1;
     public ArrayList<Piece> pieces2;
     public ArrayList<Tile> tileArray;
+
     /**
      * Current state of the game constructor
      */
